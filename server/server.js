@@ -1,7 +1,16 @@
 const express = require("express");
+const db = require("./config/db");
 const cors = require("cors");
 
 const app = express();
+
+db.query("SELECT 1")
+    .then(() => {
+        console.log("MySQL connected successfully!");
+    })
+    .catch((error) => {
+        console.error("MySQL connection failed:", error.message);
+    });
 
 const PORT = 5000;
 
