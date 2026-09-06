@@ -1,24 +1,60 @@
-import { useEffect, useState } from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
+
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
+import Customers from "./pages/Customers";
+import Products from "./pages/Products";
+import Invoices from "./pages/Invoices";
+import Quotations from "./pages/Quotations";
+
+import DashboardLayout from "./layouts/DashboardLayout";
 
 function App() {
-  const [message, setMessage] = useState("");
-
-  useEffect(() => {
-    fetch("http://localhost:5000/api/test")
-      .then((response) => response.json())
-      .then((data) => {
-        setMessage(data.message);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }, []);
-
   return (
-    <div>
-      <h1>Invoice Generator</h1>
-      <p>{message}</p>
-    </div>
+    <BrowserRouter>
+      <Routes>
+
+        {/* Public Pages */}
+        <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
+        {/* Dashboard Layout */}
+        <Route element={<DashboardLayout />}>
+
+          <Route
+            path="/dashboard"
+            element={<Dashboard />}
+          />
+
+          <Route
+            path="/customers"
+            element={<Customers />}
+          />
+
+          <Route
+            path="/products"
+            element={<Products />}
+          />
+
+          <Route
+            path="/invoices"
+            element={<Invoices />}
+          />
+
+          <Route
+            path="/quotations"
+            element={<Quotations />}
+          />
+
+        </Route>
+
+      </Routes>
+    </BrowserRouter>
   );
 }
 
