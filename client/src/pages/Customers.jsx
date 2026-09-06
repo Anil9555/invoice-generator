@@ -22,6 +22,8 @@ function Customers() {
 
     const [editingCustomer, setEditingCustomer] = useState(null);
 
+    const [deletingId, setDeletingId] = useState(null);
+
     const [search, setSearch] = useState("");
 
     const [formData, setFormData] = useState({
@@ -30,6 +32,9 @@ function Customers() {
         email: "",
         phone: "",
     });
+
+    const [errors, setErrors] = useState({});
+    const [saving, setSaving] = useState(false);
 
     useEffect(() => {
         const loadCustomers = async () => {  // Load customers from the API
@@ -89,13 +94,43 @@ function Customers() {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        const newErrors = {};
+
         if (!formData.name.trim()) {
-            alert("Customer name is required.");
+            newErrors.name = "Customer name is required.";
+        }
+
+        if (formData.email.trim()) {
+            const email = formData.email.trim();
+
+            const emailRegex =
+                /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+            if (!emailRegex.test(email)) {
+                newErrors.email = "Please enter a valid email address.";
+            }
+        }
+
+        if (formData.phone.trim()) {
+            const phone = formData.phone.trim();
+
+            const phoneRegex = /^[6-9][0-9]{9}$/;
+
+            if (!phoneRegex.test(phone)) {
+                newErrors.phone =
+                    "Please enter a valid 10-digit Indian mobile number.";
+            }
+        }
+
+        setErrors(newErrors);
+
+        if (Object.keys(newErrors).length > 0) {
             return;
         }
 
+        setSaving(true);
+
         try {
-            // EDIT CUSTOMER
             if (editingCustomer) {
                 await updateCustomer(
                     editingCustomer.id,
@@ -113,7 +148,6 @@ function Customers() {
                     )
                 );
             } else {
-                // ADD CUSTOMER
                 const data = await createCustomer(formData);
 
                 setCustomers((previous) => [
@@ -123,41 +157,38 @@ function Customers() {
             }
 
             setIsModalOpen(false);
+            setErrors({});
 
         } catch (error) {
             console.error("Customer error:", error);
             alert(error.message);
+        } finally {
+            setSaving(false);
         }
     };
-
 
     const handleDelete = async (id) => {
         const confirmed = window.confirm(
             "Are you sure you want to delete this customer?"
         );
 
-        if (!confirmed) {
-            return;
-        }
+        if (!confirmed) return;
+
+        setDeletingId(id);
 
         try {
             await deleteCustomer(id);
 
-            setCustomers((previous) =>
-                previous.filter(
-                    (customer) => customer.id !== id
-                )
+            setCustomers((prev) =>
+                prev.filter((customer) => customer.id !== id)
             );
         } catch (error) {
-            console.error(
-                "Delete customer error:",
-                error
-            );
-
+            console.error("Delete customer error:", error);
             alert(error.message);
+        } finally {
+            setDeletingId(null);
         }
     };
-
 
     const filteredCustomers = customers.filter((customer) => {
 
@@ -205,8 +236,9 @@ function Customers() {
                     <Button
                         variant="danger"
                         onClick={() => handleDelete(customer.id)}
+                        disabled={deletingId === customer.id}
                     >
-                        Delete
+                        {deletingId === customer.id ? "Deleting..." : "Delete"}
                     </Button>
 
                 </div>
@@ -296,6 +328,12 @@ function Customers() {
                         required
                     />
 
+                    {errors.name && (
+                        <p className="form-error">
+                            {errors.name}
+                        </p>
+                    )}
+
 
                     <Input
                         label="Company Name"
@@ -315,6 +353,12 @@ function Customers() {
                         onChange={handleChange}
                     />
 
+                    {errors.email && (
+                        <p className="form-error">
+                            {errors.email}
+                        </p>
+                    )}
+
 
                     <Input
                         label="Phone"
@@ -324,6 +368,12 @@ function Customers() {
                         value={formData.phone}
                         onChange={handleChange}
                     />
+
+                    {errors.phone && (
+                        <p className="form-error">
+                            {errors.phone}
+                        </p>
+                    )}
 
 
                     <div className="modal-actions">
@@ -338,10 +388,12 @@ function Customers() {
                             Cancel
                         </Button>
 
-                        <Button type="submit">
-                            {editingCustomer
-                                ? "Update Customer"
-                                : "Add Customer"}
+                        <Button type="submit" disabled={saving}>
+                            {saving
+                                ? "Saving..."
+                                : editingCustomer
+                                    ? "Update Customer"
+                                    : "Add Customer"}
                         </Button>
 
                     </div>

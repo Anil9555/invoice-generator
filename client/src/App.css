@@ -504,3 +504,10 @@
     grid-template-columns: 1fr;
   }
 }
+
+.form-error {
+  margin-top: -8px;
+  margin-bottom: 12px;
+  color: #dc2626;
+  font-size: 13px;
+}
