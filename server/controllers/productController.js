@@ -48,8 +48,11 @@ const createProduct = async (req, res) => {
             name,
             description,
             type,
+            sku,
+            unit,
             price,
             tax_rate,
+            status,
         } = req.body;
 
         if (!name || !name.trim()) {
@@ -66,6 +69,23 @@ const createProduct = async (req, res) => {
             });
         }
 
+        if (Number(price) < 0) {
+            return res.status(400).json({
+                success: false,
+                message: "Price cannot be negative",
+            });
+        }
+
+        if (
+            tax_rate !== undefined &&
+            (Number(tax_rate) < 0 || Number(tax_rate) > 100)
+        ) {
+            return res.status(400).json({
+                success: false,
+                message: "Tax rate must be between 0 and 100",
+            });
+        }
+
         const [result] = await db.query(
             `
             INSERT INTO products
@@ -74,18 +94,24 @@ const createProduct = async (req, res) => {
                 name,
                 description,
                 item_type,
+                sku,
+                unit,
                 price,
-                tax_rate
+                tax_rate,
+                status
             )
-            VALUES (?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             `,
             [
                 req.user.id,
                 name,
                 description || null,
                 type || "product",
+                sku || null,
+                unit || null,
                 price,
                 tax_rate || 0,
+                status || "active"
             ]
         );
 
@@ -97,6 +123,8 @@ const createProduct = async (req, res) => {
                 name,
                 description: description || "",
                 type: type || "product",
+                sku: sku || "",
+                unit: unit || "",
                 price,
                 tax_rate: tax_rate || 0,
             },
@@ -121,6 +149,8 @@ const updateProduct = async (req, res) => {
             name,
             description,
             type,
+            sku,
+            unit,
             price,
             tax_rate,
         } = req.body;
@@ -132,23 +162,53 @@ const updateProduct = async (req, res) => {
             });
         }
 
+        if (price === undefined || price === "") {
+            return res.status(400).json({
+                success: false,
+                message: "Price is required",
+            });
+        }
+
+        if (Number(price) < 0) {
+            return res.status(400).json({
+                success: false,
+                message: "Price cannot be negative",
+            });
+        }
+
+        if (
+            tax_rate !== undefined &&
+            (Number(tax_rate) < 0 || Number(tax_rate) > 100)
+        ) {
+            return res.status(400).json({
+                success: false,
+                message: "Tax rate must be between 0 and 100",
+            });
+        }
+
         const [result] = await db.query(
             `
-            UPDATE products
-            SET
-                name = ?,
-                description = ?,
-                item_type = ?,
-                price = ?,
-                tax_rate = ?
-            WHERE id = ? AND user_id = ?
-            `,
+    UPDATE products
+    SET
+        name = ?,
+        description = ?,
+        item_type = ?,
+        sku = ?,
+        unit = ?,
+        price = ?,
+        tax_rate = ?,
+        status = ?
+    WHERE id = ? AND user_id = ?
+    `,
             [
                 name,
                 description || null,
                 type || "product",
+                sku || null,
+                unit || null,
                 price,
                 tax_rate || 0,
+                status || "active",
                 id,
                 req.user.id,
             ]

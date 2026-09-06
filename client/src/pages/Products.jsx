@@ -17,18 +17,25 @@ import {
 function Products() {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [saving, setSaving] = useState(false);
+    const [deletingId, setDeletingId] = useState(null);
+    const [errors, setErrors] = useState({});
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingProduct, setEditingProduct] = useState(null);
 
     const [search, setSearch] = useState("");
+    
 
     const [formData, setFormData] = useState({
         name: "",
         description: "",
         type: "product",
+        sku: "",
+        unit: "",
         price: "",
         tax_rate: "",
+        status: "active",
     });
 
 
@@ -64,13 +71,17 @@ function Products() {
     // Open Add Modal
     const openAddModal = () => {
         setEditingProduct(null);
+        setErrors({});
 
         setFormData({
             name: "",
             description: "",
             type: "product",
+            sku: "",
+            unit: "",
             price: "",
             tax_rate: "",
+            status: "active",
         });
 
         setIsModalOpen(true);
@@ -80,13 +91,17 @@ function Products() {
     // Open Edit Modal
     const openEditModal = (product) => {
         setEditingProduct(product);
+        setErrors({});
 
         setFormData({
             name: product.name || "",
             description: product.description || "",
             type: product.type || "product",
+            sku: product.sku || "",
+            unit: product.unit || "",
             price: product.price || "",
             tax_rate: product.tax_rate || "",
+            status: product.status || "active",
         });
 
         setIsModalOpen(true);
@@ -97,15 +112,34 @@ function Products() {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        const newErrors = {};
+
         if (!formData.name.trim()) {
-            alert("Product/Service name is required.");
-            return;
+            newErrors.name = "Product/Service name is required.";
         }
 
         if (formData.price === "") {
-            alert("Price is required.");
+            newErrors.price = "Price is required.";
+        } else if (Number(formData.price) < 0) {
+            newErrors.price = "Price cannot be negative.";
+        }
+
+        if (
+            formData.tax_rate !== "" &&
+            (Number(formData.tax_rate) < 0 || Number(formData.tax_rate) > 100)
+        ) {
+            newErrors.tax_rate = "Tax rate must be between 0 and 100.";
+        }
+        
+
+        setErrors(newErrors);
+
+
+        if (Object.keys(newErrors).length > 0) {
             return;
         }
+
+        setSaving(true);
 
         try {
             // EDIT
@@ -138,11 +172,14 @@ function Products() {
             }
 
             setIsModalOpen(false);
+            setErrors({});
 
         } catch (error) {
             console.error("Product error:", error);
 
             alert(error.message);
+        } finally {
+            setSaving(false);
         }
     };
 
@@ -156,6 +193,7 @@ function Products() {
         if (!confirmed) {
             return;
         }
+        setDeletingId(id);
 
         try {
             await deleteProduct(id);
@@ -173,20 +211,34 @@ function Products() {
             );
 
             alert(error.message);
+        } finally {
+            setDeletingId(null);
         }
     };
 
 
     // Search
     const filteredProducts = products.filter((product) => {
-        const searchText = search.toLowerCase();
+        const searchText = search.toLowerCase().trim();
 
         return (
-            product.name
+            (product.name || "")
                 .toLowerCase()
                 .includes(searchText) ||
 
             (product.description || "")
+                .toLowerCase()
+                .includes(searchText) ||
+
+            (product.sku || "")
+                .toLowerCase()
+                .includes(searchText) ||
+
+            (product.unit || "")
+                .toLowerCase()
+                .includes(searchText) ||
+
+            (product.type || "")
                 .toLowerCase()
                 .includes(searchText)
         );
@@ -198,6 +250,18 @@ function Products() {
         {
             key: "name",
             label: "Name",
+        },
+
+        {
+            key: "sku",
+            label: "SKU",
+            render: (product) => product.sku || "-",
+        },
+
+        {
+            key: "unit",
+            label: "Unit",
+            render: (product) => product.unit || "-",
         },
 
         {
@@ -227,6 +291,15 @@ function Products() {
         },
 
         {
+            key: "status",
+            label: "Status",
+            render: (product) =>
+                product.status === "inactive"
+                    ? "Inactive"
+                    : "Active",
+        },
+
+        {
             key: "actions",
             label: "Actions",
 
@@ -244,11 +317,10 @@ function Products() {
 
                     <Button
                         variant="danger"
-                        onClick={() =>
-                            handleDelete(product.id)
-                        }
+                        onClick={() => handleDelete(product.id)}
+                        disabled={deletingId === product.id}
                     >
-                        Delete
+                        {deletingId === product.id ? "Deleting..." : "Delete"}
                     </Button>
 
                 </div>
@@ -336,6 +408,9 @@ function Products() {
                         onChange={handleChange}
                         required
                     />
+                    {errors.name && (
+                        <p className="form-error">{errors.name}</p>
+                    )}
 
 
                     <Input
@@ -367,6 +442,22 @@ function Products() {
 
                     </div>
 
+                    <Input
+                        label="SKU"
+                        name="sku"
+                        placeholder="e.g. WEB-001"
+                        value={formData.sku}
+                        onChange={handleChange}
+                    />
+
+                    <Input
+                        label="Unit"
+                        name="unit"
+                        placeholder="e.g. piece, hour, kg"
+                        value={formData.unit}
+                        onChange={handleChange}
+                    />
+
 
                     <Input
                         label="Price"
@@ -379,6 +470,9 @@ function Products() {
                         step="0.01"
                         required
                     />
+                    {errors.price && (
+                        <p className="form-error">{errors.price}</p>
+                    )}
 
 
                     <Input
@@ -391,6 +485,22 @@ function Products() {
                         min="0"
                         step="0.01"
                     />
+                    {errors.tax_rate && (
+                        <p className="form-error">{errors.tax_rate}</p>
+                    )}
+
+                    <div className="form-group">
+                        <label>Status</label>
+
+                        <select
+                            name="status"
+                            value={formData.status}
+                            onChange={handleChange}
+                        >
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
 
 
                     <div className="modal-actions">
@@ -405,10 +515,12 @@ function Products() {
                             Cancel
                         </Button>
 
-                        <Button type="submit">
-                            {editingProduct
-                                ? "Update Product"
-                                : "Add Product"}
+                        <Button type="submit" disabled={saving}>
+                            {saving
+                                ? "Saving..."
+                                : editingProduct
+                                    ? "Update Product"
+                                    : "Add Product"}
                         </Button>
 
                     </div>
