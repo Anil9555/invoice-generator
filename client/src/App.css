@@ -1,33 +1,4 @@
 /* =========================
-   Global
-========================= */
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  background: #f5f7fb;
-  color: #1f2937;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-button,
-input,
-select,
-textarea {
-  font: inherit;
-}
-
-
-/* =========================
    Dashboard Layout
 ========================= */
 
@@ -145,57 +116,6 @@ textarea {
 
 
 /* =========================
-   Responsive
-========================= */
-
-@media (max-width: 768px) {
-
-  .sidebar {
-    width: 210px;
-  }
-
-  .navbar {
-    padding: 0 20px;
-  }
-
-  .page-content {
-    padding: 20px;
-  }
-}
-
-@media (max-width: 600px) {
-
-  .sidebar {
-    width: 70px;
-    padding: 20px 8px;
-  }
-
-  .sidebar-logo {
-    font-size: 0;
-    text-align: center;
-  }
-
-  .sidebar-logo::before {
-    content: "IP";
-    font-size: 18px;
-  }
-
-  .sidebar-nav a,
-  .sidebar-bottom a {
-    font-size: 0;
-    text-align: center;
-  }
-
-  .navbar h2 {
-    font-size: 16px;
-  }
-
-  .navbar-user span {
-    display: none;
-  }
-}
-
-/* =========================
    Dashboard Page
 ========================= */
 
@@ -205,7 +125,9 @@ textarea {
 }
 
 
-/* Page Header */
+/* =========================
+   Page Header
+========================= */
 
 .page-header {
   display: flex;
@@ -224,7 +146,9 @@ textarea {
 }
 
 
-/* Stats */
+/* =========================
+   Stats
+========================= */
 
 .stats-grid {
   display: grid;
@@ -250,7 +174,9 @@ textarea {
 }
 
 
-/* Dashboard Grid */
+/* =========================
+   Dashboard Grid
+========================= */
 
 .dashboard-grid {
   display: grid;
@@ -259,7 +185,9 @@ textarea {
 }
 
 
-/* Card Header */
+/* =========================
+   Card Header
+========================= */
 
 .card-header {
   display: flex;
@@ -278,7 +206,9 @@ textarea {
 }
 
 
-/* Empty State */
+/* =========================
+   Empty State
+========================= */
 
 .empty-state {
   min-height: 220px;
@@ -299,7 +229,9 @@ textarea {
 }
 
 
-/* Quick Actions */
+/* =========================
+   Quick Actions
+========================= */
 
 .quick-actions {
   display: flex;
@@ -307,41 +239,6 @@ textarea {
   gap: 12px;
 }
 
-
-/* Responsive */
-
-@media (max-width: 1000px) {
-
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .dashboard-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-
-@media (max-width: 600px) {
-
-  .page-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
-  }
-
-  .page-header-actions {
-    width: 100%;
-  }
-
-  .page-header-actions button {
-    width: 100%;
-  }
-
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
-}
 
 /* =========================
    Buttons
@@ -380,31 +277,6 @@ textarea {
 
 .btn-danger:hover {
   background: #fecaca;
-}
-
-/* =========================
-   Customers
-========================= */
-
-.customer-toolbar {
-  margin-bottom: 20px;
-  max-width: 350px;
-}
-
-.customer-toolbar .form-group {
-  margin-bottom: 0;
-}
-
-.table-actions {
-  display: flex;
-  gap: 8px;
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 20px;
 }
 
 
@@ -525,4 +397,110 @@ textarea {
   background: transparent;
   font-size: 24px;
   cursor: pointer;
+}
+
+
+/* =========================
+   Customers
+========================= */
+
+.customer-toolbar {
+  margin-bottom: 20px;
+  max-width: 350px;
+}
+
+.customer-toolbar .form-group {
+  margin-bottom: 0;
+}
+
+.table-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 1000px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 210px;
+  }
+
+  .navbar {
+    padding: 0 20px;
+  }
+
+  .page-content {
+    padding: 20px;
+  }
+}
+
+
+@media (max-width: 600px) {
+  .sidebar {
+    width: 70px;
+    padding: 20px 8px;
+  }
+
+  .sidebar-logo {
+    font-size: 0;
+    text-align: center;
+  }
+
+  .sidebar-logo::before {
+    content: "IP";
+    font-size: 18px;
+  }
+
+  .sidebar-nav a,
+  .sidebar-bottom a {
+    font-size: 0;
+    text-align: center;
+  }
+
+  .navbar h2 {
+    font-size: 16px;
+  }
+
+  .navbar-user span {
+    display: none;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .page-header-actions {
+    width: 100%;
+  }
+
+  .page-header-actions button {
+    width: 100%;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
 }

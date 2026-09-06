@@ -5,7 +5,13 @@ const db = require("../config/db");
 const getCustomers = async (req, res) => {
     try {
         const [customers] = await db.query(
-            "SELECT * FROM customers ORDER BY created_at DESC"
+            `
+    SELECT *
+    FROM customers
+    WHERE user_id = ?
+    ORDER BY created_at DESC
+    `,
+            [req.user.id]
         );
 
         res.json({
@@ -18,7 +24,7 @@ const getCustomers = async (req, res) => {
 
         res.status(500).json({
             success: false,
-            message: "Failed to fetch customers",
+            message: error.message || "Failed to fetch customers",
         });
     }
 };
@@ -56,7 +62,7 @@ const createCustomer = async (req, res) => {
             VALUES (?, ?, ?, ?, ?)
             `,
             [
-                1,
+                req.user.id,
                 name,
                 company_name || null,
                 email || null,
@@ -115,7 +121,7 @@ const updateCustomer = async (req, res) => {
                 company_name = ?,
                 email = ?,
                 phone = ?
-            WHERE id = ?
+            WHERE id = ? AND user_id = ?
             `,
             [
                 name,
@@ -123,6 +129,7 @@ const updateCustomer = async (req, res) => {
                 email || null,
                 phone || null,
                 id,
+                req.user.id,
             ]
         );
 
@@ -155,8 +162,8 @@ const deleteCustomer = async (req, res) => {
         const { id } = req.params;
 
         const [result] = await db.query(
-            "DELETE FROM customers WHERE id = ?",
-            [id]
+            "DELETE FROM customers WHERE id = ? AND user_id = ?",
+            [id, req.user.id]
         );
 
         if (result.affectedRows === 0) {

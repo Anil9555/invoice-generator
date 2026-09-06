@@ -1,6 +1,10 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function DashboardLayout() {
+    const { logout } = useAuth();
+    const navigate = useNavigate();
+
     return (
         <div className="dashboard-layout">
 
@@ -58,7 +62,13 @@ function DashboardLayout() {
                     <div className="navbar-user">
                         <span>Welcome</span>
 
-                        <button type="button">
+                        <button
+                            type="button"
+                            onClick={() => {
+                                logout();
+                                navigate("/login");
+                            }}
+                        >
                             Logout
                         </button>
                     </div>

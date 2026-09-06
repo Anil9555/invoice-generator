@@ -1,6 +1,7 @@
 const db = require("../config/db");
 
 // Get all products
+// Get all products
 const getProducts = async (req, res) => {
     try {
         const [products] = await db.query(
@@ -19,8 +20,10 @@ const getProducts = async (req, res) => {
                 created_at,
                 updated_at
             FROM products
+            WHERE user_id = ?
             ORDER BY created_at DESC
-            `
+            `,
+            [req.user.id]
         );
 
         res.json({
@@ -32,7 +35,7 @@ const getProducts = async (req, res) => {
 
         res.status(500).json({
             success: false,
-            message: "Failed to fetch products",
+            message: error.message,
         });
     }
 };
@@ -77,7 +80,7 @@ const createProduct = async (req, res) => {
             VALUES (?, ?, ?, ?, ?, ?)
             `,
             [
-                1,
+                req.user.id,
                 name,
                 description || null,
                 type || "product",
@@ -138,7 +141,7 @@ const updateProduct = async (req, res) => {
                 item_type = ?,
                 price = ?,
                 tax_rate = ?
-            WHERE id = ?
+            WHERE id = ? AND user_id = ?
             `,
             [
                 name,
@@ -147,6 +150,7 @@ const updateProduct = async (req, res) => {
                 price,
                 tax_rate || 0,
                 id,
+                req.user.id,
             ]
         );
 
@@ -178,8 +182,8 @@ const deleteProduct = async (req, res) => {
         const { id } = req.params;
 
         const [result] = await db.query(
-            "DELETE FROM products WHERE id = ?",
-            [id]
+            "DELETE FROM products WHERE id = ? AND user_id = ?",
+            [id, req.user.id]
         );
 
         if (result.affectedRows === 0) {

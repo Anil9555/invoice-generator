@@ -7,21 +7,13 @@ const {
     deleteCustomer,
 } = require("../controllers/customerController");
 
+const authMiddleware = require("../middleware/authMiddleware");
+
 const router = express.Router();
 
-
-// GET /api/customers
-router.get("/", getCustomers);
-
-
-// POST /api/customers
-router.post("/", createCustomer);
-
-// PUT /api/customers/:id
-router.put("/:id", updateCustomer);
-
-// DELETE /api/customers/:id
-router.delete("/:id", deleteCustomer);
-
+router.get("/", authMiddleware, getCustomers);
+router.post("/", authMiddleware, createCustomer);
+router.put("/:id", authMiddleware, updateCustomer);
+router.delete("/:id", authMiddleware, deleteCustomer);
 
 module.exports = router;
