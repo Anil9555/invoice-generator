@@ -12,6 +12,8 @@ import Products from "./pages/Products";
 import Invoices from "./pages/Invoices";
 import Quotations from "./pages/Quotations";
 import { Navigate } from "react-router-dom";
+import InvoiceDetails from "./pages/InvoiceDetails";
+import EditInvoice from "./pages/EditInvoice";
 
 import DashboardLayout from "./layouts/DashboardLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -35,7 +37,9 @@ function App() {
             <Route path="/customers" element={<Customers />} />
             <Route path="/products" element={<Products />} />
             <Route path="/invoices" element={<Invoices />} />
+            <Route path="/invoices/:id" element={<InvoiceDetails />} />
             <Route path="/quotations" element={<Quotations />} />
+            <Route path="/invoices/:id/edit" element={<EditInvoice />} />
           </Route>
         </Route>
 
