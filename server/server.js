@@ -11,6 +11,8 @@ const authRoutes = require("./routes/authRoutes");
 
 const invoiceRoutes = require("./routes/invoiceRoutes");
 
+const quotationRoutes = require("./routes/quotationRoutes");
+
 const app = express();
 
 const PORT = 5000;
@@ -22,6 +24,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/customers", customerRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/invoices", invoiceRoutes);
+app.use("/api/quotations", quotationRoutes);
 
 app.get("/api/test", (req, res) => {
     res.json({

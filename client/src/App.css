@@ -511,3 +511,42 @@
   color: #dc2626;
   font-size: 13px;
 }
+
+.quotation-summary {
+  width: 350px;
+  margin-left: auto;
+  margin-top: 20px;
+  padding: 20px;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 14px;
+}
+
+.summary-total {
+  margin-top: 10px;
+  padding-top: 15px;
+  border-top: 2px solid #e5e7eb;
+  font-size: 18px;
+}
+
+/* notes */
+
+.quotation-notes {
+  margin-top: 20px;
+}
+
+.quotation-notes textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  resize: vertical;
+}
