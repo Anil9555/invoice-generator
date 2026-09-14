@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getInvoiceById } from "../services/invoiceService";
 import Button from "../components/Button";
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
 import { formatDate } from "../utils/formatDate";
 
 function InvoiceDetails() {
@@ -11,6 +13,30 @@ function InvoiceDetails() {
     const [invoice, setInvoice] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+
+    const handleDownloadPDF = async () => {
+        const element = document.querySelector(".invoice-preview");
+
+        if (!element) {
+            alert("Invoice preview not found");
+            return;
+        }
+
+        const canvas = await html2canvas(element, {
+            scale: 2,
+        });
+
+        const imageData = canvas.toDataURL("image/png");
+
+        const pdf = new jsPDF("p", "mm", "a4");
+
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+        pdf.addImage(imageData, "PNG", 0, 0, pdfWidth, pdfHeight);
+
+        pdf.save(`Invoice-${invoice.invoice_number}.pdf`);
+    };
 
     useEffect(() => {
         const fetchInvoice = async () => {
@@ -51,6 +77,10 @@ function InvoiceDetails() {
                 <h1>Invoice Preview</h1>
 
                 <div>
+                    <Button onClick={handleDownloadPDF}>
+                        Download PDF
+                    </Button>
+
                     <Button
                         variant="secondary"
                         onClick={() => navigate("/invoices")}

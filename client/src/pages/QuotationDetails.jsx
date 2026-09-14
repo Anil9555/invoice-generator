@@ -5,6 +5,8 @@ import {
     convertQuotationToInvoice,
 } from "../services/quotationService";
 import Button from "../components/Button";
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
 
 function QuotationDetails() {
     const { id } = useParams();
@@ -13,6 +15,30 @@ function QuotationDetails() {
     const [quotation, setQuotation] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+
+    const handleDownloadPDF = async () => {
+        const element = document.querySelector(".invoice-preview");
+
+        if (!element) {
+            alert("Quotation preview not found");
+            return;
+        }
+
+        const canvas = await html2canvas(element, {
+            scale: 2,
+        });
+
+        const imageData = canvas.toDataURL("image/png");
+
+        const pdf = new jsPDF("p", "mm", "a4");
+
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+        pdf.addImage(imageData, "PNG", 0, 0, pdfWidth, pdfHeight);
+
+        pdf.save(`Quotation-${quotation.quotation_number}.pdf`);
+    };
 
     useEffect(() => {
         fetchQuotation();
@@ -82,9 +108,11 @@ function QuotationDetails() {
                 <h1>Quotation Preview</h1>
 
                 <div>
-                    <Button
-                        onClick={handleConvertToInvoice}
-                    >
+                    <Button onClick={handleDownloadPDF}>
+                        Download PDF
+                    </Button>
+
+                    <Button onClick={handleConvertToInvoice}>
                         Convert to Invoice
                     </Button>
 
