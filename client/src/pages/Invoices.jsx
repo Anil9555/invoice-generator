@@ -5,6 +5,7 @@ import {
 } from "../services/invoiceService";
 
 import { useNavigate } from "react-router-dom";
+import { formatDate } from "../utils/formatDate";
 
 function Invoices() {
     const [invoices, setInvoices] = useState([]);
@@ -91,8 +92,8 @@ function Invoices() {
                             <tr key={invoice.id}>
                                 <td>{invoice.invoice_number}</td>
                                 <td>{invoice.customer_name}</td>
-                                <td>{invoice.issue_date}</td>
-                                <td>{invoice.due_date}</td>
+                                <td>{formatDate(invoice.issue_date)}</td>
+                                <td>{formatDate(invoice.due_date)}</td>
                                 <td>{invoice.status}</td>
                                 <td>
                                     ₹{Number(invoice.total_amount).toFixed(2)}

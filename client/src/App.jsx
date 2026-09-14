@@ -11,9 +11,12 @@ import Customers from "./pages/Customers";
 import Products from "./pages/Products";
 import Invoices from "./pages/Invoices";
 import Quotations from "./pages/Quotations";
+import QuotationDetails from "./pages/QuotationDetails";
+import EditQuotation from "./pages/EditQuotation";
 import { Navigate } from "react-router-dom";
 import InvoiceDetails from "./pages/InvoiceDetails";
 import EditInvoice from "./pages/EditInvoice";
+
 
 import DashboardLayout from "./layouts/DashboardLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -39,6 +42,11 @@ function App() {
             <Route path="/invoices" element={<Invoices />} />
             <Route path="/invoices/:id" element={<InvoiceDetails />} />
             <Route path="/quotations" element={<Quotations />} />
+            <Route path="/quotations/:id/edit" element={<EditQuotation />} />
+            <Route
+              path="/quotations/:id"
+              element={<QuotationDetails />}
+            />
             <Route path="/invoices/:id/edit" element={<EditInvoice />} />
           </Route>
         </Route>

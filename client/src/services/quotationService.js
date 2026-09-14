@@ -29,3 +29,9 @@ export const deleteQuotation = async (id) => {
         method: "DELETE",
     });
 };
+
+export const convertQuotationToInvoice = async (id) => {
+    return apiRequest(`/quotations/${id}/convert-to-invoice`, {
+        method: "POST",
+    });
+};

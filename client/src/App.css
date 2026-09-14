@@ -550,3 +550,189 @@
   border-radius: 6px;
   resize: vertical;
 }
+
+
+/* =========================
+   Invoice Preview
+========================= */
+
+.invoice-preview-page {
+  padding: 24px;
+}
+
+.invoice-preview {
+  max-width: 1000px;
+  margin: 24px auto;
+  padding: 40px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* Header */
+
+.invoice-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 24px;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.invoice-header h1 {
+  margin: 0 0 6px;
+}
+
+.invoice-header h2 {
+  margin: 0 0 6px;
+  text-align: right;
+}
+
+.invoice-header p {
+  margin: 4px 0;
+}
+
+/* Customer & Invoice Information */
+
+.invoice-info {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 30px 0;
+}
+
+.invoice-info h3,
+.invoice-items h3,
+.invoice-notes h3 {
+  margin-bottom: 12px;
+}
+
+.invoice-info p {
+  margin: 6px 0;
+}
+
+/* Items */
+
+.invoice-items {
+  margin-top: 10px;
+}
+
+.invoice-items table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+}
+
+.invoice-items th,
+.invoice-items td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.invoice-items th {
+  background: #f9fafb;
+  font-weight: 600;
+}
+
+.invoice-items td:last-child,
+.invoice-items th:last-child {
+  text-align: right;
+}
+
+/* Summary */
+
+.invoice-summary {
+  width: 360px;
+  margin-left: auto;
+  margin-top: 30px;
+}
+
+.invoice-summary>div {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+}
+
+.invoice-total {
+  margin-top: 10px;
+  padding-top: 14px !important;
+  border-top: 2px solid #111827;
+  font-size: 18px;
+}
+
+/* Notes */
+
+.invoice-notes {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.invoice-notes p {
+  margin: 0;
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+  .invoice-preview-page {
+    padding: 12px;
+  }
+
+  .invoice-preview {
+    padding: 20px;
+  }
+
+  .invoice-header,
+  .invoice-info {
+    flex-direction: column;
+  }
+
+  .invoice-header h2 {
+    text-align: left;
+  }
+
+  .invoice-summary {
+    width: 100%;
+  }
+
+  .invoice-items {
+    overflow-x: auto;
+  }
+
+  .invoice-items table {
+    min-width: 700px;
+  }
+}
+
+/* =========================
+   Quotations Table
+========================= */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+th {
+  font-weight: 600;
+  background: #f9fafb;
+}
+
+td {
+  vertical-align: middle;
+}
+
+td:last-child,
+th:last-child {
+  white-space: nowrap;
+}

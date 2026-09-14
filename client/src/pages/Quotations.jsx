@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
     getQuotations,
     createQuotation,
+    deleteQuotation,
 } from "../services/quotationService";
 import { getCustomers } from "../services/customerService";
 import { getProducts } from "../services/productService";
 import Button from "../components/Button";
 import Input from "../components/Input";
+import { formatDate } from "../utils/formatDate";
 
 function Quotations() {
+    const navigate = useNavigate();
+
     const [quotations, setQuotations] = useState([]);
     const [customers, setCustomers] = useState([]);
     const [products, setProducts] = useState([]);
@@ -263,6 +268,28 @@ function Quotations() {
         } catch (error) {
             console.error("Create quotation error:", error);
             setError(error.message || "Failed to create quotation");
+        }
+    };
+
+    //handleDelete
+
+    const handleDeleteQuotation = async (id) => {
+        const confirmed = window.confirm(
+            "Are you sure you want to delete this quotation?"
+        );
+
+        if (!confirmed) {
+            return;
+        }
+
+        try {
+            await deleteQuotation(id);
+
+            // Refresh quotation list
+            await fetchData();
+        } catch (err) {
+            console.error(err);
+            alert(err.message || "Failed to delete quotation");
         }
     };
 
@@ -581,6 +608,7 @@ function Quotations() {
                                     <th>Valid Until</th>
                                     <th>Status</th>
                                     <th>Total</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
 
@@ -596,11 +624,11 @@ function Quotations() {
                                         </td>
 
                                         <td>
-                                            {quotation.issue_date}
+                                            {formatDate(quotation.issue_date)}
                                         </td>
 
                                         <td>
-                                            {quotation.expiry_date}
+                                            {formatDate(quotation.expiry_date)}
                                         </td>
 
                                         <td>
@@ -612,6 +640,32 @@ function Quotations() {
                                             {Number(
                                                 quotation.total_amount
                                             ).toFixed(2)}
+                                        </td>
+
+                                        <td>
+                                            <Button
+                                                onClick={() => navigate(`/quotations/${quotation.id}`)}
+                                            >
+                                                View
+                                            </Button>
+
+                                            <Button
+                                                variant="secondary"
+                                                onClick={() =>
+                                                    navigate(`/quotations/${quotation.id}/edit`)
+                                                }
+                                            >
+                                                Edit
+                                            </Button>
+
+                                            <Button
+                                                variant="secondary"
+                                                onClick={() =>
+                                                    handleDeleteQuotation(quotation.id)
+                                                }
+                                            >
+                                                Delete
+                                            </Button>
                                         </td>
                                     </tr>
                                 ))}
