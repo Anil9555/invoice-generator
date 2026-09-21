@@ -33,9 +33,41 @@ function QuotationDetails() {
         const pdf = new jsPDF("p", "mm", "a4");
 
         const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+        const pdfHeight = pdf.internal.pageSize.getHeight();
 
-        pdf.addImage(imageData, "PNG", 0, 0, pdfWidth, pdfHeight);
+        const imageWidth = pdfWidth;
+        const imageHeight = (canvas.height * imageWidth) / canvas.width;
+
+        let heightLeft = imageHeight;
+        let position = 0;
+
+        pdf.addImage(
+            imageData,
+            "PNG",
+            0,
+            position,
+            imageWidth,
+            imageHeight
+        );
+
+        heightLeft -= pdfHeight;
+
+        while (heightLeft > 0) {
+            position = heightLeft - imageHeight;
+
+            pdf.addPage();
+
+            pdf.addImage(
+                imageData,
+                "PNG",
+                0,
+                position,
+                imageWidth,
+                imageHeight
+            );
+
+            heightLeft -= pdfHeight;
+        }
 
         pdf.save(`Quotation-${quotation.quotation_number}.pdf`);
     };
