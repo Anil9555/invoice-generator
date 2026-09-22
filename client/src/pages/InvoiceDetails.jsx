@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getInvoiceById } from "../services/invoiceService";
+import {
+    getInvoiceById,
+    updatePaymentStatus,
+} from "../services/invoiceService";
 import Button from "../components/Button";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
@@ -13,6 +16,45 @@ function InvoiceDetails() {
     const [invoice, setInvoice] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const [paidAmount, setPaidAmount] = useState("");
+    const [paymentLoading, setPaymentLoading] = useState(false);
+
+    const handlePaymentUpdate = async () => {
+        if (paidAmount === "") {
+            alert("Please enter paid amount");
+            return;
+        }
+
+        if (Number(paidAmount) <= 0) {
+            alert("Payment amount must be greater than 0");
+            return;
+        }
+
+        try {
+            setPaymentLoading(true);
+
+            const response = await updatePaymentStatus(
+                id,
+                Number(paidAmount)
+            );
+
+            setInvoice((prev) => ({
+                ...prev,
+                paid_amount: response.data.paid_amount,
+                remaining_amount: response.data.remaining_amount,
+                status: response.data.status,
+            }));
+
+            setPaidAmount("");
+
+            alert("Payment updated successfully");
+        } catch (error) {
+            console.error("Payment update error:", error);
+            alert(error.message || "Failed to update payment");
+        } finally {
+            setPaymentLoading(false);
+        }
+    };
 
     const handleDownloadPDF = async () => {
         const element = document.querySelector(".invoice-preview");
@@ -287,6 +329,28 @@ function InvoiceDetails() {
                         </strong>
                     </div>
 
+                </div>
+
+                <div className="payment-section">
+                    <h3>Update Payment</h3>
+
+                    <div className="payment-form">
+                        <input
+                            type="number"
+                            min="0"
+                            step="0.01"
+                            placeholder="Enter paid amount"
+                            value={paidAmount}
+                            onChange={(e) => setPaidAmount(e.target.value)}
+                        />
+
+                        <Button
+                            onClick={handlePaymentUpdate}
+                            disabled={paymentLoading}
+                        >
+                            {paymentLoading ? "Updating..." : "Update Payment"}
+                        </Button>
+                    </div>
                 </div>
 
                 {/* Notes */}

@@ -27,3 +27,12 @@ export const deleteInvoice = async (id) => {
         method: "DELETE",
     });
 };
+
+export const updatePaymentStatus = async (id, paid_amount) => {
+    return apiRequest(`/invoices/${id}/payment`, {
+        method: "PUT",
+        body: JSON.stringify({
+            paid_amount,
+        }),
+    });
+};

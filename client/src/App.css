@@ -736,3 +736,53 @@ td:last-child,
 th:last-child {
   white-space: nowrap;
 }
+
+/* =========================
+   Payment Section
+========================= */
+
+.payment-section {
+  max-width: 360px;
+  margin-left: auto;
+  margin-top: 24px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #f9fafb;
+}
+
+.payment-section h3 {
+  margin: 0 0 14px;
+}
+
+.payment-form {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.payment-form input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.payment-form input:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+@media (max-width: 768px) {
+  .payment-section {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .payment-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

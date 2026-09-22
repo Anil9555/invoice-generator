@@ -848,10 +848,130 @@ const deleteInvoice = async (req, res) => {
     }
 };
 
+// updatePaymentStatus
+
+const updatePaymentStatus = async (req, res) => {
+    const connection = await db.getConnection();
+
+    try {
+        const { id } = req.params;
+        const { paid_amount } = req.body;
+
+        const paidAmount = Number(paid_amount);
+
+        if (!Number.isFinite(paidAmount) || paidAmount <= 0) {
+            return res.status(400).json({
+                success: false,
+                message: "Payment amount must be greater than 0",
+            });
+        }
+
+        await connection.beginTransaction();
+
+        // Check invoice belongs to logged-in user
+        const [invoices] = await connection.query(
+            `
+            SELECT
+                id,
+                total_amount,
+                paid_amount,
+                due_date
+            FROM invoices
+            WHERE id = ? AND user_id = ?
+            `,
+            [id, req.user.id]
+        );
+
+        if (invoices.length === 0) {
+            await connection.rollback();
+
+            return res.status(404).json({
+                success: false,
+                message: "Invoice not found",
+            });
+        }
+
+        const invoice = invoices[0];
+
+        const totalAmount = Number(invoice.total_amount);
+        const existingPaidAmount = Number(invoice.paid_amount || 0);
+
+        const newPaidAmount =
+            existingPaidAmount + paidAmount;
+
+        if (newPaidAmount > totalAmount) {
+            await connection.rollback();
+
+            return res.status(400).json({
+                success: false,
+                message: "Payment cannot be greater than remaining amount",
+            });
+        }
+
+        const remainingAmount =
+            totalAmount - newPaidAmount;
+
+        let status = "pending";
+
+        if (newPaidAmount === totalAmount) {
+            status = "paid";
+        } else if (newPaidAmount > 0) {
+            status = "partially_paid";
+        } else if (
+            invoice.due_date &&
+            new Date(invoice.due_date) < new Date()
+        ) {
+            status = "overdue";
+        }
+
+        await connection.query(
+            `
+            UPDATE invoices
+            SET
+                paid_amount = ?,
+                remaining_amount = ?,
+                status = ?
+            WHERE id = ? AND user_id = ?
+            `,
+            [
+                newPaidAmount,
+                remainingAmount,
+                status,
+                id,
+                req.user.id,
+            ]
+        );
+
+        await connection.commit();
+
+        res.json({
+            success: true,
+            message: "Payment status updated successfully",
+            data: {
+                paid_amount: newPaidAmount,
+                remaining_amount: remainingAmount,
+                status,
+            },
+        });
+    } catch (error) {
+        await connection.rollback();
+
+        console.error("Update payment status error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to update payment status",
+        });
+    } finally {
+        connection.release();
+    }
+};
+
 module.exports = {
     getInvoices,
     getInvoiceById,
     createInvoice,
     updateInvoice,
     deleteInvoice,
+    updatePaymentStatus,
 };
