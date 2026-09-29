@@ -10,6 +10,7 @@ import { getProducts } from "../services/productService";
 import Button from "../components/Button";
 import Input from "../components/Input";
 import { formatDate } from "../utils/formatDate";
+import "./Quotations.css";
 
 function Quotations() {
     const navigate = useNavigate();
@@ -298,384 +299,340 @@ function Quotations() {
     }
 
     return (
-        <div>
-            <div className="page-header">
-                <h1>Quotations</h1>
+      <div className="quotations-page">
+        <div className="page-header">
+          <h1>Quotations</h1>
 
-                <Button onClick={() => setShowForm(true)}>
-                    + Create Quotation
-                </Button>
-            </div>
-
-            {error && <p className="form-error">{error}</p>}
-
-            {showForm && (
-                <div className="card">
-                    <h2>Create Quotation</h2>
-
-                    <div className="form-grid">
-                        <div className="form-group">
-                            <label htmlFor="customer_id">
-                                Customer
-                            </label>
-
-                            <select
-                                id="customer_id"
-                                name="customer_id"
-                                value={formData.customer_id}
-                                onChange={handleChange}
-                            >
-                                <option value="">
-                                    Select Customer
-                                </option>
-
-                                {customers.map((customer) => (
-                                    <option
-                                        key={customer.id}
-                                        value={customer.id}
-                                    >
-                                        {customer.name}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-
-                        <Input
-                            label="Quotation Number"
-                            name="quotation_number"
-                            placeholder="e.g. QT-002"
-                            value={formData.quotation_number}
-                            onChange={handleChange}
-                            required
-                        />
-
-                        <Input
-                            label="Issue Date"
-                            name="issue_date"
-                            type="date"
-                            value={formData.issue_date}
-                            onChange={handleChange}
-                            required
-                        />
-
-                        <Input
-                            label="Valid Until"
-                            name="valid_until"
-                            type="date"
-                            value={formData.valid_until}
-                            onChange={handleChange}
-                        />
-                    </div>
-
-                    <div className="quotation-items">
-                        <h3>Items</h3>
-
-                        {items.map((item, index) => {
-                            const selectedProduct = products.find(
-                                (product) =>
-                                    product.id === Number(item.product_id)
-                            );
-
-                            const price = Number(selectedProduct?.price) || 0;
-                            const taxRate = Number(selectedProduct?.tax_rate) || 0;
-
-                            const calculation = calculateItem(item);
-
-                            return (
-                                <div className="quotation-item" key={index}>
-                                    <div className="form-group">
-                                        <label htmlFor={`product-${index}`}>
-                                            Product / Service
-                                        </label>
-
-                                        <select
-                                            id={`product-${index}`}
-                                            value={item.product_id}
-                                            onChange={(event) =>
-                                                handleItemChange(
-                                                    index,
-                                                    "product_id",
-                                                    event.target.value
-                                                )
-                                            }
-                                        >
-                                            <option value="">
-                                                Select Product / Service
-                                            </option>
-
-                                            {products.map((product) => (
-                                                <option
-                                                    key={product.id}
-                                                    value={product.id}
-                                                >
-                                                    {product.name} - ₹
-                                                    {Number(
-                                                        product.price
-                                                    ).toFixed(2)}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    </div>
-
-                                    <Input
-                                        label="Quantity"
-                                        type="number"
-                                        name={`quantity-${index}`}
-                                        value={item.quantity}
-                                        onChange={(event) =>
-                                            handleItemChange(
-                                                index,
-                                                "quantity",
-                                                event.target.value
-                                            )
-                                        }
-                                    />
-
-                                    <div className="form-group">
-                                        <label htmlFor={`discount-type-${index}`}>
-                                            Discount Type
-                                        </label>
-
-                                        <select
-                                            id={`discount-type-${index}`}
-                                            value={item.discount_type}
-                                            onChange={(event) =>
-                                                handleItemChange(
-                                                    index,
-                                                    "discount_type",
-                                                    event.target.value
-                                                )
-                                            }
-                                        >
-                                            <option value="fixed">Fixed</option>
-                                            <option value="percentage">Percentage</option>
-                                        </select>
-                                    </div>
-
-                                    <Input
-                                        label="Discount"
-                                        type="number"
-                                        name={`discount-${index}`}
-                                        placeholder="0"
-                                        value={item.discount_value}
-                                        onChange={(event) =>
-                                            handleItemChange(
-                                                index,
-                                                "discount_value",
-                                                event.target.value
-                                            )
-                                        }
-                                    />
-
-                                    <div className="form-group">
-                                        <label>Unit Price</label>
-                                        <input
-                                            type="text"
-                                            value={`₹${price.toFixed(2)}`}
-                                            readOnly
-                                        />
-                                    </div>
-
-                                    <div className="form-group">
-                                        <label>Line Total</label>
-                                        <input
-                                            type="text"
-                                            value={`₹${calculation.total.toFixed(2)}`}
-                                            readOnly
-                                        />
-                                    </div>
-
-                                    {items.length > 1 && (
-                                        <Button
-                                            variant="secondary"
-                                            onClick={() => {
-                                                setItems((previousItems) =>
-                                                    previousItems.filter(
-                                                        (_, itemIndex) =>
-                                                            itemIndex !== index
-                                                    )
-                                                );
-                                            }}
-                                        >
-                                            Remove
-                                        </Button>
-                                    )}
-                                </div>
-                            );
-                        })}
-
-                        <Button type="button" onClick={addItem}>
-                            + Add Item
-                        </Button>
-                    </div>
-
-                    <div className="quotation-discount">
-                        <h3>Quotation Discount</h3>
-
-                        <div className="form-grid">
-                            <div className="form-group">
-                                <label htmlFor="discount_type">
-                                    Discount Type
-                                </label>
-
-                                <select
-                                    id="discount_type"
-                                    name="discount_type"
-                                    value={formData.discount_type}
-                                    onChange={handleChange}
-                                >
-                                    <option value="fixed">Fixed</option>
-                                    <option value="percentage">Percentage</option>
-                                </select>
-                            </div>
-
-                            <Input
-                                label="Discount"
-                                name="discount_value"
-                                type="number"
-                                placeholder="0"
-                                value={formData.discount_value}
-                                onChange={handleChange}
-                            />
-                        </div>
-                    </div>
-
-                    //notes
-
-                    <div className="form-group quotation-notes">
-                        <label htmlFor="notes">
-                            Notes / Terms & Conditions
-                        </label>
-
-                        <textarea
-                            id="notes"
-                            name="notes"
-                            rows="4"
-                            placeholder="Enter notes or terms & conditions..."
-                            value={formData.notes}
-                            onChange={handleChange}
-                        />
-                    </div>
-
-                    <div className="quotation-summary">
-                        <div className="summary-row">
-                            <span>Subtotal</span>
-                            <strong>₹{quotationSubtotal.toFixed(2)}</strong>
-                        </div>
-
-                        <div className="summary-row">
-                            <span>Item Discount</span>
-                            <strong>- ₹{quotationDiscount.toFixed(2)}</strong>
-                        </div>
-
-                        <div className="summary-row">
-                            <span>GST / Tax</span>
-                            <strong>₹{quotationTax.toFixed(2)}</strong>
-                        </div>
-
-                        <div className="summary-row summary-total">
-                            <span>Grand Total</span>
-                            <strong>₹{finalQuotationTotal.toFixed(2)}</strong>
-                        </div>
-                    </div>
-
-                    <div className="form-actions">
-                        <Button
-                            variant="secondary"
-                            onClick={() => setShowForm(false)}
-                        >
-                            Cancel
-                        </Button>
-
-                        <Button type="button" onClick={handleSubmit}>
-                            Create Quotation
-                        </Button>
-                    </div>
-                </div>
-            )}
-
-            {!showForm && (
-                <>
-                    {quotations.length === 0 ? (
-                        <p>No quotations found.</p>
-                    ) : (
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Quotation No</th>
-                                    <th>Customer</th>
-                                    <th>Issue Date</th>
-                                    <th>Valid Until</th>
-                                    <th>Status</th>
-                                    <th>Total</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                {quotations.map((quotation) => (
-                                    <tr key={quotation.id}>
-                                        <td>
-                                            {quotation.quotation_number}
-                                        </td>
-
-                                        <td>
-                                            {quotation.customer_name}
-                                        </td>
-
-                                        <td>
-                                            {formatDate(quotation.issue_date)}
-                                        </td>
-
-                                        <td>
-                                            {formatDate(quotation.expiry_date)}
-                                        </td>
-
-                                        <td>
-                                            {quotation.status}
-                                        </td>
-
-                                        <td>
-                                            ₹
-                                            {Number(
-                                                quotation.total_amount
-                                            ).toFixed(2)}
-                                        </td>
-
-                                        <td>
-                                            <Button
-                                                onClick={() => navigate(`/quotations/${quotation.id}`)}
-                                            >
-                                                View
-                                            </Button>
-
-                                            <Button
-                                                variant="secondary"
-                                                onClick={() =>
-                                                    navigate(`/quotations/${quotation.id}/edit`)
-                                                }
-                                            >
-                                                Edit
-                                            </Button>
-
-                                            <Button
-                                                variant="secondary"
-                                                onClick={() =>
-                                                    handleDeleteQuotation(quotation.id)
-                                                }
-                                            >
-                                                Delete
-                                            </Button>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    )}
-                </>
-            )}
+          <Button onClick={() => setShowForm(true)}>+ Create Quotation</Button>
         </div>
+        {error && <p className="form-error">{error}</p>}
+        {showForm && (
+          <div className="card">
+            <h2>Create Quotation</h2>
+            <div className="form-grid">
+              <div className="form-group">
+                <label htmlFor="customer_id">Customer</label>
+
+                <select
+                  id="customer_id"
+                  name="customer_id"
+                  value={formData.customer_id}
+                  onChange={handleChange}
+                >
+                  <option value="">Select Customer</option>
+
+                  {customers.map((customer) => (
+                    <option key={customer.id} value={customer.id}>
+                      {customer.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <Input
+                label="Quotation Number"
+                name="quotation_number"
+                placeholder="e.g. QT-002"
+                value={formData.quotation_number}
+                onChange={handleChange}
+                required
+              />
+
+              <Input
+                label="Issue Date"
+                name="issue_date"
+                type="date"
+                value={formData.issue_date}
+                onChange={handleChange}
+                required
+              />
+
+              <Input
+                label="Valid Until"
+                name="valid_until"
+                type="date"
+                value={formData.valid_until}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="quotation-items">
+              <h3>Items</h3>
+
+              {items.map((item, index) => {
+                const selectedProduct = products.find(
+                  (product) => product.id === Number(item.product_id),
+                );
+
+                const price = Number(selectedProduct?.price) || 0;
+                const taxRate = Number(selectedProduct?.tax_rate) || 0;
+
+                const calculation = calculateItem(item);
+
+                return (
+                  <div className="quotation-item" key={index}>
+                    <div className="form-group">
+                      <label htmlFor={`product-${index}`}>
+                        Product / Service
+                      </label>
+
+                      <select
+                        id={`product-${index}`}
+                        value={item.product_id}
+                        onChange={(event) =>
+                          handleItemChange(
+                            index,
+                            "product_id",
+                            event.target.value,
+                          )
+                        }
+                      >
+                        <option value="">Select Product / Service</option>
+
+                        {products.map((product) => (
+                          <option key={product.id} value={product.id}>
+                            {product.name} - ₹{Number(product.price).toFixed(2)}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <Input
+                      label="Quantity"
+                      type="number"
+                      name={`quantity-${index}`}
+                      value={item.quantity}
+                      onChange={(event) =>
+                        handleItemChange(index, "quantity", event.target.value)
+                      }
+                    />
+
+                    <div className="form-group">
+                      <label htmlFor={`discount-type-${index}`}>
+                        Discount Type
+                      </label>
+
+                      <select
+                        id={`discount-type-${index}`}
+                        value={item.discount_type}
+                        onChange={(event) =>
+                          handleItemChange(
+                            index,
+                            "discount_type",
+                            event.target.value,
+                          )
+                        }
+                      >
+                        <option value="fixed">Fixed</option>
+                        <option value="percentage">Percentage</option>
+                      </select>
+                    </div>
+
+                    <Input
+                      label="Discount"
+                      type="number"
+                      name={`discount-${index}`}
+                      placeholder="0"
+                      value={item.discount_value}
+                      onChange={(event) =>
+                        handleItemChange(
+                          index,
+                          "discount_value",
+                          event.target.value,
+                        )
+                      }
+                    />
+
+                    <div className="form-group">
+                      <label>Unit Price</label>
+                      <input
+                        type="text"
+                        value={`₹${price.toFixed(2)}`}
+                        readOnly
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label>Line Total</label>
+                      <input
+                        type="text"
+                        value={`₹${calculation.total.toFixed(2)}`}
+                        readOnly
+                      />
+                    </div>
+
+                    {items.length > 1 && (
+                      <Button
+                        variant="secondary"
+                        onClick={() => {
+                          setItems((previousItems) =>
+                            previousItems.filter(
+                              (_, itemIndex) => itemIndex !== index,
+                            ),
+                          );
+                        }}
+                      >
+                        Remove
+                      </Button>
+                    )}
+                  </div>
+                );
+              })}
+
+              <Button type="button" onClick={addItem}>
+                + Add Item
+              </Button>
+            </div>
+            <div className="quotation-discount">
+              <h3>Quotation Discount</h3>
+
+              <div className="form-grid">
+                <div className="form-group">
+                  <label htmlFor="discount_type">Discount Type</label>
+
+                  <select
+                    id="discount_type"
+                    name="discount_type"
+                    value={formData.discount_type}
+                    onChange={handleChange}
+                  >
+                    <option value="fixed">Fixed</option>
+                    <option value="percentage">Percentage</option>
+                  </select>
+                </div>
+
+                <Input
+                  label="Discount"
+                  name="discount_value"
+                  type="number"
+                  placeholder="0"
+                  value={formData.discount_value}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            //notes
+            <div className="form-group quotation-notes">
+              <label htmlFor="notes">Notes / Terms & Conditions</label>
+
+              <textarea
+                id="notes"
+                name="notes"
+                rows="4"
+                placeholder="Enter notes or terms & conditions..."
+                value={formData.notes}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="quotation-summary">
+              <div className="summary-row">
+                <span>Subtotal</span>
+                <strong>₹{quotationSubtotal.toFixed(2)}</strong>
+              </div>
+
+              <div className="summary-row">
+                <span>Item Discount</span>
+                <strong>- ₹{quotationDiscount.toFixed(2)}</strong>
+              </div>
+
+              <div className="summary-row">
+                <span>GST / Tax</span>
+                <strong>₹{quotationTax.toFixed(2)}</strong>
+              </div>
+
+              <div className="summary-row summary-total">
+                <span>Grand Total</span>
+                <strong>₹{finalQuotationTotal.toFixed(2)}</strong>
+              </div>
+            </div>
+            <div className="form-actions">
+              <Button variant="secondary" onClick={() => setShowForm(false)}>
+                Cancel
+              </Button>
+
+              <Button type="button" onClick={handleSubmit}>
+                Create Quotation
+              </Button>
+            </div>
+          </div>
+        )}
+        {!showForm && (
+          <>
+            {quotations.length === 0 ? (
+              <p>No quotations found.</p>
+            ) : (
+              <table>
+                <thead>
+                  <tr>
+                    <th>Quotation No</th>
+                    <th>Customer</th>
+                    <th>Issue Date</th>
+                    <th>Valid Until</th>
+                    <th>Status</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {quotations.map((quotation) => (
+                    <tr key={quotation.id}>
+                      <td>{quotation.quotation_number}</td>
+
+                      <td>{quotation.customer_name}</td>
+
+                      <td>{formatDate(quotation.issue_date)}</td>
+
+                      <td>{formatDate(quotation.expiry_date)}</td>
+
+                      <td>
+                        <span
+                          className={`quotation-status quotation-status-${quotation.status}`}
+                        >
+                          {quotation.status}
+                        </span>
+                      </td>
+
+                      <td>₹{Number(quotation.total_amount).toFixed(2)}</td>
+
+                      <td>
+                        <Button
+                          onClick={() =>
+                            navigate(`/quotations/${quotation.id}`)
+                          }
+                        >
+                          View
+                        </Button>
+
+                        {quotation.status !== "accepted" && (
+                          <Button
+                            variant="secondary"
+                            onClick={() =>
+                              navigate(`/quotations/${quotation.id}/edit`)
+                            }
+                          >
+                            Edit
+                          </Button>
+                        )}
+
+                        <Button
+                          variant="secondary"
+                          onClick={() => handleDeleteQuotation(quotation.id)}
+                        >
+                          Delete
+                        </Button>
+                      </td>
+                    </tr>
+                  ))}
+                  ;
+                </tbody>
+              </table>
+            )}
+            ;
+          </>
+        )}
+        ;
+      </div>
     );
-}
+};
 
 export default Quotations;

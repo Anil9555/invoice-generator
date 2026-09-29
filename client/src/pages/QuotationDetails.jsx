@@ -134,226 +134,161 @@ function QuotationDetails() {
     }
 
     return (
-        <div className="invoice-preview-page">
+      <div className="invoice-preview-page">
+        <div className="page-header">
+          <h1>Quotation Preview</h1>
 
-            <div className="page-header">
-                <h1>Quotation Preview</h1>
+          <div>
+            <Button onClick={handleDownloadPDF}>Download PDF</Button>
 
-                <div>
-                    <Button onClick={handleDownloadPDF}>
-                        Download PDF
-                    </Button>
+            {quotation.status === "accepted" && quotation.invoice_id ? (
+              <Button
+                onClick={() => navigate(`/invoices/${quotation.invoice_id}`)}
+              >
+                View Invoice
+              </Button>
+            ) : quotation.status === "accepted" ? (
+              <Button onClick={handleConvertToInvoice}>
+                Convert to Invoice
+              </Button>
+            ) : (
+              <Button onClick={handleConvertToInvoice}>
+                Convert to Invoice
+              </Button>
+            )};
 
-                    <Button onClick={handleConvertToInvoice}>
-                        Convert to Invoice
-                    </Button>
-
-                    <Button
-                        variant="secondary"
-                        onClick={() => navigate("/quotations")}
-                    >
-                        Back
-                    </Button>
-                </div>
-            </div>
-
-            <div className="invoice-preview">
-
-                {/* Header */}
-                <div className="invoice-header">
-                    <div>
-                        <h1>InvoicePro</h1>
-                        <p>Invoice & Quotation Generator</p>
-                    </div>
-
-                    <div>
-                        <h2>QUOTATION</h2>
-                        <p>
-                            <strong>
-                                #{quotation.quotation_number}
-                            </strong>
-                        </p>
-                    </div>
-                </div>
-
-                {/* Customer & Quotation Info */}
-                <div className="invoice-info">
-
-                    <div>
-                        <h3>Prepared For</h3>
-
-                        <p>
-                            <strong>
-                                {quotation.customer_name}
-                            </strong>
-                        </p>
-
-                        <p>
-                            {quotation.customer_email || "-"}
-                        </p>
-
-                        <p>
-                            {quotation.customer_phone || "-"}
-                        </p>
-                    </div>
-
-                    <div>
-                        <p>
-                            <strong>Issue Date:</strong>{" "}
-                            {quotation.issue_date}
-                        </p>
-
-                        <p>
-                            <strong>Valid Until:</strong>{" "}
-                            {quotation.valid_until || "-"}
-                        </p>
-
-                        <p>
-                            <strong>Status:</strong>{" "}
-                            {quotation.status}
-                        </p>
-                    </div>
-
-                </div>
-
-                {/* Items */}
-                <div className="invoice-items">
-
-                    <h3>Items</h3>
-
-                    {quotation.items?.length > 0 ? (
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Item</th>
-                                    <th>Qty</th>
-                                    <th>Unit Price</th>
-                                    <th>Discount</th>
-                                    <th>Tax</th>
-                                    <th>Total</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                {quotation.items.map((item) => (
-                                    <tr key={item.id}>
-
-                                        <td>
-                                            <strong>
-                                                {item.name}
-                                            </strong>
-
-                                            {item.description && (
-                                                <div>
-                                                    {item.description}
-                                                </div>
-                                            )}
-                                        </td>
-
-                                        <td>
-                                            {item.quantity}
-                                        </td>
-
-                                        <td>
-                                            ₹
-                                            {Number(
-                                                item.unit_price
-                                            ).toFixed(2)}
-                                        </td>
-
-                                        <td>
-                                            ₹
-                                            {Number(
-                                                item.discount_amount
-                                            ).toFixed(2)}
-                                        </td>
-
-                                        <td>
-                                            ₹
-                                            {Number(
-                                                item.tax_amount
-                                            ).toFixed(2)}
-                                        </td>
-
-                                        <td>
-                                            ₹
-                                            {Number(
-                                                item.line_total
-                                            ).toFixed(2)}
-                                        </td>
-
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    ) : (
-                        <p>No items found.</p>
-                    )}
-
-                </div>
-
-                {/* Summary */}
-                <div className="invoice-summary">
-
-                    <div>
-                        <span>Subtotal</span>
-
-                        <strong>
-                            ₹
-                            {Number(
-                                quotation.subtotal
-                            ).toFixed(2)}
-                        </strong>
-                    </div>
-
-                    <div>
-                        <span>Discount</span>
-
-                        <strong>
-                            ₹
-                            {Number(
-                                quotation.discount_amount
-                            ).toFixed(2)}
-                        </strong>
-                    </div>
-
-                    <div>
-                        <span>Tax</span>
-
-                        <strong>
-                            ₹
-                            {Number(
-                                quotation.tax_amount
-                            ).toFixed(2)}
-                        </strong>
-                    </div>
-
-                    <div className="invoice-total">
-                        <span>Total</span>
-
-                        <strong>
-                            ₹
-                            {Number(
-                                quotation.total_amount
-                            ).toFixed(2)}
-                        </strong>
-                    </div>
-
-                </div>
-
-                {/* Notes */}
-                {quotation.notes && (
-                    <div className="invoice-notes">
-                        <h3>Notes</h3>
-
-                        <p>
-                            {quotation.notes}
-                        </p>
-                    </div>
-                )}
-
-            </div>
+            <Button variant="secondary" onClick={() => navigate("/quotations")}>
+              Back
+            </Button>
+          </div>
         </div>
+
+        <div className="invoice-preview">
+          {/* Header */}
+          <div className="invoice-header">
+            <div>
+              <h1>InvoicePro</h1>
+              <p>Invoice & Quotation Generator</p>
+            </div>
+
+            <div>
+              <h2>QUOTATION</h2>
+              <p>
+                <strong>#{quotation.quotation_number}</strong>
+              </p>
+            </div>
+          </div>
+
+          {/* Customer & Quotation Info */}
+          <div className="invoice-info">
+            <div>
+              <h3>Prepared For</h3>
+
+              <p>
+                <strong>{quotation.customer_name}</strong>
+              </p>
+
+              <p>{quotation.customer_email || "-"}</p>
+
+              <p>{quotation.customer_phone || "-"}</p>
+            </div>
+
+            <div>
+              <p>
+                <strong>Issue Date:</strong> {quotation.issue_date}
+              </p>
+
+              <p>
+                <strong>Valid Until:</strong> {quotation.valid_until || "-"}
+              </p>
+
+              <p>
+                <strong>Status:</strong> {quotation.status}
+              </p>
+            </div>
+          </div>
+
+          {/* Items */}
+          <div className="invoice-items">
+            <h3>Items</h3>
+
+            {quotation.items?.length > 0 ? (
+              <table>
+                <thead>
+                  <tr>
+                    <th>Item</th>
+                    <th>Qty</th>
+                    <th>Unit Price</th>
+                    <th>Discount</th>
+                    <th>Tax</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {quotation.items.map((item) => (
+                    <tr key={item.id}>
+                      <td>
+                        <strong>{item.name}</strong>
+
+                        {item.description && <div>{item.description}</div>}
+                      </td>
+
+                      <td>{item.quantity}</td>
+
+                      <td>₹{Number(item.unit_price).toFixed(2)}</td>
+
+                      <td>₹{Number(item.discount_amount).toFixed(2)}</td>
+
+                      <td>₹{Number(item.tax_amount).toFixed(2)}</td>
+
+                      <td>₹{Number(item.line_total).toFixed(2)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p>No items found.</p>
+            )}
+          </div>
+
+          {/* Summary */}
+          <div className="invoice-summary">
+            <div>
+              <span>Subtotal</span>
+
+              <strong>₹{Number(quotation.subtotal).toFixed(2)}</strong>
+            </div>
+
+            <div>
+              <span>Discount</span>
+
+              <strong>₹{Number(quotation.discount_amount).toFixed(2)}</strong>
+            </div>
+
+            <div>
+              <span>Tax</span>
+
+              <strong>₹{Number(quotation.tax_amount).toFixed(2)}</strong>
+            </div>
+
+            <div className="invoice-total">
+              <span>Total</span>
+
+              <strong>₹{Number(quotation.total_amount).toFixed(2)}</strong>
+            </div>
+          </div>
+
+          {/* Notes */}
+          {quotation.notes && (
+            <div className="invoice-notes">
+              <h3>Notes</h3>
+
+              <p>{quotation.notes}</p>
+            </div>
+          )}
+        </div>
+      </div>
     );
 }
 

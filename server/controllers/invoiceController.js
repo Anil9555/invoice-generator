@@ -444,15 +444,22 @@ const createInvoice = async (req, res) => {
         });
 
     } catch (error) {
-        // Undo all database changes if anything fails
         await connection.rollback();
 
         console.error("Create invoice error:", error);
 
-        res.status(500).json({
+        if (error.code === "ER_DUP_ENTRY") {
+            return res.status(409).json({
+                success: false,
+                message: "Invoice number already exists. Please use a different invoice number.",
+            });
+        }
+
+        return res.status(500).json({
             success: false,
             message: error.message || "Failed to create invoice",
         });
+    
 
     } finally {
         connection.release();
@@ -904,7 +911,7 @@ const updatePaymentStatus = async (req, res) => {
 
             return res.status(400).json({
                 success: false,
-                message: "Payment cannot be greater than remaining amount",
+                message: "Payment amount cannot exceed the remaining balance",
             });
         }
 

@@ -3,6 +3,8 @@ const express = require("express");
 const db = require("./config/db");
 const cors = require("cors");
 
+const dashboardRoutes = require("./routes/dashboardRoutes");
+
 const customerRoutes = require("./routes/customerRoutes");
 
 const productRoutes = require("./routes/productRoutes");
@@ -25,6 +27,7 @@ app.use("/api/customers", customerRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/invoices", invoiceRoutes);
 app.use("/api/quotations", quotationRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
 app.get("/api/test", (req, res) => {
     res.json({

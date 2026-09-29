@@ -10,12 +10,14 @@ import Dashboard from "./pages/Dashboard";
 import Customers from "./pages/Customers";
 import Products from "./pages/Products";
 import Invoices from "./pages/Invoices";
+import CreateInvoice from "./pages/CreateInvoice";
 import Quotations from "./pages/Quotations";
 import QuotationDetails from "./pages/QuotationDetails";
 import EditQuotation from "./pages/EditQuotation";
 import { Navigate } from "react-router-dom";
 import InvoiceDetails from "./pages/InvoiceDetails";
 import EditInvoice from "./pages/EditInvoice";
+
 
 
 import DashboardLayout from "./layouts/DashboardLayout";
@@ -40,7 +42,9 @@ function App() {
             <Route path="/customers" element={<Customers />} />
             <Route path="/products" element={<Products />} />
             <Route path="/invoices" element={<Invoices />} />
+            <Route path="/invoices/new" element={<CreateInvoice />} />
             <Route path="/invoices/:id" element={<InvoiceDetails />} />
+            
             <Route path="/quotations" element={<Quotations />} />
             <Route path="/quotations/:id/edit" element={<EditQuotation />} />
             <Route

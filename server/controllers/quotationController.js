@@ -49,7 +49,7 @@ const getQuotationById = async (req, res) => {
         const { id } = req.params;
 
         const [quotations] = await db.query(
-            `
+          `
             SELECT
                 q.id,
                 q.customer_id,
@@ -70,12 +70,17 @@ const getQuotationById = async (req, res) => {
                 q.notes,
                 q.terms_and_conditions,
                 q.created_at,
-                q.updated_at
+                q.updated_at,
+                i.id AS invoice_id,
+                i.invoice_number
             FROM quotations q
             JOIN customers c ON q.customer_id = c.id
+            LEFT JOIN invoices i
+                ON i.quotation_id = q.id
+                AND i.user_id = q.user_id
             WHERE q.id = ? AND q.user_id = ?
             `,
-            [id, req.user.id]
+          [id, req.user.id],
         );
 
         if (quotations.length === 0) {
@@ -511,12 +516,12 @@ const updateQuotation = async (req, res) => {
         }
 
         const [existingQuotation] = await connection.query(
-            `
-            SELECT id
+          `
+            SELECT id, status
             FROM quotations
             WHERE id = ? AND user_id = ?
             `,
-            [id, req.user.id]
+          [id, req.user.id],
         );
 
         if (existingQuotation.length === 0) {
@@ -524,6 +529,16 @@ const updateQuotation = async (req, res) => {
                 success: false,
                 message: "Quotation not found",
             });
+        }
+
+
+        const existingQuotationData = existingQuotation[0];
+
+        if (existingQuotationData.status === "accepted") {
+          return res.status(400).json({
+            success: false,
+            message: "Converted quotation cannot be edited",
+          });
         }
 
         await connection.beginTransaction();
@@ -925,6 +940,7 @@ const convertQuotationToInvoice = async (req, res) => {
             (
                 user_id,
                 customer_id,
+                quotation_id,
                 invoice_number,
                 issue_date,
                 due_date,
@@ -940,10 +956,11 @@ const convertQuotationToInvoice = async (req, res) => {
                 currency,
                 notes
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
             [
                 req.user.id,
                 quotation.customer_id,
+                quotation.id,
                 invoiceNumber,
                 quotation.issue_date,
                 quotation.valid_until,
