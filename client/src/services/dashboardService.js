@@ -1,5 +1,9 @@
 import apiRequest from "./api";
 
-export const getDashboardSummary = async () => {
-    return apiRequest("/dashboard/summary");
+export const getDashboardSummary = async (query = "") => {
+  const url = query
+  ? `/dashboard/summary?${query}`
+  : "/dashboard/summary";
+
+  return apiRequest(url);
 };

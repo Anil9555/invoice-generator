@@ -12,6 +12,7 @@ import Products from "./pages/Products";
 import Invoices from "./pages/Invoices";
 import CreateInvoice from "./pages/CreateInvoice";
 import Quotations from "./pages/Quotations";
+import Reports from "./pages/Reports";
 import QuotationDetails from "./pages/QuotationDetails";
 import EditQuotation from "./pages/EditQuotation";
 import { Navigate } from "react-router-dom";
@@ -44,17 +45,14 @@ function App() {
             <Route path="/invoices" element={<Invoices />} />
             <Route path="/invoices/new" element={<CreateInvoice />} />
             <Route path="/invoices/:id" element={<InvoiceDetails />} />
-            
+
             <Route path="/quotations" element={<Quotations />} />
+            <Route path="/reports" element={<Reports />} />
             <Route path="/quotations/:id/edit" element={<EditQuotation />} />
-            <Route
-              path="/quotations/:id"
-              element={<QuotationDetails />}
-            />
+            <Route path="/quotations/:id" element={<QuotationDetails />} />
             <Route path="/invoices/:id/edit" element={<EditInvoice />} />
           </Route>
         </Route>
-
       </Routes>
     </BrowserRouter>
   );

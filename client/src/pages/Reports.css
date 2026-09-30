@@ -1,0 +1,1969 @@
+/* =========================================================
+   InvoicePro — Reports
+   Modern, clean, responsive reporting UI
+========================================================= */
+
+.reports-page {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 32px;
+    box-sizing: border-box;
+}
+
+/* =========================================================
+   Header
+========================================================= */
+
+.reports-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 28px;
+}
+
+.reports-header h1 {
+    margin: 0;
+    color: #111827;
+    font-size: 30px;
+    font-weight: 750;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+}
+
+.reports-header p {
+    margin: 8px 0 0;
+    max-width: 650px;
+    color: #6b7280;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* =========================================================
+   Summary Cards
+========================================================= */
+
+.reports-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 28px;
+}
+
+.reports-summary-card {
+    position: relative;
+    min-width: 0;
+    padding: 22px;
+    overflow: hidden;
+
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+
+    box-shadow:
+        0 2px 5px rgba(15, 23, 42, 0.03),
+        0 8px 24px rgba(15, 23, 42, 0.04);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+/* Decorative accent */
+
+.reports-summary-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background: linear-gradient(90deg,
+            #2563eb,
+            #60a5fa);
+
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+/* Soft background glow */
+
+.reports-summary-card::after {
+    content: "";
+    position: absolute;
+    right: -45px;
+    bottom: -45px;
+
+    width: 120px;
+    height: 120px;
+
+    border-radius: 50%;
+    background: rgba(37, 99, 235, 0.05);
+
+    pointer-events: none;
+}
+
+/* Hover */
+
+.reports-summary-card:hover {
+    transform: translateY(-4px);
+
+    border-color: #dbeafe;
+
+    box-shadow:
+        0 8px 18px rgba(15, 23, 42, 0.06),
+        0 18px 36px rgba(37, 99, 235, 0.08);
+}
+
+.reports-summary-card:hover::before {
+    opacity: 1;
+}
+
+/* =========================================================
+   Card Text
+========================================================= */
+
+.reports-summary-label {
+    position: relative;
+    z-index: 1;
+
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: #6b7280;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.reports-summary-value {
+    position: relative;
+    z-index: 1;
+
+    display: block;
+
+    color: #111827;
+    font-size: 26px;
+    font-weight: 750;
+    line-height: 1.2;
+    letter-spacing: -0.4px;
+
+    transition: color 0.2s ease;
+}
+
+.reports-summary-card:hover .reports-summary-value {
+    color: #2563eb;
+}
+
+/* =========================================================
+   Individual Card Colors
+========================================================= */
+
+/* Revenue */
+
+.reports-summary-card:nth-child(1)::before {
+    background: linear-gradient(90deg,
+            #2563eb,
+            #60a5fa);
+}
+
+.reports-summary-card:nth-child(1)::after {
+    background: rgba(37, 99, 235, 0.06);
+}
+
+/* Total invoices */
+
+.reports-summary-card:nth-child(2)::before {
+    background: linear-gradient(90deg,
+            #7c3aed,
+            #a78bfa);
+}
+
+.reports-summary-card:nth-child(2)::after {
+    background: rgba(124, 58, 237, 0.06);
+}
+
+/* Paid */
+
+.reports-summary-card:nth-child(3)::before {
+    background: linear-gradient(90deg,
+            #059669,
+            #34d399);
+}
+
+.reports-summary-card:nth-child(3)::after {
+    background: rgba(5, 150, 105, 0.06);
+}
+
+/* Pending */
+
+.reports-summary-card:nth-child(4)::before {
+    background: linear-gradient(90deg,
+            #d97706,
+            #fbbf24);
+}
+
+.reports-summary-card:nth-child(4)::after {
+    background: rgba(217, 119, 6, 0.06);
+}
+
+/* Quotations */
+
+.reports-summary-card:nth-child(5)::before {
+    background: linear-gradient(90deg,
+            #0891b2,
+            #22d3ee);
+}
+
+.reports-summary-card:nth-child(5)::after {
+    background: rgba(8, 145, 178, 0.06);
+}
+
+/* Customers */
+
+.reports-summary-card:nth-child(6)::before {
+    background: linear-gradient(90deg,
+            #db2777,
+            #f472b6);
+}
+
+.reports-summary-card:nth-child(6)::after {
+    background: rgba(219, 39, 119, 0.06);
+}
+
+/* =========================================================
+   General Report Content
+========================================================= */
+
+.reports-content {
+    width: 100%;
+    min-height: 120px;
+
+    padding: 24px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+
+    box-shadow:
+        0 2px 5px rgba(15, 23, 42, 0.03),
+        0 8px 24px rgba(15, 23, 42, 0.04);
+
+    box-sizing: border-box;
+}
+
+.reports-content p {
+    margin: 0;
+
+    color: #6b7280;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* =========================================================
+   Loading / Error State
+========================================================= */
+
+.reports-content p:only-child {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 100px;
+
+    text-align: center;
+}
+
+/* =========================================================
+   Focus Accessibility
+========================================================= */
+
+.reports-summary-card:focus-within {
+    outline: 3px solid rgba(37, 99, 235, 0.12);
+    outline-offset: 2px;
+}
+
+/* =========================================================
+   Tablet
+========================================================= */
+
+@media (max-width: 1000px) {
+    .reports-page {
+        padding: 26px;
+    }
+
+    .reports-summary-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* =========================================================
+   Mobile
+========================================================= */
+
+@media (max-width: 600px) {
+    .reports-page {
+        padding: 20px 16px;
+    }
+
+    .reports-header {
+        margin-bottom: 22px;
+    }
+
+    .reports-header h1 {
+        font-size: 25px;
+        letter-spacing: -0.3px;
+    }
+
+    .reports-header p {
+        font-size: 13px;
+    }
+
+    .reports-summary-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        margin-bottom: 20px;
+    }
+
+    .reports-summary-card {
+        padding: 20px;
+        border-radius: 12px;
+    }
+
+    .reports-summary-card:hover {
+        transform: translateY(-2px);
+    }
+
+    .reports-summary-value {
+        font-size: 23px;
+    }
+
+    .reports-content {
+        padding: 18px;
+        border-radius: 12px;
+    }
+}
+
+/* =========================================================
+   Small Mobile
+========================================================= */
+
+@media (max-width: 400px) {
+    .reports-page {
+        padding: 16px 12px;
+    }
+
+    .reports-header h1 {
+        font-size: 22px;
+    }
+
+    .reports-header p {
+        font-size: 12px;
+    }
+
+    .reports-summary-card {
+        padding: 18px;
+    }
+
+    .reports-summary-label {
+        font-size: 12px;
+    }
+
+    .reports-summary-value {
+        font-size: 21px;
+    }
+}
+
+/* =========================================================
+   Reduced Motion
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .reports-summary-card,
+    .reports-summary-card::before,
+    .reports-summary-card .reports-summary-value {
+        transition: none;
+    }
+
+    .reports-summary-card:hover {
+        transform: none;
+    }
+}
+
+
+/* =========================================================
+   Invoice Status Section
+========================================================= */
+
+.reports-section {
+    width: 100%;
+    margin-bottom: 28px;
+    padding: 24px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+
+    box-shadow:
+        0 2px 5px rgba(15, 23, 42, 0.03),
+        0 8px 24px rgba(15, 23, 42, 0.04);
+
+    box-sizing: border-box;
+}
+
+.reports-section-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 16px;
+
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+
+    border-bottom: 1px solid #eef0f3;
+}
+
+.reports-section-header h2 {
+    margin: 0;
+
+    color: #111827;
+
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.reports-section-header p {
+    margin: 5px 0 0;
+
+    color: #6b7280;
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* =========================================================
+   Status Grid
+========================================================= */
+
+.reports-status-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 14px;
+}
+
+.reports-status-card {
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    min-width: 0;
+
+    padding: 16px;
+
+    border: 1px solid;
+    border-radius: 11px;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.reports-status-card:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 8px 18px rgba(15, 23, 42, 0.07);
+}
+
+.reports-status-dot {
+    flex-shrink: 0;
+
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+}
+
+/* =========================================================
+   Status Content
+========================================================= */
+
+.reports-status-card>div {
+    min-width: 0;
+}
+
+.reports-status-label {
+    display: block;
+
+    margin-bottom: 5px;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.reports-status-card strong {
+    display: block;
+
+    font-size: 22px;
+    font-weight: 750;
+
+    line-height: 1.2;
+}
+
+/* =========================================================
+   Pending
+========================================================= */
+
+.reports-status-pending {
+    background: #fff7ed;
+    border-color: #fed7aa;
+    color: #c2410c;
+}
+
+.reports-status-pending .reports-status-dot {
+    background: #f97316;
+}
+
+/* =========================================================
+   Partially Paid
+========================================================= */
+
+.reports-status-partial {
+    background: #eff6ff;
+    border-color: #bfdbfe;
+    color: #2563eb;
+}
+
+.reports-status-partial .reports-status-dot {
+    background: #3b82f6;
+}
+
+/* =========================================================
+   Paid
+========================================================= */
+
+.reports-status-paid {
+    background: #ecfdf3;
+    border-color: #bbf7d0;
+    color: #15803d;
+}
+
+.reports-status-paid .reports-status-dot {
+    background: #22c55e;
+}
+
+/* =========================================================
+   Overdue
+========================================================= */
+
+.reports-status-overdue {
+    background: #fef2f2;
+    border-color: #fecaca;
+    color: #dc2626;
+}
+
+.reports-status-overdue .reports-status-dot {
+    background: #ef4444;
+}
+
+/* =========================================================
+   Responsive
+========================================================= */
+
+@media (max-width: 1000px) {
+    .reports-status-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .reports-section {
+        padding: 18px;
+        border-radius: 12px;
+    }
+
+    .reports-section-header h2 {
+        font-size: 16px;
+    }
+
+    .reports-section-header p {
+        font-size: 12px;
+    }
+
+    .reports-status-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .reports-status-card {
+        padding: 15px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reports-status-card {
+        transition: none;
+    }
+
+    .reports-status-card:hover {
+        transform: none;
+    }
+}
+
+
+/* =========================================
+   REVENUE TREND
+========================================= */
+
+.reports-revenue-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+.reports-revenue-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    min-height: 58px;
+    padding: 14px 4px;
+    border-bottom: 1px solid #eef0f3;
+    transition:
+        background-color 0.2s ease,
+        padding 0.2s ease;
+}
+
+.reports-revenue-row:last-child {
+    border-bottom: none;
+}
+
+.reports-revenue-row:hover {
+    background: #f8fafc;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 8px;
+}
+
+.reports-revenue-row span {
+    position: relative;
+    padding-left: 18px;
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+}
+
+.reports-revenue-row span::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #6366f1;
+    transform: translateY(-50%);
+}
+
+.reports-revenue-row strong {
+    color: #111827;
+    font-size: 15px;
+    font-weight: 750;
+    white-space: nowrap;
+    letter-spacing: -0.01em;
+}
+
+.reports-empty {
+    margin: 0;
+    padding: 32px 16px;
+    color: #94a3b8;
+    font-size: 13px;
+    text-align: center;
+    background: #f8fafc;
+    border: 1px dashed #dbe1e8;
+    border-radius: 10px;
+}
+
+
+/* =========================================
+   REVENUE TREND RESPONSIVE
+========================================= */
+
+@media (max-width: 600px) {
+    .reports-revenue-row {
+        min-height: 54px;
+        gap: 12px;
+        padding: 13px 2px;
+    }
+
+    .reports-revenue-row:hover {
+        padding-left: 6px;
+        padding-right: 6px;
+    }
+
+    .reports-revenue-row span {
+        font-size: 12px;
+    }
+
+    .reports-revenue-row strong {
+        font-size: 14px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reports-revenue-row {
+        transition: none;
+    }
+
+    .reports-revenue-row:hover {
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+}
+
+
+ /* =========================================
+    TOP CUSTOMERS
+ ========================================= */
+
+ .reports-customers-list {
+     display: flex;
+     flex-direction: column;
+     width: 100%;
+     overflow: hidden;
+ }
+
+ .reports-customer-row {
+     display: flex;
+     align-items: center;
+     gap: 16px;
+     min-height: 68px;
+     padding: 12px 4px;
+     border-bottom: 1px solid #eef0f3;
+     transition:
+         background-color 0.2s ease,
+         transform 0.2s ease,
+         padding 0.2s ease;
+ }
+
+ .reports-customer-row:last-child {
+     border-bottom: none;
+ }
+
+ .reports-customer-row:hover {
+     padding-left: 10px;
+     padding-right: 10px;
+     background: #f8fafc;
+     border-radius: 9px;
+ }
+
+
+ /* Rank */
+
+ .reports-customer-rank {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     flex-shrink: 0;
+     width: 34px;
+     height: 34px;
+     border: 1px solid #e2e8f0;
+     border-radius: 9px;
+     background: #f8fafc;
+     color: #475569;
+     font-size: 13px;
+     font-weight: 750;
+ }
+
+
+ /* Customer information */
+
+ .reports-customer-info {
+     display: flex;
+     flex-direction: column;
+     flex: 1;
+     min-width: 0;
+     gap: 4px;
+ }
+
+ .reports-customer-info strong {
+     overflow: hidden;
+     color: #111827;
+     font-size: 14px;
+     font-weight: 700;
+     line-height: 1.4;
+     text-overflow: ellipsis;
+     white-space: nowrap;
+ }
+
+ .reports-customer-info span {
+     color: #94a3b8;
+     font-size: 11px;
+     font-weight: 500;
+ }
+
+
+ /* Revenue amount */
+
+ .reports-customer-amount {
+     flex-shrink: 0;
+     color: #111827;
+     font-size: 14px;
+     font-weight: 750;
+     white-space: nowrap;
+ }
+
+
+ /* Highlight top customer */
+
+ .reports-customer-row:first-child .reports-customer-rank {
+     border-color: #c7d2fe;
+     background: #eef2ff;
+     color: #4f46e5;
+ }
+
+
+ /* =========================================
+   TOP CUSTOMERS - PREMIUM HOVER UI
+========================================= */
+
+ .reports-customers-list {
+     display: flex;
+     flex-direction: column;
+     gap: 10px;
+     width: 100%;
+ }
+
+
+ /* Customer Row */
+
+ .reports-customer-row {
+     position: relative;
+     display: flex;
+     align-items: center;
+     gap: 16px;
+     min-height: 70px;
+     padding: 13px 16px;
+     overflow: hidden;
+
+     background: #ffffff;
+     border: 1px solid #edf0f4;
+     border-radius: 12px;
+
+     box-shadow:
+         0 1px 2px rgba(15, 23, 42, 0.02);
+
+     cursor: default;
+
+     transition:
+         transform 0.25s ease,
+         border-color 0.25s ease,
+         box-shadow 0.25s ease,
+         background-color 0.25s ease;
+ }
+
+
+ /* Left Accent */
+
+ .reports-customer-row::before {
+     content: "";
+     position: absolute;
+     left: 0;
+     top: 12px;
+     bottom: 12px;
+
+     width: 3px;
+     border-radius: 0 4px 4px 0;
+
+     background: #6366f1;
+
+     transform: scaleY(0);
+     transform-origin: center;
+
+     transition: transform 0.25s ease;
+ }
+
+
+ /* Soft hover background */
+
+ .reports-customer-row::after {
+     content: "";
+     position: absolute;
+     inset: 0;
+
+     background: linear-gradient(90deg,
+             rgba(99, 102, 241, 0.035),
+             transparent 55%);
+
+     opacity: 0;
+
+     pointer-events: none;
+
+     transition: opacity 0.25s ease;
+ }
+
+
+ /* Main Hover */
+
+ .reports-customer-row:hover {
+     transform: translateY(-4px);
+
+     background: #ffffff;
+
+     border-color: #d9ddff;
+
+     box-shadow:
+         0 4px 8px rgba(15, 23, 42, 0.04),
+         0 12px 28px rgba(79, 70, 229, 0.10);
+ }
+
+
+ /* Accent appears */
+
+ .reports-customer-row:hover::before {
+     transform: scaleY(1);
+ }
+
+ .reports-customer-row:hover::after {
+     opacity: 1;
+ }
+
+
+ /* =========================================
+   RANK
+========================================= */
+
+ .reports-customer-rank {
+     position: relative;
+     z-index: 1;
+
+     display: flex;
+     align-items: center;
+     justify-content: center;
+
+     flex-shrink: 0;
+
+     width: 36px;
+     height: 36px;
+
+     border: 1px solid #e2e8f0;
+     border-radius: 10px;
+
+     background: #f8fafc;
+
+     color: #64748b;
+
+     font-size: 12px;
+     font-weight: 750;
+
+     transition:
+         transform 0.25s ease,
+         background-color 0.25s ease,
+         border-color 0.25s ease,
+         color 0.25s ease,
+         box-shadow 0.25s ease;
+ }
+
+
+ .reports-customer-row:hover .reports-customer-rank {
+     transform: scale(1.08);
+
+     background: #eef2ff;
+     border-color: #c7d2fe;
+
+     color: #4f46e5;
+
+     box-shadow:
+         0 4px 10px rgba(79, 70, 229, 0.12);
+ }
+
+
+ /* First Rank */
+
+ .reports-customer-row:first-child .reports-customer-rank {
+     background: linear-gradient(135deg,
+             #eef2ff,
+             #e0e7ff);
+
+     border-color: #c7d2fe;
+
+     color: #4338ca;
+
+     box-shadow:
+         0 2px 6px rgba(79, 70, 229, 0.08);
+ }
+
+
+ /* =========================================
+   CUSTOMER INFO
+========================================= */
+
+ .reports-customer-info {
+     position: relative;
+     z-index: 1;
+
+     display: flex;
+     flex-direction: column;
+
+     flex: 1;
+     min-width: 0;
+
+     gap: 4px;
+ }
+
+
+ .reports-customer-info strong {
+     overflow: hidden;
+
+     color: #111827;
+
+     font-size: 14px;
+     font-weight: 700;
+     line-height: 1.4;
+
+     text-overflow: ellipsis;
+     white-space: nowrap;
+
+     transition:
+         color 0.2s ease,
+         transform 0.2s ease;
+ }
+
+
+ .reports-customer-row:hover .reports-customer-info strong {
+     color: #4f46e5;
+     transform: translateX(2px);
+ }
+
+
+ .reports-customer-info span {
+     color: #94a3b8;
+
+     font-size: 11px;
+     font-weight: 500;
+
+     transition: color 0.2s ease;
+ }
+
+
+ .reports-customer-row:hover .reports-customer-info span {
+     color: #64748b;
+ }
+
+
+ /* =========================================
+   REVENUE AMOUNT
+========================================= */
+
+ .reports-customer-amount {
+     position: relative;
+     z-index: 1;
+
+     flex-shrink: 0;
+
+     padding: 7px 11px;
+
+     border-radius: 8px;
+
+     background: #f8fafc;
+
+     color: #111827;
+
+     font-size: 13px;
+     font-weight: 750;
+
+     white-space: nowrap;
+
+     transition:
+         transform 0.25s ease,
+         background-color 0.25s ease,
+         color 0.25s ease,
+         box-shadow 0.25s ease;
+ }
+
+
+ .reports-customer-row:hover .reports-customer-amount {
+     transform: translateX(-2px);
+
+     background: #eef2ff;
+
+     color: #4338ca;
+
+     box-shadow:
+         0 3px 8px rgba(79, 70, 229, 0.10);
+ }
+
+
+ /* =========================================
+   MOBILE
+========================================= */
+
+ @media (max-width: 600px) {
+
+     .reports-customers-list {
+         gap: 8px;
+     }
+
+     .reports-customer-row {
+         gap: 11px;
+         min-height: 64px;
+         padding: 11px 12px;
+         border-radius: 10px;
+     }
+
+     .reports-customer-row::before {
+         top: 10px;
+         bottom: 10px;
+     }
+
+     .reports-customer-rank {
+         width: 32px;
+         height: 32px;
+         border-radius: 9px;
+         font-size: 11px;
+     }
+
+     .reports-customer-info strong {
+         font-size: 13px;
+     }
+
+     .reports-customer-info span {
+         font-size: 10px;
+     }
+
+     .reports-customer-amount {
+         padding: 6px 8px;
+         font-size: 12px;
+     }
+
+     .reports-customer-row:hover {
+         transform: translateY(-2px);
+     }
+ }
+
+
+ /* =========================================
+   REDUCED MOTION
+========================================= */
+
+ @media (prefers-reduced-motion: reduce) {
+
+     .reports-customer-row,
+     .reports-customer-row::before,
+     .reports-customer-row::after,
+     .reports-customer-rank,
+     .reports-customer-info strong,
+     .reports-customer-info span,
+     .reports-customer-amount {
+         transition: none;
+     }
+
+     .reports-customer-row:hover {
+         transform: none;
+     }
+ }
+
+
+ /* =========================================
+   PAYMENT FOLLOW-UP
+========================================= */
+
+ .reports-payment-grid {
+     display: grid;
+     grid-template-columns: repeat(2, minmax(0, 1fr));
+     gap: 18px;
+ }
+
+
+ /* =========================================
+   PAYMENT COLUMN
+========================================= */
+
+ .reports-payment-column {
+     position: relative;
+     overflow: hidden;
+
+     background: #ffffff;
+     border: 1px solid #e8ebf0;
+     border-radius: 14px;
+
+     box-shadow:
+         0 2px 5px rgba(15, 23, 42, 0.025),
+         0 8px 24px rgba(15, 23, 42, 0.035);
+
+     transition:
+         transform 0.25s ease,
+         box-shadow 0.25s ease,
+         border-color 0.25s ease;
+ }
+
+ .reports-payment-column:hover {
+     transform: translateY(-3px);
+
+     border-color: #dfe3ea;
+
+     box-shadow:
+         0 5px 10px rgba(15, 23, 42, 0.04),
+         0 16px 34px rgba(15, 23, 42, 0.07);
+ }
+
+
+ /* =========================================
+   COLUMN HEADER
+========================================= */
+
+ .reports-payment-column-header {
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+
+     gap: 16px;
+
+     padding: 18px 20px;
+
+     border-bottom: 1px solid #eef0f3;
+ }
+
+ .reports-payment-column-header>div {
+     min-width: 0;
+ }
+
+ .reports-payment-column-header h3 {
+     margin: 0;
+
+     color: #111827;
+
+     font-size: 15px;
+     font-weight: 750;
+     line-height: 1.4;
+ }
+
+ .reports-payment-column-header span:not(.reports-payment-count) {
+     display: block;
+
+     margin-top: 4px;
+
+     color: #94a3b8;
+
+     font-size: 11px;
+     font-weight: 500;
+ }
+
+
+ /* =========================================
+   COUNT BADGE
+========================================= */
+
+ .reports-payment-count {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+
+     flex-shrink: 0;
+
+     min-width: 30px;
+     height: 30px;
+
+     padding: 0 9px;
+
+     border-radius: 9px;
+
+     font-size: 12px;
+     font-weight: 750;
+
+     transition:
+         transform 0.2s ease,
+         box-shadow 0.2s ease;
+ }
+
+ .reports-payment-column:hover .reports-payment-count {
+     transform: scale(1.08);
+ }
+
+ .reports-payment-count-danger {
+     background: #fef2f2;
+     border: 1px solid #fecaca;
+     color: #dc2626;
+ }
+
+ .reports-payment-count-warning {
+     background: #fff7ed;
+     border: 1px solid #fed7aa;
+     color: #ea580c;
+ }
+
+
+ /* =========================================
+   PAYMENT LIST
+========================================= */
+
+ .reports-payment-list {
+     display: flex;
+     flex-direction: column;
+
+     gap: 9px;
+
+     padding: 14px;
+ }
+
+
+ /* =========================================
+   PAYMENT ROW
+========================================= */
+
+ .reports-payment-row {
+     position: relative;
+
+     display: flex;
+     align-items: center;
+
+     justify-content: space-between;
+
+     gap: 16px;
+
+     min-height: 66px;
+
+     padding: 12px 14px;
+
+     overflow: hidden;
+
+     background: #ffffff;
+
+     border: 1px solid #edf0f4;
+     border-radius: 11px;
+
+     cursor: default;
+
+     transition:
+         transform 0.25s ease,
+         background-color 0.25s ease,
+         border-color 0.25s ease,
+         box-shadow 0.25s ease;
+ }
+
+
+ /* Left status accent */
+
+ .reports-payment-row::before {
+     content: "";
+
+     position: absolute;
+
+     left: 0;
+     top: 10px;
+     bottom: 10px;
+
+     width: 3px;
+
+     border-radius: 0 4px 4px 0;
+
+     transform: scaleY(0);
+
+     transform-origin: center;
+
+     transition: transform 0.25s ease;
+ }
+
+
+ /* Hover */
+
+ .reports-payment-row:hover {
+     transform: translateY(-3px);
+
+     box-shadow:
+         0 5px 14px rgba(15, 23, 42, 0.07);
+ }
+
+
+ /* =========================================
+   OVERDUE
+========================================= */
+
+ .reports-payment-overdue:hover {
+     background: #fffafa;
+
+     border-color: #fecaca;
+
+     box-shadow:
+         0 6px 16px rgba(220, 38, 38, 0.09);
+ }
+
+ .reports-payment-overdue::before {
+     background: #ef4444;
+ }
+
+ .reports-payment-overdue:hover::before {
+     transform: scaleY(1);
+ }
+
+
+ /* =========================================
+   DUE SOON
+========================================= */
+
+ .reports-payment-due-soon:hover {
+     background: #fffdf8;
+
+     border-color: #fed7aa;
+
+     box-shadow:
+         0 6px 16px rgba(234, 88, 12, 0.08);
+ }
+
+ .reports-payment-due-soon::before {
+     background: #f97316;
+ }
+
+ .reports-payment-due-soon:hover::before {
+     transform: scaleY(1);
+ }
+
+
+ /* =========================================
+   PAYMENT INFO
+========================================= */
+
+ .reports-payment-info {
+     display: flex;
+     flex-direction: column;
+
+     min-width: 0;
+
+     gap: 5px;
+ }
+
+ .reports-payment-info strong {
+     overflow: hidden;
+
+     color: #111827;
+
+     font-size: 13px;
+     font-weight: 700;
+
+     line-height: 1.4;
+
+     text-overflow: ellipsis;
+     white-space: nowrap;
+
+     transition:
+         color 0.2s ease,
+         transform 0.2s ease;
+ }
+
+ .reports-payment-row:hover .reports-payment-info strong {
+     transform: translateX(2px);
+ }
+
+ .reports-payment-overdue:hover .reports-payment-info strong {
+     color: #dc2626;
+ }
+
+ .reports-payment-due-soon:hover .reports-payment-info strong {
+     color: #ea580c;
+ }
+
+ .reports-payment-info span {
+     color: #94a3b8;
+
+     font-size: 10px;
+     font-weight: 550;
+
+     transition: color 0.2s ease;
+ }
+
+ .reports-payment-row:hover .reports-payment-info span {
+     color: #64748b;
+ }
+
+
+ /* =========================================
+   PAYMENT AMOUNT
+========================================= */
+
+ .reports-payment-amount {
+     display: flex;
+     flex-direction: column;
+
+     align-items: flex-end;
+
+     flex-shrink: 0;
+
+     gap: 3px;
+ }
+
+ .reports-payment-amount strong {
+     padding: 6px 9px;
+
+     border-radius: 7px;
+
+     background: #f8fafc;
+
+     color: #111827;
+
+     font-size: 12px;
+     font-weight: 750;
+
+     white-space: nowrap;
+
+     transition:
+         transform 0.25s ease,
+         background-color 0.25s ease,
+         color 0.25s ease;
+ }
+
+ .reports-payment-row:hover .reports-payment-amount strong {
+     transform: translateX(-2px);
+ }
+
+ .reports-payment-overdue:hover .reports-payment-amount strong {
+     background: #fef2f2;
+     color: #dc2626;
+ }
+
+ .reports-payment-due-soon:hover .reports-payment-amount strong {
+     background: #fff7ed;
+     color: #ea580c;
+ }
+
+ .reports-payment-amount span {
+     color: #a1a1aa;
+
+     font-size: 9px;
+     font-weight: 600;
+
+     text-transform: uppercase;
+     letter-spacing: 0.04em;
+ }
+
+
+ /* =========================================
+   EMPTY STATE
+========================================= */
+
+ .reports-payment-list .reports-empty {
+     margin: 0;
+
+     padding: 28px 16px;
+
+     background: #f8fafc;
+
+     border: 1px dashed #dbe1e8;
+     border-radius: 10px;
+
+     color: #94a3b8;
+
+     font-size: 12px;
+     text-align: center;
+ }
+
+
+ /* =========================================
+   TABLET
+========================================= */
+
+ @media (max-width: 850px) {
+     .reports-payment-grid {
+         grid-template-columns: 1fr;
+     }
+ }
+
+
+ /* =========================================
+   MOBILE
+========================================= */
+
+ @media (max-width: 600px) {
+
+     .reports-payment-grid {
+         gap: 12px;
+     }
+
+     .reports-payment-column {
+         border-radius: 12px;
+     }
+
+     .reports-payment-column-header {
+         padding: 16px;
+     }
+
+     .reports-payment-column-header h3 {
+         font-size: 14px;
+     }
+
+     .reports-payment-column-header span:not(.reports-payment-count) {
+         font-size: 10px;
+     }
+
+     .reports-payment-list {
+         padding: 10px;
+         gap: 8px;
+     }
+
+     .reports-payment-row {
+         gap: 10px;
+         min-height: 62px;
+         padding: 11px 12px;
+         border-radius: 10px;
+     }
+
+     .reports-payment-row:hover {
+         transform: translateY(-2px);
+     }
+
+     .reports-payment-info strong {
+         font-size: 12px;
+     }
+
+     .reports-payment-info span {
+         font-size: 9px;
+     }
+
+     .reports-payment-amount strong {
+         padding: 5px 7px;
+         font-size: 11px;
+     }
+
+     .reports-payment-amount span {
+         font-size: 8px;
+     }
+ }
+
+
+ /* =========================================
+   REDUCED MOTION
+========================================= */
+
+ @media (prefers-reduced-motion: reduce) {
+
+     .reports-payment-column,
+     .reports-payment-row,
+     .reports-payment-row::before,
+     .reports-payment-count,
+     .reports-payment-info strong,
+     .reports-payment-info span,
+     .reports-payment-amount strong {
+         transition: none;
+     }
+
+     .reports-payment-column:hover,
+     .reports-payment-row:hover {
+         transform: none;
+     }
+ }
+
+
+ /* =========================================
+   REVENUE TREND - PREMIUM CHART
+========================================= */
+
+ .reports-revenue-chart {
+     width: 100%;
+     min-height: 320px;
+     padding: 10px 4px 4px;
+     box-sizing: border-box;
+ }
+
+
+ /* Recharts responsive wrapper */
+
+ .reports-revenue-chart .recharts-responsive-container {
+     min-width: 0;
+ }
+
+
+ /* Tooltip */
+
+ .reports-revenue-chart .recharts-tooltip-wrapper {
+     outline: none;
+ }
+
+ .reports-revenue-chart .recharts-default-tooltip {
+     border: none !important;
+     border-radius: 10px !important;
+ }
+
+
+ /* Chart cursor */
+
+ .reports-revenue-chart .recharts-tooltip-cursor {
+     stroke: #c7d2fe;
+     stroke-width: 1;
+ }
+
+
+ /* Line animation feel */
+
+ .reports-revenue-chart .recharts-line-curve {
+     filter: drop-shadow(0 3px 5px rgba(99, 102, 241, 0.18));
+ }
+
+
+ /* Data points */
+
+ .reports-revenue-chart .recharts-line-dot {
+     transition:
+         r 0.2s ease,
+         opacity 0.2s ease;
+ }
+
+
+ /* Hovered point */
+
+ .reports-revenue-chart .recharts-active-dot {
+     filter: drop-shadow(0 3px 7px rgba(99, 102, 241, 0.25));
+ }
+
+
+ /* Grid */
+
+ .reports-revenue-chart .recharts-cartesian-grid-horizontal line {
+     stroke: #eef0f3;
+ }
+
+ .reports-revenue-chart .recharts-cartesian-grid-vertical line {
+     stroke: transparent;
+ }
+
+
+ /* Axis text */
+
+ .reports-revenue-chart .recharts-cartesian-axis-tick-value {
+     font-weight: 500;
+ }
+
+
+ /* Empty state */
+
+ .reports-revenue-chart .reports-empty {
+     margin-top: 20px;
+ }
+
+
+ /* =========================================
+   REVENUE CHART RESPONSIVE
+========================================= */
+
+ @media (max-width: 700px) {
+     .reports-revenue-chart {
+         min-height: 280px;
+         padding: 8px 0 0;
+     }
+ }
+
+ @media (max-width: 480px) {
+     .reports-revenue-chart {
+         min-height: 240px;
+     }
+ }
+
+
+ /* ================================
+   Reports Date Filter
+================================ */
+
+ .reports-filter {
+     display: flex;
+     align-items: center;
+     justify-content: flex-end;
+     gap: 10px;
+     flex-wrap: wrap;
+ }
+
+ /* Select + Date Inputs */
+ .reports-filter select,
+ .reports-custom-dates input {
+     height: 42px;
+     padding: 0 13px;
+     border: 1px solid #e2e8f0;
+     border-radius: 10px;
+     background: #ffffff;
+     color: #1e293b;
+     font-size: 13px;
+     font-weight: 600;
+     outline: none;
+     transition:
+         border-color 0.2s ease,
+         box-shadow 0.2s ease,
+         background-color 0.2s ease;
+ }
+
+ .reports-filter select {
+     min-width: 150px;
+     cursor: pointer;
+     appearance: none;
+     padding-right: 36px;
+     background-image: linear-gradient(45deg, transparent 50%, #64748b 50%),
+         linear-gradient(135deg, #64748b 50%, transparent 50%);
+     background-position:
+         calc(100% - 17px) 18px,
+         calc(100% - 12px) 18px;
+     background-size:
+         5px 5px,
+         5px 5px;
+     background-repeat: no-repeat;
+ }
+
+ .reports-filter select:hover,
+ .reports-custom-dates input:hover {
+     border-color: #cbd5e1;
+ }
+
+ .reports-filter select:focus,
+ .reports-custom-dates input:focus {
+     border-color: #6366f1;
+     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+ }
+
+ /* Custom Date Range */
+ .reports-custom-dates {
+     display: flex;
+     align-items: center;
+     gap: 8px;
+ }
+
+ .reports-custom-dates input {
+     width: 145px;
+     color-scheme: light;
+ }
+
+ /* Apply Filter Button */
+ .reports-filter-btn {
+     height: 42px;
+     padding: 0 17px;
+     border: 1px solid #4f46e5;
+     border-radius: 10px;
+     background: #6366f1;
+     color: #ffffff;
+     font-size: 13px;
+     font-weight: 700;
+     cursor: pointer;
+     white-space: nowrap;
+     box-shadow: 0 2px 5px rgba(99, 102, 241, 0.18);
+     transition:
+         background-color 0.2s ease,
+         border-color 0.2s ease,
+         transform 0.2s ease,
+         box-shadow 0.2s ease;
+ }
+
+ .reports-filter-btn:hover {
+     background: #4f46e5;
+     border-color: #4338ca;
+     transform: translateY(-1px);
+     box-shadow: 0 5px 12px rgba(99, 102, 241, 0.22);
+ }
+
+ .reports-filter-btn:active {
+     transform: translateY(0);
+ }
+
+ /* Reset Button */
+ .reports-reset-btn {
+     height: 42px;
+     padding: 0 16px;
+     border: 1px solid #e2e8f0;
+     border-radius: 10px;
+     background: #ffffff;
+     color: #64748b;
+     font-size: 13px;
+     font-weight: 700;
+     cursor: pointer;
+     white-space: nowrap;
+     transition:
+         background-color 0.2s ease,
+         border-color 0.2s ease,
+         color 0.2s ease,
+         transform 0.2s ease;
+ }
+
+ .reports-reset-btn:hover {
+     background: #f8fafc;
+     border-color: #cbd5e1;
+     color: #334155;
+     transform: translateY(-1px);
+ }
+
+ .reports-reset-btn:active {
+     transform: translateY(0);
+ }
+
+ /* ================================
+   Responsive
+================================ */
+
+ @media (max-width: 850px) {
+     .reports-header {
+         align-items: flex-start;
+     }
+
+     .reports-filter {
+         width: 100%;
+         justify-content: flex-start;
+     }
+ }
+
+ @media (max-width: 600px) {
+     .reports-filter {
+         display: grid;
+         grid-template-columns: 1fr 1fr;
+         width: 100%;
+         gap: 8px;
+     }
+
+     .reports-filter select {
+         width: 100%;
+         min-width: 0;
+         grid-column: 1 / -1;
+     }
+
+     .reports-custom-dates {
+         display: grid;
+         grid-template-columns: 1fr 1fr;
+         grid-column: 1 / -1;
+         gap: 8px;
+     }
+
+     .reports-custom-dates input {
+         width: 100%;
+         min-width: 0;
+         box-sizing: border-box;
+     }
+
+     .reports-filter-btn,
+     .reports-reset-btn {
+         width: 100%;
+     }
+ }
+
+ @media (max-width: 400px) {
+     .reports-filter {
+         grid-template-columns: 1fr;
+     }
+
+     .reports-filter select,
+     .reports-custom-dates,
+     .reports-filter-btn,
+     .reports-reset-btn {
+         grid-column: 1;
+     }
+
+     .reports-custom-dates {
+         grid-template-columns: 1fr;
+     }
+ }
