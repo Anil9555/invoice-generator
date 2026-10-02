@@ -1,0 +1,1787 @@
+/* =========================================================
+   InvoicePro
+   GLOBAL PREMIUM DARK THEME
+   ========================================================= */
+
+
+/* =========================================================
+   ROOT / APPLICATION
+   ========================================================= */
+
+html[data-theme="dark"] body {
+    background: #020617 !important;
+    color: #F8FAFC !important;
+}
+
+html[data-theme="dark"] #root {
+    min-height: 100vh;
+    background: #020617;
+}
+
+
+/* =========================================================
+   APP SHELL
+   ========================================================= */
+
+html[data-theme="dark"] .dashboard-layout {
+    background:
+        radial-gradient(circle at 75% -10%,
+            rgba(59, 130, 246, 0.10),
+            transparent 32%),
+        #020617 !important;
+}
+
+html[data-theme="dark"] .main-area,
+html[data-theme="dark"] .page-content {
+    background: transparent !important;
+    color: #F8FAFC !important;
+}
+
+
+/* =========================================================
+   GLOBAL TEXT
+   ========================================================= */
+
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] h4,
+html[data-theme="dark"] h5,
+html[data-theme="dark"] h6 {
+    color: #F8FAFC !important;
+}
+
+html[data-theme="dark"] p {
+    color: #CBD5E1;
+}
+
+html[data-theme="dark"] label {
+    color: #CBD5E1 !important;
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+html[data-theme="dark"] .sidebar {
+    background:
+        linear-gradient(180deg,
+            #020617 0%,
+            #030B1C 100%) !important;
+
+    border-right: 1px solid rgba(148, 163, 184, 0.12) !important;
+
+    box-shadow:
+        8px 0 35px rgba(0, 0, 0, 0.25);
+}
+
+html[data-theme="dark"] .sidebar-brand-link,
+html[data-theme="dark"] .sidebar-brand-text strong {
+    color: #F8FAFC !important;
+}
+
+html[data-theme="dark"] .sidebar-brand-text span {
+    color: #64748B !important;
+}
+
+html[data-theme="dark"] .sidebar-section-title {
+    color: #64748B !important;
+}
+
+html[data-theme="dark"] .sidebar-nav-link {
+    color: #94A3B8 !important;
+}
+
+html[data-theme="dark"] .sidebar-nav-link:hover {
+    color: #F1F5F9 !important;
+    background: rgba(96, 165, 250, 0.08) !important;
+}
+
+html[data-theme="dark"] .sidebar-nav-link.active {
+    color: #FFFFFF !important;
+
+    background:
+        linear-gradient(135deg,
+            #2563EB,
+            #4F46E5) !important;
+
+    box-shadow:
+        0 8px 25px rgba(37, 99, 235, 0.25) !important;
+}
+
+html[data-theme="dark"] .sidebar-account {
+    background: rgba(255, 255, 255, 0.035) !important;
+    border-color: rgba(148, 163, 184, 0.12) !important;
+}
+
+html[data-theme="dark"] .sidebar-account-info strong {
+    color: #E2E8F0 !important;
+}
+
+html[data-theme="dark"] .sidebar-account-info span {
+    color: #64748B !important;
+}
+
+html[data-theme="dark"] .sidebar-logout {
+    background: transparent !important;
+    color: #94A3B8 !important;
+    border-color: rgba(148, 163, 184, 0.10) !important;
+}
+
+html[data-theme="dark"] .sidebar-logout:hover {
+    color: #FCA5A5 !important;
+    background: rgba(239, 68, 68, 0.08) !important;
+}
+
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+
+html[data-theme="dark"] .navbar {
+    background: rgba(2, 6, 23, 0.88) !important;
+
+    border-bottom-color:
+        rgba(148, 163, 184, 0.12) !important;
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+}
+
+html[data-theme="dark"] .navbar h2,
+html[data-theme="dark"] .navbar-page-info h2 {
+    color: #F8FAFC !important;
+}
+
+html[data-theme="dark"] .navbar-page-label,
+html[data-theme="dark"] .navbar-welcome span {
+    color: #64748B !important;
+}
+
+html[data-theme="dark"] .navbar-welcome strong {
+    color: #E2E8F0 !important;
+}
+
+html[data-theme="dark"] .navbar-user span {
+    color: #CBD5E1 !important;
+}
+
+
+/* =========================================================
+   ALL COMMON CARDS
+   ========================================================= */
+
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .stat-card,
+html[data-theme="dark"] .dashboard-stat-card,
+html[data-theme="dark"] .dashboard-list-card,
+html[data-theme="dark"] .dashboard-revenue-card,
+html[data-theme="dark"] .dashboard-payment-card,
+html[data-theme="dark"] .settings-card,
+html[data-theme="dark"] .table-card {
+    background: #0F172A !important;
+
+    color: #F1F5F9 !important;
+
+    border-color:
+        rgba(148, 163, 184, 0.16) !important;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.16) !important;
+}
+
+
+/* =========================================================
+   CARD HEADINGS
+   ========================================================= */
+
+html[data-theme="dark"] .card h2,
+html[data-theme="dark"] .card h3,
+html[data-theme="dark"] .card h4,
+html[data-theme="dark"] .dashboard-section-header h3,
+html[data-theme="dark"] .dashboard-stat-content h2 {
+    color: #F8FAFC !important;
+}
+
+html[data-theme="dark"] .card p,
+html[data-theme="dark"] .dashboard-section-header p,
+html[data-theme="dark"] .dashboard-stat-content span,
+html[data-theme="dark"] .dashboard-stat-content small {
+    color: #94A3B8 !important;
+}
+
+
+/* =========================================================
+   DASHBOARD STAT CARDS
+   ========================================================= */
+
+html[data-theme="dark"] .dashboard-stat-card {
+    background:
+        linear-gradient(145deg,
+            #111C31,
+            #0F172A) !important;
+}
+
+html[data-theme="dark"] .dashboard-stat-content h2 {
+    color: #F8FAFC !important;
+}
+
+
+/* =========================================================
+   DASHBOARD PAYMENT OVERVIEW
+   ========================================================= */
+
+html[data-theme="dark"] .dashboard-payment-circle-inner {
+    background: #111C31 !important;
+}
+
+html[data-theme="dark"] .dashboard-payment-circle-inner strong {
+    color: #F8FAFC !important;
+}
+
+html[data-theme="dark"] .dashboard-payment-circle-inner span {
+    color: #94A3B8 !important;
+}
+
+html[data-theme="dark"] .payment-detail-item {
+    border-color:
+        rgba(148, 163, 184, 0.12) !important;
+}
+
+html[data-theme="dark"] .payment-detail-item strong {
+    color: #F8FAFC !important;
+}
+
+
+/* =========================================================
+   DASHBOARD ACTION ITEMS
+   ========================================================= */
+
+html[data-theme="dark"] .action-required-item {
+    background: #111C31 !important;
+
+    border-color:
+        rgba(148, 163, 184, 0.14) !important;
+
+    color: #E2E8F0 !important;
+}
+
+html[data-theme="dark"] .action-required-item:hover {
+    background: #17233A !important;
+
+    border-color:
+        rgba(96, 165, 250, 0.28) !important;
+}
+
+html[data-theme="dark"] .action-icon {
+    background: #17233A !important;
+
+    border-color:
+        rgba(148, 163, 184, 0.16) !important;
+}
+
+html[data-theme="dark"] .action-content strong {
+    color: #F1F5F9 !important;
+}
+
+html[data-theme="dark"] .action-content span {
+    color: #94A3B8 !important;
+}
+
+html[data-theme="dark"] .action-arrow {
+    color: #64748B !important;
+}
+
+
+/* =========================================================
+   DASHBOARD PAYMENT LIST
+   ========================================================= */
+
+html[data-theme="dark"] .dashboard-payment-item {
+    background: #111C31 !important;
+
+    border-color:
+        rgba(148, 163, 184, 0.14) !important;
+
+    color: #E2E8F0 !important;
+}
+
+html[data-theme="dark"] .dashboard-payment-item:hover {
+    background: #17233A !important;
+
+    border-color:
+        rgba(96, 165, 250, 0.28) !important;
+}
+
+html[data-theme="dark"] .dashboard-payment-item strong {
+    color: #F1F5F9 !important;
+}
+
+html[data-theme="dark"] .dashboard-payment-item span {
+    color: #94A3B8 !important;
+}
+
+
+/* =========================================================
+   INVOICE STATUS
+   ========================================================= */
+
+html[data-theme="dark"] .invoice-status-row {
+    color: #CBD5E1 !important;
+}
+
+html[data-theme="dark"] .invoice-status-row:hover {
+    background: #111C31 !important;
+}
+
+html[data-theme="dark"] .invoice-status-row strong {
+    color: #F8FAFC !important;
+}
+
+
+/* =========================================================
+   EMPTY STATES
+   ========================================================= */
+
+html[data-theme="dark"] .dashboard-empty-state,
+html[data-theme="dark"] .dashboard-small-empty {
+    background: #0B1629 !important;
+
+    border-color:
+        rgba(148, 163, 184, 0.20) !important;
+
+    color: #94A3B8 !important;
+}
+
+html[data-theme="dark"] .dashboard-empty-state h3,
+html[data-theme="dark"] .dashboard-small-empty strong {
+    color: #F1F5F9 !important;
+}
+
+html[data-theme="dark"] .dashboard-empty-state p,
+html[data-theme="dark"] .dashboard-small-empty span {
+    color: #94A3B8 !important;
+}
+
+
+/* =========================================================
+   GLOBAL FORMS
+   ========================================================= */
+
+html[data-theme="dark"] input,
+html[data-theme="dark"] select,
+html[data-theme="dark"] textarea {
+    background: #0B1629 !important;
+
+    color: #F8FAFC !important;
+
+    border-color:
+        #334155 !important;
+}
+
+html[data-theme="dark"] input:hover,
+html[data-theme="dark"] select:hover,
+html[data-theme="dark"] textarea:hover {
+    background: #101D33 !important;
+
+    border-color:
+        #475569 !important;
+}
+
+html[data-theme="dark"] input:focus,
+html[data-theme="dark"] select:focus,
+html[data-theme="dark"] textarea:focus {
+    background: #0F1F38 !important;
+
+    color: #FFFFFF !important;
+
+    border-color:
+        #60A5FA !important;
+
+    box-shadow:
+        0 0 0 3px rgba(96, 165, 250, 0.15) !important;
+}
+
+html[data-theme="dark"] input::placeholder,
+html[data-theme="dark"] textarea::placeholder {
+    color: #64748B !important;
+}
+
+html[data-theme="dark"] input[readonly] {
+    background: #111C31 !important;
+    color: #94A3B8 !important;
+}
+
+html[data-theme="dark"] option {
+    background: #0F172A !important;
+    color: #F8FAFC !important;
+}
+
+
+/* =========================================================
+   TABLES — ALL PAGES
+   ========================================================= */
+
+html[data-theme="dark"] table {
+    background: #0F172A !important;
+
+    color: #E2E8F0 !important;
+}
+
+html[data-theme="dark"] table thead th {
+    background: #111C31 !important;
+
+    color: #CBD5E1 !important;
+
+    border-color:
+        rgba(148, 163, 184, 0.14) !important;
+}
+
+html[data-theme="dark"] table tbody td {
+    background: #0F172A !important;
+
+    color: #CBD5E1 !important;
+
+    border-color:
+        rgba(148, 163, 184, 0.12) !important;
+}
+
+html[data-theme="dark"] table tbody tr:hover td {
+    background: #111C31 !important;
+}
+
+html[data-theme="dark"] table tbody td:first-child {
+    color: #F1F5F9 !important;
+}
+
+
+/* =========================================================
+   TABLE WRAPPERS
+   ========================================================= */
+
+html[data-theme="dark"] .table-container,
+html[data-theme="dark"] .table-wrapper {
+    background: #0F172A !important;
+
+    border-color:
+        rgba(148, 163, 184, 0.16) !important;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+html[data-theme="dark"] button {
+    transition:
+        transform 160ms ease,
+        box-shadow 160ms ease,
+        background 160ms ease,
+        border-color 160ms ease,
+        color 160ms ease;
+}
+
+html[data-theme="dark"] button:hover {
+    transform: translateY(-1px);
+}
+
+html[data-theme="dark"] .btn-primary {
+    background:
+        linear-gradient(135deg,
+            #3B82F6,
+            #4F46E5) !important;
+
+    color: #FFFFFF !important;
+
+    border-color: transparent !important;
+
+    box-shadow:
+        0 7px 20px rgba(59, 130, 246, 0.25) !important;
+}
+
+html[data-theme="dark"] .btn-primary:hover {
+    box-shadow:
+        0 10px 28px rgba(59, 130, 246, 0.35) !important;
+}
+
+html[data-theme="dark"] .btn-secondary {
+    background: #111C31 !important;
+
+    color: #CBD5E1 !important;
+
+    border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .btn-secondary:hover {
+    background: #17233A !important;
+    color: #FFFFFF !important;
+
+    border-color: #475569 !important;
+}
+
+
+/* =========================================================
+   MODALS
+   ========================================================= */
+
+html[data-theme="dark"] .modal-overlay {
+    background: rgba(0, 0, 0, 0.72) !important;
+
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+}
+
+html[data-theme="dark"] .modal {
+    background: #111C31 !important;
+
+    color: #F1F5F9 !important;
+
+    border-color: #334155 !important;
+
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.50) !important;
+}
+
+html[data-theme="dark"] .modal h2,
+html[data-theme="dark"] .modal h3 {
+    color: #F8FAFC !important;
+}
+
+
+/* =========================================================
+   SEARCH / FILTERS
+   ========================================================= */
+
+html[data-theme="dark"] .dashboard-filter-select {
+    background: #0B1629 !important;
+    color: #E2E8F0 !important;
+
+    border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .dashboard-filter-select:hover {
+    background: #101D33 !important;
+    border-color: #475569 !important;
+}
+
+
+/* =========================================================
+   STATUS BADGES
+   ========================================================= */
+
+html[data-theme="dark"] .invoice-status.paid,
+html[data-theme="dark"] .invoice-status-badge.paid {
+    background: #052E16 !important;
+    color: #4ADE80 !important;
+}
+
+html[data-theme="dark"] .invoice-status.pending,
+html[data-theme="dark"] .invoice-status-badge.pending {
+    background: #451A03 !important;
+    color: #FBBF24 !important;
+}
+
+html[data-theme="dark"] .invoice-status.partially_paid,
+html[data-theme="dark"] .invoice-status-badge.partially_paid {
+    background: #172554 !important;
+    color: #60A5FA !important;
+}
+
+html[data-theme="dark"] .invoice-status.overdue,
+html[data-theme="dark"] .invoice-status-badge.overdue {
+    background: #450A0A !important;
+    color: #F87171 !important;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+html[data-theme="dark"] ::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+}
+
+html[data-theme="dark"] ::-webkit-scrollbar-track {
+    background: #020617;
+}
+
+html[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 999px;
+}
+
+html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+}
+
+
+/* =========================================================
+   DO NOT DARKEN ACTUAL DOCUMENT
+   Invoice / Quotation preview remains paper-white
+   ========================================================= */
+
+html[data-theme="dark"] .invoice-preview,
+html[data-theme="dark"] .quotation-preview,
+html[data-theme="dark"] .invoice-pdf-mode {
+    background: #FFFFFF !important;
+    color: #111827 !important;
+}
+
+html[data-theme="dark"] .invoice-preview *,
+html[data-theme="dark"] .quotation-preview *,
+html[data-theme="dark"] .invoice-pdf-mode * {
+    color: inherit;
+}
+
+
+/* =========================================================
+   PRINT
+   ========================================================= */
+
+@media print {
+
+    html[data-theme="dark"] body,
+    html[data-theme="dark"] .dashboard-layout,
+    html[data-theme="dark"] .main-area,
+    html[data-theme="dark"] .page-content {
+        background: #FFFFFF !important;
+        color: #111827 !important;
+    }
+}
+
+/* =========================================================
+   InvoicePro
+   DARK THEME - FINAL COMPONENT OVERRIDES
+   Put this at the VERY END of DarkTheme.css
+   ========================================================= */
+
+
+/* =========================================================
+   GLOBAL APP
+   ========================================================= */
+
+html[data-theme="dark"] body,
+html[data-theme="dark"] #root {
+    background: #020617 !important;
+    color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .main-area,
+html[data-theme="dark"] .page-content {
+    background: transparent !important;
+}
+
+
+/* =========================================================
+   GENERIC CARDS
+   ========================================================= */
+
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .table-card,
+html[data-theme="dark"] .invoices-card,
+html[data-theme="dark"] .settings-card,
+html[data-theme="dark"] .reports-section,
+html[data-theme="dark"] .reports-summary-card {
+    background: #0f172a !important;
+    color: #f8fafc !important;
+    border-color: #334155 !important;
+}
+
+
+/* =========================================================
+   DASHBOARD - QUICK ACTIONS
+   ========================================================= */
+
+html[data-theme="dark"] .quick-action-card,
+html[data-theme="dark"] .dashboard-action-card,
+html[data-theme="dark"] .action-required-item,
+html[data-theme="dark"] .quick-actions-item {
+    background: #111c31 !important;
+    color: #f1f5f9 !important;
+    border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .quick-action-card *,
+html[data-theme="dark"] .dashboard-action-card *,
+html[data-theme="dark"] .action-required-item *,
+html[data-theme="dark"] .quick-actions-item * {
+    color: inherit;
+}
+
+html[data-theme="dark"] .quick-action-card:hover,
+html[data-theme="dark"] .dashboard-action-card:hover,
+html[data-theme="dark"] .action-required-item:hover {
+    background: #17233a !important;
+    border-color: #475569 !important;
+}
+
+
+/* =========================================================
+   DASHBOARD - CUSTOMER / PAYMENT ROWS
+   ========================================================= */
+
+html[data-theme="dark"] .dashboard-payment-item,
+html[data-theme="dark"] .dashboard-customer-item,
+html[data-theme="dark"] .recent-invoice-item,
+html[data-theme="dark"] .customer-row {
+    background: #111c31 !important;
+    color: #e2e8f0 !important;
+    border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .dashboard-payment-item strong,
+html[data-theme="dark"] .dashboard-customer-item strong,
+html[data-theme="dark"] .recent-invoice-item strong,
+html[data-theme="dark"] .customer-row strong {
+    color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .dashboard-payment-item span,
+html[data-theme="dark"] .dashboard-customer-item span,
+html[data-theme="dark"] .recent-invoice-item span,
+html[data-theme="dark"] .customer-row span {
+    color: #94a3b8 !important;
+}
+
+
+/* =========================================================
+   INVOICES PAGE
+   ========================================================= */
+
+html[data-theme="dark"] .invoices-card {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.20) !important;
+}
+
+html[data-theme="dark"] .invoices-card-header {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .invoices-card-header h2 {
+    color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .invoices-card-header p {
+    color: #94a3b8 !important;
+}
+
+
+/* ---------- Invoice Table ---------- */
+
+html[data-theme="dark"] .invoices-table {
+    background: #0f172a !important;
+    color: #e2e8f0 !important;
+}
+
+html[data-theme="dark"] .invoices-table th {
+    background: #111c31 !important;
+    color: #cbd5e1 !important;
+    border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .invoices-table td {
+    background: #0f172a !important;
+    color: #cbd5e1 !important;
+    border-color: #1e293b !important;
+}
+
+html[data-theme="dark"] .invoices-table tbody tr:hover td {
+    background: #111c31 !important;
+}
+
+html[data-theme="dark"] .invoice-number,
+html[data-theme="dark"] .invoice-customer,
+html[data-theme="dark"] .invoice-total {
+    color: #f1f5f9 !important;
+}
+
+
+/* ---------- Invoice Search ---------- */
+
+html[data-theme="dark"] .invoice-search-wrapper input,
+html[data-theme="dark"] .invoice-status-filter,
+html[data-theme="dark"] .invoice-filter-select {
+    background: #0b1629 !important;
+    color: #f8fafc !important;
+    border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .invoice-search-wrapper input::placeholder {
+    color: #64748b !important;
+}
+
+
+/* ---------- Invoice Buttons ---------- */
+
+html[data-theme="dark"] .invoice-action-btn {
+    background: #111c31 !important;
+    color: #cbd5e1 !important;
+    border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .invoice-action-btn.view:hover {
+    background: #172554 !important;
+    color: #60a5fa !important;
+    border-color: #3b82f6 !important;
+}
+
+html[data-theme="dark"] .invoice-action-btn.edit:hover {
+    background: #2e1065 !important;
+    color: #c4b5fd !important;
+    border-color: #7c3aed !important;
+}
+
+html[data-theme="dark"] .invoice-action-btn.delete {
+    color: #f87171 !important;
+}
+
+html[data-theme="dark"] .invoice-action-btn.delete:hover {
+    background: #450a0a !important;
+    border-color: #ef4444 !important;
+}
+
+
+/* =========================================================
+   REPORTS PAGE
+   ========================================================= */
+
+html[data-theme="dark"] .reports-summary-card {
+    background: linear-gradient(145deg,
+            #111c31,
+            #0f172a) !important;
+
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .reports-summary-label {
+    color: #94a3b8 !important;
+}
+
+html[data-theme="dark"] .reports-summary-value {
+    color: #f8fafc !important;
+}
+
+
+/* ---------- Reports Sections ---------- */
+
+html[data-theme="dark"] .reports-section {
+    background: #0f172a !important;
+    border: 1px solid #334155 !important;
+    color: #f8fafc !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16) !important;
+}
+
+html[data-theme="dark"] .reports-section-header {
+    border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .reports-section-header h2 {
+    color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .reports-section-header p {
+    color: #94a3b8 !important;
+}
+
+
+/* ---------- Reports Customer Rows ---------- */
+
+html[data-theme="dark"] .reports-customer-row {
+    background: #111c31 !important;
+    border-color: #334155 !important;
+    color: #e2e8f0 !important;
+}
+
+html[data-theme="dark"] .reports-customer-row:hover {
+    background: #17233a !important;
+    border-color: #475569 !important;
+}
+
+html[data-theme="dark"] .reports-customer-rank {
+    background: #172554 !important;
+    color: #93c5fd !important;
+    border-color: #3b82f6 !important;
+}
+
+html[data-theme="dark"] .reports-customer-info strong {
+    color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .reports-customer-info span {
+    color: #94a3b8 !important;
+}
+
+html[data-theme="dark"] .reports-customer-amount {
+    background: #0b1629 !important;
+    color: #f8fafc !important;
+}
+
+
+/* ---------- Reports Payment ---------- */
+
+html[data-theme="dark"] .reports-payment-column {
+    background: #0b1629 !important;
+    border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .reports-payment-column-header {
+    background: #111c31 !important;
+    border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .reports-payment-column-header h3 {
+    color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .reports-payment-column-header span {
+    color: #94a3b8 !important;
+}
+
+html[data-theme="dark"] .reports-payment-row {
+    background: #111c31 !important;
+    color: #e2e8f0 !important;
+    border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .reports-payment-row:hover {
+    background: #17233a !important;
+}
+
+html[data-theme="dark"] .reports-payment-info strong,
+html[data-theme="dark"] .reports-payment-amount strong {
+    color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .reports-payment-info span,
+html[data-theme="dark"] .reports-payment-amount span {
+    color: #94a3b8 !important;
+}
+
+html[data-theme="dark"] .reports-empty {
+    color: #94a3b8 !important;
+}
+
+
+/* ---------- Reports Chart ---------- */
+
+html[data-theme="dark"] .reports-revenue-chart {
+    background: #0f172a !important;
+    color: #cbd5e1 !important;
+}
+
+html[data-theme="dark"] .reports-revenue-chart svg text {
+    fill: #94a3b8 !important;
+}
+
+html[data-theme="dark"] .reports-revenue-chart .recharts-cartesian-grid-horizontal line {
+    stroke: #334155 !important;
+}
+
+html[data-theme="dark"] .reports-revenue-chart .recharts-tooltip-wrapper {
+    color: #111827 !important;
+}
+
+html[data-theme="dark"] .reports-revenue-chart .recharts-default-tooltip {
+    background: #111c31 !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+}
+
+
+/* =========================================================
+   REPORTS FILTERS
+   ========================================================= */
+
+html[data-theme="dark"] .reports-filters select,
+html[data-theme="dark"] .reports-filters input,
+html[data-theme="dark"] .reports-custom-dates input {
+    background: #0b1629 !important;
+    color: #f8fafc !important;
+    border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .reports-filter-btn {
+    background: linear-gradient(135deg,
+            #3b82f6,
+            #4f46e5) !important;
+
+    color: #ffffff !important;
+    border-color: transparent !important;
+}
+
+html[data-theme="dark"] .reports-reset-btn {
+    background: #111c31 !important;
+    color: #cbd5e1 !important;
+    border-color: #334155 !important;
+}
+
+
+/* =========================================================
+   SETTINGS PAGE
+   ========================================================= */
+
+html[data-theme="dark"] .settings-page {
+    color: #f8fafc !important;
+}
+
+
+/* ---------- Settings Navigation ---------- */
+
+html[data-theme="dark"] .settings-sidebar {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .settings-nav-item {
+    background: transparent !important;
+    color: #cbd5e1 !important;
+}
+
+html[data-theme="dark"] .settings-nav-item:hover {
+    background: #17233a !important;
+    color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .settings-nav-item.active {
+    background: #172554 !important;
+    color: #60a5fa !important;
+}
+
+
+/* ---------- Settings Card ---------- */
+
+html[data-theme="dark"] .settings-card {
+    background: #0f172a !important;
+    color: #f8fafc !important;
+    border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .settings-card-header {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .settings-card-header h2 {
+    color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .settings-card-header p {
+    color: #94a3b8 !important;
+}
+
+
+/* ---------- Settings Forms ---------- */
+
+html[data-theme="dark"] .settings-form-group label {
+    color: #cbd5e1 !important;
+}
+
+html[data-theme="dark"] .settings-form-group input,
+html[data-theme="dark"] .settings-form-group select,
+html[data-theme="dark"] .settings-form-group textarea {
+    background: #0b1629 !important;
+    color: #f8fafc !important;
+    border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .settings-form-group input::placeholder,
+html[data-theme="dark"] .settings-form-group textarea::placeholder {
+    color: #64748b !important;
+}
+
+
+/* ---------- Settings Bottom Action ---------- */
+
+html[data-theme="dark"] .settings-actions {
+    background: #0b1220 !important;
+    border-top: 1px solid #334155 !important;
+}
+
+html[data-theme="dark"] .settings-save-btn {
+    background: linear-gradient(135deg,
+            #4f46e5,
+            #6366f1) !important;
+
+    color: #ffffff !important;
+    border-color: transparent !important;
+}
+
+
+/* =========================================================
+   GLOBAL BUTTON FIX
+   ========================================================= */
+
+html[data-theme="dark"] button:not(.sidebar-nav-link):not(.sidebar-logout) {
+    color: #e2e8f0;
+}
+
+html[data-theme="dark"] button:disabled {
+    color: #64748b !important;
+}
+
+
+/* =========================================================
+   ACTUAL INVOICE / QUOTATION PAPER
+   Keep paper WHITE
+   ========================================================= */
+
+html[data-theme="dark"] .invoice-preview {
+    background: #ffffff !important;
+    color: #111827 !important;
+    border-color: #d1d5db !important;
+}
+
+
+/* IMPORTANT:
+   Do NOT use:
+   .invoice-preview * { color: inherit; }
+
+   Instead explicitly restore document text.
+*/
+
+html[data-theme="dark"] .invoice-preview h1,
+html[data-theme="dark"] .invoice-preview h2,
+html[data-theme="dark"] .invoice-preview h3,
+html[data-theme="dark"] .invoice-preview h4,
+html[data-theme="dark"] .invoice-preview p,
+html[data-theme="dark"] .invoice-preview span,
+html[data-theme="dark"] .invoice-preview strong,
+html[data-theme="dark"] .invoice-preview label,
+html[data-theme="dark"] .invoice-preview div {
+    color: #111827 !important;
+}
+
+
+/* Invoice headings */
+
+html[data-theme="dark"] .invoice-preview .invoice-header h1,
+html[data-theme="dark"] .invoice-preview .invoice-header h2,
+html[data-theme="dark"] .invoice-preview .invoice-header h3 {
+    color: #111827 !important;
+}
+
+
+/* Invoice table */
+
+html[data-theme="dark"] .invoice-preview table {
+    background: #ffffff !important;
+    color: #111827 !important;
+}
+
+html[data-theme="dark"] .invoice-preview th {
+    background: #111c31 !important;
+    color: #ffffff !important;
+    border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .invoice-preview td {
+    background: #ffffff !important;
+    color: #111827 !important;
+    border-color: #d1d5db !important;
+}
+
+
+/* Invoice total */
+
+html[data-theme="dark"] .invoice-preview .invoice-total {
+    color: #111827 !important;
+}
+
+
+/* Invoice status badge */
+
+html[data-theme="dark"] .invoice-preview .invoice-status-badge.paid,
+html[data-theme="dark"] .invoice-preview .invoice-status.paid {
+    background: #dcfce7 !important;
+    color: #166534 !important;
+}
+
+
+/* =========================================================
+   QUOTATION PAPER
+   ========================================================= */
+
+html[data-theme="dark"] .quotation-preview {
+    background: #ffffff !important;
+    color: #111827 !important;
+    border-color: #d1d5db !important;
+}
+
+html[data-theme="dark"] .quotation-preview h1,
+html[data-theme="dark"] .quotation-preview h2,
+html[data-theme="dark"] .quotation-preview h3,
+html[data-theme="dark"] .quotation-preview h4,
+html[data-theme="dark"] .quotation-preview p,
+html[data-theme="dark"] .quotation-preview span,
+html[data-theme="dark"] .quotation-preview strong,
+html[data-theme="dark"] .quotation-preview label,
+html[data-theme="dark"] .quotation-preview div {
+    color: #111827 !important;
+}
+
+html[data-theme="dark"] .quotation-preview table {
+    background: #ffffff !important;
+}
+
+html[data-theme="dark"] .quotation-preview th {
+    background: #111c31 !important;
+    color: #ffffff !important;
+}
+
+html[data-theme="dark"] .quotation-preview td {
+    background: #ffffff !important;
+    color: #111827 !important;
+}
+
+
+/* =========================================================
+   PDF MODE MUST ALWAYS REMAIN LIGHT
+   ========================================================= */
+
+html[data-theme="dark"] .invoice-pdf-mode {
+    background: #ffffff !important;
+    color: #111827 !important;
+}
+
+html[data-theme="dark"] .invoice-pdf-mode * {
+    color: inherit;
+}
+
+
+/* =========================================================
+   PRINT
+   ========================================================= */
+
+@media print {
+
+    html[data-theme="dark"] body,
+    html[data-theme="dark"] #root,
+    html[data-theme="dark"] .dashboard-layout {
+        background: #ffffff !important;
+        color: #111827 !important;
+    }
+}
+
+/* =========================================================
+   InvoicePro - GLOBAL DARK THEME OVERRIDES
+   ========================================================= */
+
+
+/* =========================================================
+   GLOBAL APP
+   ========================================================= */
+
+html[data-theme="dark"] body {
+    background: #020617 !important;
+    color: #f8fafc !important;
+}
+
+html[data-theme="dark"] #root {
+    min-height: 100vh;
+    background: #020617 !important;
+}
+
+html[data-theme="dark"] .dashboard-layout,
+html[data-theme="dark"] .main-area,
+html[data-theme="dark"] .page-content {
+    background: #020617 !important;
+    color: #f8fafc !important;
+}
+
+
+/* =========================================================
+   GLOBAL TEXT
+   ========================================================= */
+
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] h4,
+html[data-theme="dark"] h5,
+html[data-theme="dark"] h6 {
+    color: #f8fafc !important;
+}
+
+html[data-theme="dark"] p {
+    color: #cbd5e1;
+}
+
+html[data-theme="dark"] label {
+    color: #cbd5e1 !important;
+}
+
+
+/* =========================================================
+   ALL COMMON CARDS / PANELS
+   ========================================================= */
+
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .settings-card,
+html[data-theme="dark"] .table-card,
+html[data-theme="dark"] .stat-card,
+html[data-theme="dark"] .dashboard-card,
+html[data-theme="dark"] .dashboard-stat-card,
+html[data-theme="dark"] .dashboard-list-card,
+html[data-theme="dark"] .dashboard-revenue-card,
+html[data-theme="dark"] .dashboard-payment-card,
+html[data-theme="dark"] .dashboard-section,
+html[data-theme="dark"] .dashboard-panel,
+html[data-theme="dark"] .panel {
+    background: #0f172a !important;
+    color: #f8fafc !important;
+    border-color: #334155 !important;
+}
+
+
+/* =========================================================
+   DASHBOARD SECTIONS
+   ========================================================= */
+
+html[data-theme="dark"] .dashboard-section-header h3,
+html[data-theme="dark"] .dashboard-section-header h2 {
+    color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .dashboard-section-header p {
+    color: #94a3b8 !important;
+}
+
+
+/* =========================================================
+   PAYMENT OVERVIEW
+   ========================================================= */
+
+html[data-theme="dark"] .dashboard-payment-circle-inner {
+    background: #111c31 !important;
+    color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .dashboard-payment-circle-inner strong {
+    color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .dashboard-payment-circle-inner span {
+    color: #94a3b8 !important;
+}
+
+
+/* Payment overview inner cards */
+
+html[data-theme="dark"] .dashboard-payment-card *,
+html[data-theme="dark"] .payment-card *,
+html[data-theme="dark"] .payment-overview-card * {
+    color: inherit;
+}
+
+html[data-theme="dark"] .dashboard-payment-card,
+html[data-theme="dark"] .payment-card,
+html[data-theme="dark"] .payment-overview-card {
+    background: #0f172a !important;
+    color: #f8fafc !important;
+}
+
+
+/* =========================================================
+   RECENT INVOICES
+   ========================================================= */
+
+html[data-theme="dark"] .recent-invoices,
+html[data-theme="dark"] .recent-invoices-card,
+html[data-theme="dark"] .invoice-list-card,
+html[data-theme="dark"] .dashboard-invoices,
+html[data-theme="dark"] .recent-invoice-card {
+    background: #0f172a !important;
+    color: #f8fafc !important;
+}
+
+
+/* =========================================================
+   TABLES - VERY IMPORTANT
+   ========================================================= */
+
+html[data-theme="dark"] table {
+    background: #0f172a !important;
+    color: #e2e8f0 !important;
+    border-color: #334155 !important;
+}
+
+html[data-theme="dark"] table thead {
+    background: #111c31 !important;
+}
+
+html[data-theme="dark"] table thead tr {
+    background: #111c31 !important;
+}
+
+html[data-theme="dark"] table thead th {
+    background: #111c31 !important;
+    color: #cbd5e1 !important;
+    border-color: #334155 !important;
+}
+
+html[data-theme="dark"] table tbody {
+    background: #0f172a !important;
+}
+
+html[data-theme="dark"] table tbody tr {
+    background: #0f172a !important;
+}
+
+html[data-theme="dark"] table tbody td {
+    background: #0f172a !important;
+    color: #cbd5e1 !important;
+    border-color: #334155 !important;
+}
+
+html[data-theme="dark"] table tbody tr:hover,
+html[data-theme="dark"] table tbody tr:hover td {
+    background: #111c31 !important;
+}
+
+html[data-theme="dark"] table tbody td:first-child {
+    color: #f8fafc !important;
+}
+
+
+/* =========================================================
+   TABLE WRAPPERS
+   ========================================================= */
+
+html[data-theme="dark"] .table-container,
+html[data-theme="dark"] .table-wrapper,
+html[data-theme="dark"] .table-responsive,
+html[data-theme="dark"] .invoice-table-wrapper,
+html[data-theme="dark"] .recent-invoices-table {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+}
+
+
+/* =========================================================
+   TOP CUSTOMERS
+   ========================================================= */
+
+html[data-theme="dark"] .top-customers,
+html[data-theme="dark"] .top-customers-card,
+html[data-theme="dark"] .customer-list,
+html[data-theme="dark"] .customer-item {
+    background: #0f172a !important;
+    color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .customer-item,
+html[data-theme="dark"] .top-customer-item {
+    background: #111c31 !important;
+    border-color: #334155 !important;
+    color: #e2e8f0 !important;
+}
+
+html[data-theme="dark"] .customer-item strong,
+html[data-theme="dark"] .top-customer-item strong {
+    color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .customer-item span,
+html[data-theme="dark"] .top-customer-item span {
+    color: #94a3b8 !important;
+}
+
+
+/* =========================================================
+   QUICK ACTIONS
+   ========================================================= */
+
+html[data-theme="dark"] .quick-actions,
+html[data-theme="dark"] .quick-actions-card,
+html[data-theme="dark"] .action-required,
+html[data-theme="dark"] .action-required-item {
+    background: #0f172a !important;
+    color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .action-required-item {
+    background: #111c31 !important;
+    border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .action-required-item:hover {
+    background: #17233a !important;
+}
+
+html[data-theme="dark"] .action-required-item strong {
+    color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .action-required-item span {
+    color: #94a3b8 !important;
+}
+
+
+/* =========================================================
+   QUICK ACTION BUTTON CARDS
+   ========================================================= */
+
+html[data-theme="dark"] .quick-action,
+html[data-theme="dark"] .quick-action-card {
+    background: #111c31 !important;
+    color: #e2e8f0 !important;
+    border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .quick-action:hover,
+html[data-theme="dark"] .quick-action-card:hover {
+    background: #17233a !important;
+    border-color: #475569 !important;
+}
+
+html[data-theme="dark"] .quick-action h3,
+html[data-theme="dark"] .quick-action-card h3 {
+    color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .quick-action p,
+html[data-theme="dark"] .quick-action-card p {
+    color: #94a3b8 !important;
+}
+
+
+/* =========================================================
+   GLOBAL FORM ELEMENTS
+   ========================================================= */
+
+html[data-theme="dark"] input,
+html[data-theme="dark"] select,
+html[data-theme="dark"] textarea {
+    background: #0b1629 !important;
+    color: #f8fafc !important;
+    border-color: #334155 !important;
+}
+
+html[data-theme="dark"] input:hover,
+html[data-theme="dark"] select:hover,
+html[data-theme="dark"] textarea:hover {
+    background: #101d33 !important;
+    border-color: #475569 !important;
+}
+
+html[data-theme="dark"] input:focus,
+html[data-theme="dark"] select:focus,
+html[data-theme="dark"] textarea:focus {
+    background: #0f1f38 !important;
+    color: #ffffff !important;
+    border-color: #60a5fa !important;
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.15) !important;
+}
+
+html[data-theme="dark"] input::placeholder,
+html[data-theme="dark"] textarea::placeholder {
+    color: #64748b !important;
+}
+
+html[data-theme="dark"] option {
+    background: #0f172a !important;
+    color: #f8fafc !important;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+html[data-theme="dark"] .btn-primary,
+html[data-theme="dark"] .primary-btn {
+    background: linear-gradient(135deg,
+            #3b82f6,
+            #4f46e5) !important;
+
+    color: #ffffff !important;
+    border-color: transparent !important;
+}
+
+html[data-theme="dark"] .btn-secondary,
+html[data-theme="dark"] .secondary-btn {
+    background: #111c31 !important;
+    color: #cbd5e1 !important;
+    border-color: #334155 !important;
+}
+
+
+/* =========================================================
+   STATUS BADGES
+   ========================================================= */
+
+html[data-theme="dark"] .invoice-status.paid,
+html[data-theme="dark"] .invoice-status-badge.paid {
+    background: #052e16 !important;
+    color: #4ade80 !important;
+}
+
+html[data-theme="dark"] .invoice-status.pending,
+html[data-theme="dark"] .invoice-status-badge.pending {
+    background: #451a03 !important;
+    color: #fbbf24 !important;
+}
+
+html[data-theme="dark"] .invoice-status.partially_paid,
+html[data-theme="dark"] .invoice-status-badge.partially_paid {
+    background: #172554 !important;
+    color: #60a5fa !important;
+}
+
+html[data-theme="dark"] .invoice-status.overdue,
+html[data-theme="dark"] .invoice-status-badge.overdue {
+    background: #450a0a !important;
+    color: #f87171 !important;
+}
+
+
+/* =========================================================
+   REPORTS
+   ========================================================= */
+
+html[data-theme="dark"] .reports-page,
+html[data-theme="dark"] .reports-container,
+html[data-theme="dark"] .report-card,
+html[data-theme="dark"] .reports-card {
+    background: #0f172a !important;
+    color: #f8fafc !important;
+    border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .report-card h3,
+html[data-theme="dark"] .reports-card h3 {
+    color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .report-card p,
+html[data-theme="dark"] .reports-card p {
+    color: #94a3b8 !important;
+}
+
+
+/* =========================================================
+   MODALS
+   ========================================================= */
+
+html[data-theme="dark"] .modal-overlay {
+    background: rgba(0, 0, 0, 0.75) !important;
+}
+
+html[data-theme="dark"] .modal {
+    background: #111c31 !important;
+    color: #f8fafc !important;
+    border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .modal h2,
+html[data-theme="dark"] .modal h3 {
+    color: #f8fafc !important;
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+html[data-theme="dark"] .sidebar {
+    background: linear-gradient(180deg,
+            #020617 0%,
+            #030b1c 100%) !important;
+
+    border-right-color: #1e293b !important;
+}
+
+html[data-theme="dark"] .sidebar-nav-link {
+    color: #94a3b8 !important;
+}
+
+html[data-theme="dark"] .sidebar-nav-link:hover {
+    color: #f8fafc !important;
+    background: rgba(96, 165, 250, 0.08) !important;
+}
+
+html[data-theme="dark"] .sidebar-nav-link.active {
+    color: #ffffff !important;
+    background: linear-gradient(135deg,
+            #2563eb,
+            #4f46e5) !important;
+}
+
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+
+html[data-theme="dark"] .navbar {
+    background: rgba(2, 6, 23, 0.94) !important;
+    border-bottom-color: #1e293b !important;
+}
+
+html[data-theme="dark"] .navbar h2,
+html[data-theme="dark"] .navbar-page-info h2 {
+    color: #f8fafc !important;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+html[data-theme="dark"] ::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+}
+
+html[data-theme="dark"] ::-webkit-scrollbar-track {
+    background: #020617;
+}
+
+html[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 999px;
+}
+
+html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+}
+
+
+/* =========================================================
+   IMPORTANT:
+   ACTUAL INVOICE / QUOTATION PAPER MUST STAY WHITE
+   ========================================================= */
+
+html[data-theme="dark"] .invoice-preview,
+html[data-theme="dark"] .quotation-preview,
+html[data-theme="dark"] .invoice-pdf-mode {
+    background: #ffffff !important;
+    color: #111827 !important;
+}
+
+html[data-theme="dark"] .invoice-preview *,
+html[data-theme="dark"] .quotation-preview *,
+html[data-theme="dark"] .invoice-pdf-mode * {
+    color: inherit;
+}
+
+
+/* =========================================================
+   PRINT
+   ========================================================= */
+
+@media print {
+
+    html[data-theme="dark"] body,
+    html[data-theme="dark"] .dashboard-layout,
+    html[data-theme="dark"] .main-area,
+    html[data-theme="dark"] .page-content {
+        background: #ffffff !important;
+        color: #111827 !important;
+    }
+}

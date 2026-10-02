@@ -622,12 +622,12 @@ function Quotations() {
                         </Button>
                       </td>
                     </tr>
-                  ))}
-                  ;
+                  ))};
+                  
                 </tbody>
               </table>
-            )}
-            ;
+            )};
+            
           </>
         )}
         ;

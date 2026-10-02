@@ -15,6 +15,10 @@ const invoiceRoutes = require("./routes/invoiceRoutes");
 
 const quotationRoutes = require("./routes/quotationRoutes");
 
+const settingsRoutes = require("./routes/settingsRoutes");
+
+const accountRoutes = require("./routes/accountRoutes");
+
 const app = express();
 
 const PORT = 5000;
@@ -28,6 +32,8 @@ app.use("/api/products", productRoutes);
 app.use("/api/invoices", invoiceRoutes);
 app.use("/api/quotations", quotationRoutes);
 app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/settings", settingsRoutes);
+app.use("/api/account", accountRoutes);
 
 app.get("/api/test", (req, res) => {
     res.json({

@@ -1,18 +1,57 @@
 /* =========================================================
-   InvoicePro — Cleaned App.css
-   Duplicate / fully shadowed CSS rules removed safely.
-   Existing styling, cascade order and responsive behavior preserved.
+   InvoicePro — App.css
+   Modern responsive design system · Light + Dark theme
+   =========================================================
+
+   HOW THEMING WORKS
+   ---------------------------------------------------------
+   1. Every colour used by the UI is a CSS variable (token).
+   2. Light values live in  :root           (default theme).
+   3. Dark values live in   html[data-theme="dark"].
+   4. Components only use  var(--token)  — never a raw colour
+      for surfaces, text or borders — so they follow the theme
+      automatically.
+
+   Switch theme from JavaScript:
+     document.documentElement.dataset.theme = "dark";   // or "light"
+
+   Intentionally NOT themed (same in both modes):
+     • Sidebar            – always dark by design
+     • Brand gradients    – indigo / violet accents
+     • Solid action buttons (e.g. red delete, green paid)
+     • Invoice PDF / print – always light (paper)
    ========================================================= */
 
+
 /* =========================================================
-   InvoicePro — Modern Responsive Design System
+   1. TOKENS — THEME-INDEPENDENT
    ========================================================= */
 
 :root {
-  /* Brand */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  --transition: 160ms ease;
+}
+
+
+/* =========================================================
+   2. TOKENS — LIGHT THEME (default)
+   .invoice-pdf-mode is listed here so exported PDFs always
+   render with light colours, even when the app is in dark mode.
+   ========================================================= */
+
+:root,
+.invoice-pdf-mode {
+  color-scheme: light;
+
+  /* ---------- Brand ---------- */
   --primary: #0F172A;
   --primary-dark: #020617;
   --primary-soft: #EEF2F7;
+  --on-primary: #ffffff;
+  /* text on a solid --primary background */
 
   --accent: #2563EB;
   --accent-dark: #1D4ED8;
@@ -24,38 +63,325 @@
   --secondary-dark: #1D4ED8;
   --secondary-soft: #EFF6FF;
 
+  /* Indigo / violet accent family (dashboard) */
+  --indigo: #4f46e5;
+  --indigo-soft: #eef2ff;
+  --indigo-border: #c7d2fe;
+  --indigo-border-soft: #e0e7ff;
+  --violet: #7c3aed;
+
+  /* ---------- Status ---------- */
   --success: #16a34a;
   --success-soft: #f0fdf4;
+  --success-muted: #dcfce7;
+  --success-text: #166534;
+
   --warning: #d97706;
   --warning-soft: #fffbeb;
+  --warning-muted: #fef3c7;
+  --warning-border: #fde68a;
+  --warning-text: #92400e;
+
   --danger: #dc2626;
   --danger-soft: #fef2f2;
+  --danger-muted: #fee2e2;
+  --danger-border: #fecaca;
+  --danger-text: #b91c1c;
+
   --info: #2563EB;
   --info-soft: #EFF6FF;
+  --info-border: #bfdbfe;
 
+  /* ---------- Text ---------- */
   --text: #1E293B;
   --text-secondary: #334155;
   --text-muted: #64748B;
+  --text-strong: #1e1b4b;
+  /* headings / key figures */
 
+  /* ---------- Surfaces & borders ---------- */
   --surface: #ffffff;
+  /* cards, modals, inputs */
   --surface-soft: #F8FAFC;
+  /* page background, subtle fills */
+  --surface-tint: #fafaff;
+  /* hover / highlighted rows */
+  --track: #e5e7eb;
+  /* progress tracks, skeletons */
   --border: #E2E8F0;
   --border-strong: #CBD5E1;
 
+  /* ---------- Sidebar (dark in both themes) ---------- */
   --sidebar: #0F172A;
   --sidebar-hover: #1E293B;
   --sidebar-text: #94A3B8;
 
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-
+  /* ---------- Shadows ---------- */
   --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
   --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.08);
   --shadow-lg: 0 20px 48px rgba(15, 23, 42, 0.14);
-
-  --transition: 160ms ease;
 }
+
+
+/* =========================================================
+   3. TOKENS — DARK THEME
+   Wrapped in "not print" so printing always uses light colours.
+   ========================================================= */
+
+@media not print {
+  html[data-theme="dark"] {
+    color-scheme: dark;
+
+    /* ---------- Brand ---------- */
+    --primary: #F8FAFC;
+    --primary-dark: #E2E8F0;
+    --primary-soft: #1E293B;
+    --on-primary: #0F172A;
+
+    --accent: #60A5FA;
+    --accent-dark: #3B82F6;
+    --accent-soft: #172554;
+
+    --secondary: #60A5FA;
+    --secondary-dark: #3B82F6;
+    --secondary-soft: #172554;
+
+    --indigo: #818CF8;
+    --indigo-soft: #1E1B4B;
+    --indigo-border: #3730A3;
+    --indigo-border-soft: #312E81;
+    --violet: #A78BFA;
+
+    /* ---------- Status ---------- */
+    --success: #4ADE80;
+    --success-soft: #052E16;
+    --success-muted: #14532D;
+    --success-text: #86EFAC;
+
+    --warning: #FBBF24;
+    --warning-soft: #451A03;
+    --warning-muted: #5A2A08;
+    --warning-border: #78350F;
+    --warning-text: #FCD34D;
+
+    --danger: #F87171;
+    --danger-soft: #450A0A;
+    --danger-muted: #5F1717;
+    --danger-border: #7F1D1D;
+    --danger-text: #FCA5A5;
+
+    --info: #60A5FA;
+    --info-soft: #172554;
+    --info-border: #1E3A8A;
+
+    /* ---------- Text ---------- */
+    --text: #F1F5F9;
+    --text-secondary: #CBD5E1;
+    --text-muted: #94A3B8;
+    --text-strong: #F8FAFC;
+
+    /* ---------- Surfaces & borders ---------- */
+    --surface: #0F172A;
+    --surface-soft: #020617;
+    --surface-tint: #162036;
+    --track: #1E293B;
+    --border: #334155;
+    --border-strong: #475569;
+
+    /* ---------- Sidebar ---------- */
+    --sidebar: #020617;
+    --sidebar-hover: #1E293B;
+    --sidebar-text: #94A3B8;
+
+    /* ---------- Shadows ---------- */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.4);
+  }
+}
+
+
+/* =========================================================
+   4. DARK THEME — APP SHELL OVERRIDES
+   Sidebar · Navbar · Main background · Page headings
+   (Everything else follows the tokens above automatically.)
+   ========================================================= */
+
+html[data-theme="dark"] body {
+  background: #020617;
+  color: #F1F5F9;
+}
+
+/* Main application background */
+html[data-theme="dark"] .dashboard-layout {
+  background:
+    radial-gradient(circle at 80% 0%,
+      rgba(37, 99, 235, 0.08),
+      transparent 28%),
+    #020617;
+}
+
+/* Sidebar */
+html[data-theme="dark"] .sidebar {
+  background: rgba(2, 6, 23, 0.96);
+  color: #F8FAFC;
+  border-right: 1px solid rgba(148, 163, 184, 0.10);
+  box-shadow: 8px 0 30px rgba(0, 0, 0, 0.18);
+}
+
+/* Sidebar brand */
+html[data-theme="dark"] .sidebar-brand-link {
+  color: #F8FAFC;
+}
+
+html[data-theme="dark"] .sidebar-brand-text strong {
+  color: #F8FAFC;
+}
+
+html[data-theme="dark"] .sidebar-brand-text span {
+  color: #64748B;
+}
+
+/* Sidebar section headings */
+html[data-theme="dark"] .sidebar-section-title {
+  color: #64748B;
+}
+
+/* Sidebar navigation */
+html[data-theme="dark"] .sidebar-nav-link {
+  color: #94A3B8;
+}
+
+html[data-theme="dark"] .sidebar-nav-link:hover {
+  color: #E2E8F0;
+  background: rgba(96, 165, 250, 0.08);
+}
+
+/* Active sidebar item */
+html[data-theme="dark"] .sidebar-nav-link.active {
+  color: #FFFFFF;
+
+  background:
+    linear-gradient(135deg,
+      rgba(37, 99, 235, 0.95),
+      rgba(79, 70, 229, 0.95));
+
+  border: 1px solid rgba(147, 197, 253, 0.16);
+
+  box-shadow:
+    0 8px 24px rgba(37, 99, 235, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Sidebar account */
+html[data-theme="dark"] .sidebar-account {
+  background: rgba(255, 255, 255, 0.035);
+  border-color: rgba(148, 163, 184, 0.10);
+}
+
+html[data-theme="dark"] .sidebar-account-info strong {
+  color: #E2E8F0;
+}
+
+html[data-theme="dark"] .sidebar-account-info span {
+  color: #64748B;
+}
+
+/* Sidebar logout */
+html[data-theme="dark"] .sidebar-logout {
+  color: #94A3B8;
+  border-color: rgba(148, 163, 184, 0.08);
+}
+
+html[data-theme="dark"] .sidebar-logout:hover {
+  color: #FCA5A5;
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(248, 113, 113, 0.15);
+}
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+
+html[data-theme="dark"] .navbar {
+  background: rgba(2, 6, 23, 0.82);
+  border-bottom-color: rgba(148, 163, 184, 0.10);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.02),
+    0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+html[data-theme="dark"] .navbar-page-info h2,
+html[data-theme="dark"] .navbar h2 {
+  color: #F8FAFC;
+}
+
+html[data-theme="dark"] .navbar-page-label {
+  color: #64748B;
+}
+
+html[data-theme="dark"] .navbar-welcome span {
+  color: #64748B;
+}
+
+html[data-theme="dark"] .navbar-welcome strong {
+  color: #E2E8F0;
+}
+
+html[data-theme="dark"] .navbar-user span {
+  color: #CBD5E1;
+}
+
+html[data-theme="dark"] .navbar-user button {
+  background: #0F172A;
+  color: #CBD5E1;
+  border-color: #334155;
+}
+
+html[data-theme="dark"] .navbar-user button:hover {
+  background: rgba(239, 68, 68, 0.10);
+  border-color: rgba(248, 113, 113, 0.25);
+  color: #F87171;
+}
+
+/* Navbar avatar */
+html[data-theme="dark"] .navbar-avatar {
+  box-shadow:
+    0 0 0 3px rgba(96, 165, 250, 0.08),
+    0 8px 20px rgba(37, 99, 235, 0.20);
+}
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+html[data-theme="dark"] .main-area {
+  background: transparent;
+}
+
+html[data-theme="dark"] .page-content {
+  background: transparent;
+}
+
+/* Page headings */
+html[data-theme="dark"] .page-header h1 {
+  color: #F8FAFC;
+}
+
+html[data-theme="dark"] .page-header p {
+  color: #94A3B8;
+}
+
+/* Hover state of the primary quick-action: keep the indigo gradient in dark mode
+   (var(--primary-dark) turns light there, which would wash out the white text) */
+html[data-theme="dark"] .quick-action-item.primary:hover {
+  background: linear-gradient(135deg, #4338ca, #7c3aed);
+}
+
 
 /* =========================
    Base
@@ -916,7 +1242,7 @@ a:hover {
 
 .navbar-user button {
   border: 1px solid var(--border);
-  background: #fff;
+  background: var(--surface);
   color: var(--text-secondary);
   cursor: pointer;
   font-weight: 600;
@@ -927,7 +1253,7 @@ a:hover {
 
 .navbar-user button:hover {
   background: var(--danger-soft);
-  border-color: #fecaca;
+  border-color: var(--danger-border);
   color: var(--danger);
 }
 
@@ -1097,6 +1423,7 @@ button {
   border: 1px solid transparent;
   border-radius: var(--radius-sm);
   padding: 10px 16px;
+  margin-right: 10px;
   cursor: pointer;
   font-weight: 600;
   font-size: 14px;
@@ -1128,7 +1455,7 @@ button:disabled {
 }
 
 .btn-secondary {
-  background: #fff;
+  background: var(--surface);
   color: var(--text-secondary);
   border-color: var(--border);
 }
@@ -1141,11 +1468,11 @@ button:disabled {
 
 .btn-danger {
   background: var(--danger-soft);
-  color: #b91c1c;
+  color: var(--danger-text);
 }
 
 .btn-danger:hover {
-  background: #fee2e2;
+  background: var(--danger-muted);
 }
 
 /* =========================
@@ -1242,7 +1569,7 @@ th:last-child {
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-sm);
   outline: none;
-  background: #fff;
+  background: var(--surface);
   color: var(--text);
   transition:
     border-color var(--transition),
@@ -1297,7 +1624,7 @@ th:last-child {
   max-width: 520px;
   max-height: calc(100vh - 40px);
   overflow-y: auto;
-  background: #fff;
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 24px;
@@ -1330,7 +1657,7 @@ th:last-child {
 }
 
 .modal-header button:hover {
-  background: #E2E8F0;
+  background: var(--border);
 }
 
 .modal-actions {
@@ -1366,10 +1693,10 @@ th:last-child {
 .form-error {
   margin: 12px 0;
   padding: 11px 13px;
-  border: 1px solid #fecaca;
+  border: 1px solid var(--danger-border);
   border-radius: var(--radius-sm);
   background: var(--danger-soft);
-  color: #b91c1c;
+  color: var(--danger-text);
   font-size: 13px;
 }
 
@@ -1421,7 +1748,7 @@ th:last-child {
   max-width: 1000px;
   margin: 24px auto;
   padding: 42px;
-  background: #fff;
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-md);
@@ -1540,7 +1867,7 @@ th:last-child {
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 
-  background: #fbfcff;
+  background: var(--surface-tint);
 }
 
 .payment-section h3 {
@@ -1566,7 +1893,7 @@ th:last-child {
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
 
-  background: #ffffff;
+  background: var(--surface);
   color: var(--text);
 
   font-size: 13px;
@@ -1586,7 +1913,7 @@ th:last-child {
 .payment-form input:focus {
   border-color: var(--primary);
 
-  background: #ffffff;
+  background: var(--surface);
 
   box-shadow:
     0 0 0 3px rgba(37, 99, 235, 0.10);
@@ -1639,7 +1966,7 @@ th:last-child {
   padding: 14px 16px;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  background: #fff;
+  background: var(--surface);
   transition:
     border-color var(--transition),
     box-shadow var(--transition);
@@ -1690,12 +2017,12 @@ th:last-child {
 
 .invoice-status.paid {
   background: var(--success-soft);
-  color: #166534;
+  color: var(--success-text);
 }
 
 .invoice-status.pending {
   background: var(--warning-soft);
-  color: #92400e;
+  color: var(--warning-text);
 }
 
 .invoice-status.partially_paid {
@@ -1705,7 +2032,7 @@ th:last-child {
 
 .invoice-status.overdue {
   background: var(--danger-soft);
-  color: #b91c1c;
+  color: var(--danger-text);
 }
 
 /* =========================
@@ -1721,7 +2048,7 @@ th:last-child {
 .skeleton-line {
   height: 14px;
   border-radius: 6px;
-  background: #e5e7eb;
+  background: var(--track);
   animation: skeleton-loading 1.5s ease-in-out infinite;
 }
 
@@ -1839,7 +2166,7 @@ th:last-child {
 .payment-progress-bar {
   width: 100%;
   height: 8px;
-  background: #e5e7eb;
+  background: var(--track);
   border-radius: 999px;
   overflow: hidden;
 }
@@ -1878,13 +2205,13 @@ th:last-child {
   border-radius: var(--radius-sm);
   padding: 10px 12px;
   background: var(--danger-soft);
-  color: #b91c1c;
+  color: var(--danger-text);
   font-weight: 650;
   cursor: pointer;
 }
 
 .invoice-item-row>button:hover {
-  background: #fee2e2;
+  background: var(--danger-muted);
 }
 
 .form-actions {
@@ -1904,7 +2231,7 @@ th:last-child {
 }
 
 .form-actions button[type="button"] {
-  background: #fff;
+  background: var(--surface);
   color: var(--text-secondary);
 }
 
@@ -1983,14 +2310,14 @@ th:last-child {
 }
 
 .dashboard-error strong {
-  color: #7f1d1d;
+  color: var(--danger-text);
   display: block;
   margin-bottom: 4px;
 }
 
 .dashboard-error p {
   margin: 0;
-  color: #991b1b;
+  color: var(--danger-text);
   font-size: 13px;
 }
 
@@ -2087,7 +2414,7 @@ th:last-child {
   padding: 7px 12px;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  background: #fff;
+  background: var(--surface);
   color: var(--text-secondary);
   font-size: 13px;
   font-weight: 600;
@@ -2117,7 +2444,7 @@ th:last-child {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: conic-gradient(var(--accent) var(--payment-progress), #E2E8F0 var(--payment-progress));
+  background: conic-gradient(var(--accent) var(--payment-progress), #ece2f0 var(--payment-progress));
   box-shadow: 0 0 0 7px var(--accent-soft);
 }
 
@@ -2125,7 +2452,7 @@ th:last-child {
   width: 118px;
   height: 118px;
   border-radius: 50%;
-  background: #fff;
+  background: var(--surface);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2198,7 +2525,7 @@ th:last-child {
 
 .action-required-item:hover {
   transform: translateX(2px);
-  background: #fff;
+  background: var(--surface);
   box-shadow: var(--shadow-sm);
 }
 
@@ -2224,24 +2551,24 @@ th:last-child {
   justify-content: center;
   font-weight: 800;
   font-size: 14px;
-  background: #fff;
+  background: var(--surface);
   color: var(--text-secondary);
   border: 1px solid var(--border);
 }
 
 .action-required-item.danger .action-icon {
   color: var(--danger);
-  border-color: #fecaca;
+  border-color: var(--danger-border);
 }
 
 .action-required-item.warning .action-icon {
   color: var(--warning);
-  border-color: #fde68a;
+  border-color: var(--warning-border);
 }
 
 .action-required-item.info .action-icon {
   color: var(--accent);
-  border-color: #bfdbfe;
+  border-color: var(--info-border);
 }
 
 .action-content {
@@ -2327,7 +2654,7 @@ th:last-child {
   padding: 24px 8px 8px;
   overflow-x: auto;
   scrollbar-width: thin;
-  scrollbar-color: #c7d2fe transparent;
+  scrollbar-color: var(--indigo-border) transparent;
 }
 
 /* Each month */
@@ -2457,13 +2784,13 @@ th:last-child {
 
   padding: 30px;
 
-  border: 1px dashed #cbd5e1;
+  border: 1px dashed var(--border-strong);
   border-radius: var(--radius-md);
 
   background:
     linear-gradient(180deg,
-      #fafaff 0%,
-      #ffffff 100%);
+      var(--surface-tint) 0%,
+      var(--surface) 100%);
 }
 
 .dashboard-empty-state h3 {
@@ -2483,7 +2810,7 @@ th:last-child {
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-sm);
 
-  background: #fff;
+  background: var(--surface);
   color: var(--text);
 
   font-size: 13px;
@@ -2646,7 +2973,7 @@ th:last-child {
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
 
-  background: #fff;
+  background: var(--surface);
 
   cursor: pointer;
 
@@ -2708,9 +3035,9 @@ th:last-child {
 .dashboard-payment-item:hover {
   transform: translateY(-2px);
 
-  border-color: #c7d2fe;
+  border-color: var(--indigo-border);
 
-  background: #fcfcff;
+  background: var(--surface-tint);
 
   box-shadow:
     0 7px 18px rgba(79, 70, 229, 0.08);
@@ -2737,10 +3064,10 @@ th:last-child {
 }
 
 .dashboard-list-card:first-child .dashboard-payment-item:hover {
-  border-color: #fecaca;
-  border-left-color: #dc2626;
+  border-color: var(--danger-border);
+  border-left-color: var(--danger);
 
-  background: #fffafa;
+  background: var(--danger-soft);
 
   box-shadow:
     0 8px 20px rgba(220, 38, 38, 0.08);
@@ -2759,10 +3086,10 @@ th:last-child {
 }
 
 .dashboard-list-card:nth-child(2) .dashboard-payment-item:hover {
-  border-color: #fde68a;
+  border-color: var(--warning-border);
   border-left-color: #d97706;
 
-  background: #fffdf7;
+  background: var(--warning-soft);
 
   box-shadow:
     0 8px 20px rgba(217, 119, 6, 0.08);
@@ -2786,10 +3113,10 @@ th:last-child {
 
   text-align: center;
 
-  border: 1px dashed #cbd5e1;
+  border: 1px dashed var(--border-strong);
   border-radius: var(--radius-md);
 
-  background: #fafcff;
+  background: var(--surface-tint);
 }
 
 .dashboard-small-empty strong {
@@ -2936,7 +3263,7 @@ th:last-child {
   padding: 14px 15px;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  background: #fff;
+  background: var(--surface);
   cursor: pointer;
   transition: border-color var(--transition), background var(--transition), transform var(--transition);
 }
@@ -3293,8 +3620,8 @@ th:last-child {
   overflow: hidden;
   min-height: 165px;
   padding: 22px;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 16px;
   box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
 
@@ -3322,7 +3649,7 @@ th:last-child {
 
 .dashboard-stat-card:hover {
   transform: translateY(-4px);
-  border-color: #c7d2fe;
+  border-color: var(--indigo-border);
   box-shadow:
     0 12px 28px rgba(79, 70, 229, 0.10);
 }
@@ -3349,15 +3676,15 @@ th:last-child {
   border-radius: 11px;
 
   background: linear-gradient(135deg,
-      #EEF2FF,
-      #F5F3FF);
+      var(--indigo-soft),
+      var(--indigo-soft));
 
-  color: #4F46E5;
+  color: var(--indigo);
 
   font-size: 17px;
   font-weight: 800;
 
-  border: 1px solid #E0E7FF;
+  border: 1px solid var(--indigo-border-soft);
 
   transition:
     transform 180ms ease,
@@ -3377,7 +3704,7 @@ th:last-child {
 /* Label */
 
 .dashboard-stat-label {
-  color: #64748B;
+  color: var(--text-muted);
   font-size: 13px;
   font-weight: 650;
 }
@@ -3394,7 +3721,7 @@ th:last-child {
 .dashboard-stat-content h2 {
   margin: 0;
 
-  color: #111827;
+  color: var(--text-strong);
 
   font-size: 27px;
   line-height: 1.2;
@@ -3418,13 +3745,13 @@ th:last-child {
 /* Revenue */
 
 .dashboard-stat-card.revenue-card .dashboard-stat-content h2 {
-  color: #4F46E5;
+  color: var(--indigo);
 }
 
 /* Outstanding */
 
 .dashboard-stat-card.outstanding-card .dashboard-stat-content h2 {
-  color: #D97706;
+  color: var(--warning);
 }
 
 /* Individual accent lines */
@@ -3504,7 +3831,7 @@ th:last-child {
   border: 2px solid var(--border);
   border: 1px solid rgb(145, 197, 228);
   border-radius: var(--radius-md);
-  background: #ffffff;
+  background: var(--surface);
   color: var(--text);
   text-align: left;
   cursor: pointer;
@@ -3535,8 +3862,8 @@ th:last-child {
 
 .quick-action-item:hover {
   transform: translateY(-3px);
-  border-color: #c7d2fe;
-  background: #fafaff;
+  border-color: var(--indigo-border);
+  background: var(--surface-tint);
   box-shadow: 0 8px 20px rgba(79, 70, 229, 0.10);
 }
 
@@ -3630,7 +3957,7 @@ th:last-child {
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
 
-  background: #fff;
+  background: var(--surface);
 
   transition:
     transform var(--transition),
@@ -3642,9 +3969,9 @@ th:last-child {
 .top-customer-item:hover {
   transform: translateY(-2px);
 
-  border-color: #c7d2fe;
+  border-color: var(--indigo-border);
 
-  background: #fcfcff;
+  background: var(--surface-tint);
 
   box-shadow:
     0 7px 18px rgba(79, 70, 229, 0.08);
@@ -3770,7 +4097,7 @@ th:last-child {
 
   border: 1px solid transparent;
   border-radius: var(--radius-md);
-  background: #fafbff;
+  background: var(--surface-tint);
 
   transition:
     background var(--transition),
@@ -3780,8 +4107,8 @@ th:last-child {
 }
 
 .top-customer-item:hover {
-  background: #ffffff;
-  border-color: #e0e7ff;
+  background: var(--surface);
+  border-color: var(--indigo-border-soft);
   transform: translateX(3px);
   box-shadow: 0 5px 16px rgba(79, 70, 229, 0.07);
 }
@@ -3827,7 +4154,7 @@ th:last-child {
 .top-customer-item>strong:last-child {
   flex-shrink: 0;
 
-  color: #1e1b4b;
+  color: var(--text-strong);
   font-size: 14px;
   font-weight: 750;
 }
@@ -3856,9 +4183,9 @@ th:last-child {
   gap: 5px;
 
   padding: 24px;
-  border: 1px dashed #cbd5e1;
+  border: 1px dashed var(--border-strong);
   border-radius: var(--radius-md);
-  background: #fafcff;
+  background: var(--surface-tint);
 }
 
 .dashboard-small-empty strong {
@@ -3913,7 +4240,7 @@ th:last-child {
 }
 
 .invoice-table-header {
-  background: #f8fafc;
+  background: var(--surface-soft);
   border-bottom: 1px solid var(--border);
 
   color: var(--text-secondary);
@@ -3934,7 +4261,7 @@ th:last-child {
 }
 
 .invoice-table-row:hover {
-  background: #fafbff;
+  background: var(--surface-tint);
   box-shadow: inset 3px 0 0 var(--primary);
 }
 
@@ -3947,7 +4274,7 @@ th:last-child {
 /* Amount */
 
 .invoice-table-row strong:nth-child(3) {
-  color: #1e1b4b;
+  color: var(--text-strong);
 }
 
 /* Status badge */
@@ -4018,7 +4345,7 @@ th:last-child {
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
 
-  background: #ffffff;
+  background: var(--surface);
   color: var(--text);
 
   text-align: left;
@@ -4056,9 +4383,9 @@ th:last-child {
 .quick-action-item:hover {
   transform: translateY(-2px);
 
-  border-color: #c7d2fe;
+  border-color: var(--indigo-border);
 
-  background: #fcfcff;
+  background: var(--surface-tint);
 
   box-shadow:
     0 8px 20px rgba(79, 70, 229, 0.10);
@@ -4076,7 +4403,7 @@ th:last-child {
 
   margin-bottom: 6px;
 
-  color: #1e1b4b;
+  color: var(--text-strong);
 
   font-size: 14px;
   font-weight: 750;
@@ -4153,7 +4480,7 @@ th:last-child {
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
 
-  background: #fff;
+  background: var(--surface);
 
   cursor: pointer;
 
@@ -4211,12 +4538,12 @@ th:last-child {
    ========================================================= */
 
 .action-required-item.danger {
-  background: #fffafa;
-  border-color: #fecaca;
+  background: var(--danger-soft);
+  border-color: var(--danger-border);
 }
 
 .action-required-item.danger:hover {
-  background: #fff5f5;
+  background: var(--danger-soft);
   border-color: #fca5a5;
 }
 
@@ -4225,12 +4552,12 @@ th:last-child {
    ========================================================= */
 
 .action-required-item.warning {
-  background: #fffdf7;
-  border-color: #fde68a;
+  background: var(--warning-soft);
+  border-color: var(--warning-border);
 }
 
 .action-required-item.warning:hover {
-  background: #fffbeb;
+  background: var(--warning-soft);
   border-color: #fcd34d;
 }
 
@@ -4239,8 +4566,8 @@ th:last-child {
    ========================================================= */
 
 .action-required-item.info {
-  background: #fafaff;
-  border-color: #ddd6fe;
+  background: var(--surface-tint);
+  border-color: var(--indigo-border-soft);
 }
 
 .action-required-item.info:hover {
@@ -4286,21 +4613,21 @@ th:last-child {
 
 .status-dot.partially-paid {
   background: #6366f1;
-  box-shadow: 0 0 0 4px #eef2ff;
+  box-shadow: 0 0 0 4px var(--indigo-soft);
 }
 
 /* Paid */
 
 .status-dot.paid {
   background: #22c55e;
-  box-shadow: 0 0 0 4px #dcfce7;
+  box-shadow: 0 0 0 4px var(--success-muted);
 }
 
 /* Overdue */
 
 .status-dot.overdue {
   background: #ef4444;
-  box-shadow: 0 0 0 4px #fee2e2;
+  box-shadow: 0 0 0 4px var(--danger-muted);
 }
 
 /* =========================================================
@@ -4396,10 +4723,10 @@ th:last-child {
 
   background:
     conic-gradient(var(--primary) var(--payment-progress),
-      #e5e7eb var(--payment-progress));
+      var(--track) var(--payment-progress));
 
   box-shadow:
-    0 0 0 8px #f5f3ff,
+    0 0 0 8px var(--indigo-soft),
     0 10px 30px rgba(79, 70, 229, 0.12);
 
   transition: background 500ms ease;
@@ -4416,14 +4743,14 @@ th:last-child {
 
   border-radius: 50%;
 
-  background: #fff;
+  background: var(--surface);
 
   box-shadow:
     inset 0 0 0 1px rgba(15, 23, 42, 0.04);
 }
 
 .dashboard-payment-circle-inner strong {
-  color: #1e1b4b;
+  color: var(--text-strong);
 
   font-size: 30px;
   line-height: 1;
@@ -4467,7 +4794,7 @@ th:last-child {
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
 
-  background: #fafbff;
+  background: var(--surface-tint);
 
   transition:
     transform var(--transition),
@@ -4479,9 +4806,9 @@ th:last-child {
 .payment-detail-item:hover {
   transform: translateY(-2px);
 
-  border-color: #c7d2fe;
+  border-color: var(--indigo-border);
 
-  background: #fff;
+  background: var(--surface);
 
   box-shadow:
     0 7px 20px rgba(79, 70, 229, 0.08);
@@ -4497,7 +4824,7 @@ th:last-child {
 }
 
 .payment-detail-item strong {
-  color: #1e1b4b;
+  color: var(--text-strong);
 
   font-size: 18px;
   font-weight: 800;
@@ -4518,7 +4845,7 @@ th:last-child {
 }
 
 .payment-detail-item:nth-child(2) strong {
-  color: #15803d;
+  color: var(--success-text);
 }
 
 /* Outstanding */
@@ -4528,7 +4855,7 @@ th:last-child {
 }
 
 .payment-detail-item:nth-child(3) strong {
-  color: #b45309;
+  color: var(--warning-text);
 }
 
 /* =========================================================
@@ -4619,7 +4946,7 @@ th:last-child {
 }
 
 .dashboard-payment-item>div strong {
-  color: #1e1b4b;
+  color: var(--text-strong);
 
   font-size: 13px;
   font-weight: 750;
@@ -4651,7 +4978,7 @@ th:last-child {
 }
 
 .amount-warning {
-  color: #d97706;
+  color: var(--warning);
 }
 
 /* =========================================================
@@ -4663,7 +4990,7 @@ th:last-child {
 }
 
 .dashboard-list-card:has(.amount-danger) .dashboard-section-header h3 {
-  color: #991b1b;
+  color: var(--danger-text);
 }
 
 /* =========================================================
@@ -4675,7 +5002,7 @@ th:last-child {
 }
 
 .dashboard-list-card:has(.amount-warning) .dashboard-section-header h3 {
-  color: #92400e;
+  color: var(--warning-text);
 }
 
 /* =========================================================
@@ -4697,7 +5024,7 @@ th:last-child {
   border: 1px dashed #dbe3ef;
   border-radius: var(--radius-md);
 
-  background: #fafcff;
+  background: var(--surface-tint);
 
   text-align: center;
 }
@@ -4798,7 +5125,7 @@ th:last-child {
 .invoice-table-header {
   min-height: 44px;
 
-  background: #f8fafc;
+  background: var(--surface-soft);
 
   border-bottom: 1px solid var(--border);
 
@@ -4828,7 +5155,7 @@ th:last-child {
    ========================================================= */
 
 .invoice-table-row strong {
-  color: #1e1b4b;
+  color: var(--text-strong);
 
   font-size: 13px;
   font-weight: 750;
@@ -4897,7 +5224,7 @@ th:last-child {
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-sm);
 
-  background: #fff;
+  background: var(--surface);
   color: var(--text);
 
   outline: none;
@@ -4944,7 +5271,7 @@ th:last-child {
 .invoice-toolbar select:focus {
   border-color: var(--primary);
 
-  background: #fff;
+  background: var(--surface);
 
   box-shadow:
     0 0 0 3px rgba(79, 70, 229, 0.10);
@@ -5043,13 +5370,13 @@ th:last-child {
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
 
-  background: #fff;
+  background: var(--surface);
 
   overflow-x: auto;
   overflow-y: hidden;
 
   scrollbar-width: thin;
-  scrollbar-color: #c7d2fe transparent;
+  scrollbar-color: var(--indigo-border) transparent;
 }
 
 /* =========================================================
@@ -5067,7 +5394,7 @@ th:last-child {
 
   padding: 13px 16px;
 
-  background: #f8fafc;
+  background: var(--surface-soft);
 
   border-bottom: 1px solid var(--border);
 
@@ -5097,7 +5424,7 @@ th:last-child {
 
   border-bottom: 1px solid var(--border);
 
-  background: #fff;
+  background: var(--surface);
 
   cursor: pointer;
 
@@ -5118,7 +5445,7 @@ th:last-child {
    ========================================================= */
 
 .invoice-table-row:hover {
-  background: #fafaff;
+  background: var(--surface-tint);
 
   box-shadow:
     inset 3px 0 0 var(--primary);
@@ -5189,26 +5516,26 @@ th:last-child {
 
 /* Pending */
 .invoice-table-row .invoice-status.pending {
-  background: #fef3c7;
-  color: #92400e;
+  background: var(--warning-muted);
+  color: var(--warning-text);
 }
 
 /* Partially Paid */
 .invoice-table-row .invoice-status.partially_paid {
-  background: #eef2ff;
-  color: #4f46e5;
+  background: var(--indigo-soft);
+  color: var(--indigo);
 }
 
 /* Paid */
 .invoice-table-row .invoice-status.paid {
-  background: #dcfce7;
-  color: #166534;
+  background: var(--success-muted);
+  color: var(--success-text);
 }
 
 /* Overdue */
 .invoice-table-row .invoice-status.overdue {
-  background: #fee2e2;
-  color: #b91c1c;
+  background: var(--danger-muted);
+  color: var(--danger-text);
 }
 
 /* =========================================================
@@ -5306,8 +5633,8 @@ th:last-child {
 }
 
 .top-customer-item:hover {
-  background: #fafaff;
-  border-color: #e0e7ff;
+  background: var(--surface-tint);
+  border-color: var(--indigo-border-soft);
 
   transform: translateX(2px);
 
@@ -5361,7 +5688,7 @@ th:last-child {
   text-overflow: ellipsis;
   white-space: nowrap;
 
-  color: #1e1b4b;
+  color: var(--text-strong);
 
   font-size: 13px;
   font-weight: 750;
@@ -5389,8 +5716,8 @@ th:last-child {
 .dashboard-quick-actions {
   background:
     linear-gradient(145deg,
-      #ffffff 0%,
-      #fafaff 100%);
+      var(--surface) 0%,
+      var(--surface-tint) 100%);
 }
 
 .quick-action-item {
@@ -5408,7 +5735,7 @@ th:last-child {
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
 
-  background: #fff;
+  background: var(--surface);
   color: var(--text);
 
   text-align: left;
@@ -5425,16 +5752,16 @@ th:last-child {
 .quick-action-item:hover {
   transform: translateY(-2px);
 
-  border-color: #c7d2fe;
+  border-color: var(--indigo-border);
 
-  background: #fafaff;
+  background: var(--surface-tint);
 
   box-shadow:
     0 8px 20px rgba(79, 70, 229, 0.08);
 }
 
 .quick-action-item strong {
-  color: #1e1b4b;
+  color: var(--text-strong);
 
   font-size: 13px;
   font-weight: 750;
@@ -5538,7 +5865,7 @@ th:last-child {
   padding: 16px;
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  background: #fff;
+  background: var(--surface);
   color: var(--text);
   text-align: left;
   cursor: pointer;
@@ -5562,7 +5889,7 @@ th:last-child {
 
 .quick-action-item:hover {
   transform: translateY(-2px);
-  border-color: #C7D2FE;
+  border-color: var(--indigo-border);
   background: var(--primary-soft);
   box-shadow: 0 8px 20px rgba(79, 70, 229, 0.10);
 }
@@ -5610,7 +5937,7 @@ th:last-child {
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
 
-  background: #fff;
+  background: var(--surface);
 
   color: var(--text);
 
@@ -5652,9 +5979,9 @@ th:last-child {
 .quick-action-item:hover {
   transform: translateY(-3px);
 
-  border-color: #c7d2fe;
+  border-color: var(--indigo-border);
 
-  background: #fcfcff;
+  background: var(--surface-tint);
 
   box-shadow:
     0 8px 20px rgba(79, 70, 229, 0.10);
@@ -5784,7 +6111,7 @@ th:last-child {
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
 
-  background: #fff;
+  background: var(--surface);
 
   cursor: pointer;
 
@@ -5822,43 +6149,43 @@ th:last-child {
 }
 
 .action-required-item.danger {
-  border-color: #fee2e2;
-  background: #fffafa;
+  border-color: var(--danger-muted);
+  background: var(--danger-soft);
 }
 
 .action-required-item.danger:hover {
-  border-color: #fecaca;
-  background: #fff5f5;
+  border-color: var(--danger-border);
+  background: var(--danger-soft);
 }
 
 .action-required-item.danger .action-icon {
-  background: #fee2e2;
+  background: var(--danger-muted);
   color: #dc2626;
 }
 
 .action-required-item.warning {
-  border-color: #fef3c7;
-  background: #fffdf7;
+  border-color: var(--warning-muted);
+  background: var(--warning-soft);
 }
 
 .action-required-item.warning:hover {
-  border-color: #fde68a;
-  background: #fffbeb;
+  border-color: var(--warning-border);
+  background: var(--warning-soft);
 }
 
 .action-required-item.warning .action-icon {
-  background: #fef3c7;
-  color: #d97706;
+  background: var(--warning-muted);
+  color: var(--warning);
 }
 
 .action-required-item.info {
-  border-color: #e0e7ff;
-  background: #fafaff;
+  border-color: var(--indigo-border-soft);
+  background: var(--surface-tint);
 }
 
 .action-required-item.info:hover {
-  border-color: #c7d2fe;
-  background: #f5f3ff;
+  border-color: var(--indigo-border);
+  background: var(--indigo-soft);
 }
 
 /* =========================================================
@@ -5866,7 +6193,7 @@ th:last-child {
    ========================================================= */
 
 .action-content strong {
-  color: #1e1b4b;
+  color: var(--text-strong);
 
   font-size: 13px;
   font-weight: 750;
@@ -5929,7 +6256,7 @@ th:last-child {
 .invoice-status-row>strong {
   min-width: 30px;
 
-  color: #1e1b4b;
+  color: var(--text-strong);
 
   font-size: 14px;
   font-weight: 800;
@@ -5943,7 +6270,7 @@ th:last-child {
 
 .status-dot.pending {
   background: #f59e0b;
-  box-shadow: 0 0 0 4px #fef3c7;
+  box-shadow: 0 0 0 4px var(--warning-muted);
 }
 
 .status-dot.partially-paid {
@@ -5953,12 +6280,12 @@ th:last-child {
 
 .status-dot.paid {
   background: #16a34a;
-  box-shadow: 0 0 0 4px #dcfce7;
+  box-shadow: 0 0 0 4px var(--success-muted);
 }
 
 .status-dot.overdue {
   background: #dc2626;
-  box-shadow: 0 0 0 4px #fee2e2;
+  box-shadow: 0 0 0 4px var(--danger-muted);
 }
 
 /* =========================================================
@@ -6033,7 +6360,7 @@ th:last-child {
   margin: 0 0 6px;
   font-size: 18px;
   font-weight: 750;
-  color: #1e1b4b;
+  color: var(--text-strong);
 }
 
 .dashboard-section-header p {
@@ -6070,7 +6397,7 @@ th:last-child {
   padding: 14px;
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  background: #fff;
+  background: var(--surface);
   cursor: pointer;
   transition:
     transform var(--transition),
@@ -6099,13 +6426,13 @@ th:last-child {
 }
 
 .action-required-item.danger .action-icon {
-  background: #fef2f2;
+  background: var(--danger-soft);
   color: #dc2626;
 }
 
 .action-required-item.warning .action-icon {
-  background: #fffbeb;
-  color: #d97706;
+  background: var(--warning-soft);
+  color: var(--warning);
 }
 
 .action-required-item.info .action-icon {
@@ -6151,18 +6478,18 @@ th:last-child {
 }
 
 .action-required-item.danger:hover {
-  border-color: #fecaca;
-  background: #fffafa;
+  border-color: var(--danger-border);
+  background: var(--danger-soft);
 }
 
 .action-required-item.warning:hover {
-  border-color: #fde68a;
+  border-color: var(--warning-border);
   background: #fffdf5;
 }
 
 .action-required-item.info:hover {
-  border-color: #c7d2fe;
-  background: #fafaff;
+  border-color: var(--indigo-border);
+  background: var(--surface-tint);
 }
 
 /* =========================
@@ -6189,7 +6516,7 @@ th:last-child {
 }
 
 .invoice-status-row:hover {
-  background: #f8fafc;
+  background: var(--surface-soft);
   transform: translateX(2px);
 }
 
@@ -6222,12 +6549,12 @@ th:last-child {
 
 .status-dot.pending {
   background: #f59e0b;
-  box-shadow: 0 0 0 4px #fffbeb;
+  box-shadow: 0 0 0 4px var(--warning-soft);
 }
 
 .status-dot.partially-paid {
   background: #4f46e5;
-  box-shadow: 0 0 0 4px #eef2ff;
+  box-shadow: 0 0 0 4px var(--indigo-soft);
 }
 
 .status-dot.paid {
@@ -6237,7 +6564,7 @@ th:last-child {
 
 .status-dot.overdue {
   background: #dc2626;
-  box-shadow: 0 0 0 4px #fef2f2;
+  box-shadow: 0 0 0 4px var(--danger-soft);
 }
 
 /* =========================
@@ -6335,7 +6662,7 @@ th:last-child {
   border: none;
   border-radius: var(--radius-sm);
   background: var(--primary);
-  color: #ffffff;
+  color: var(--on-primary);
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
@@ -6364,7 +6691,7 @@ th:last-child {
   overflow: hidden;
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  background: #ffffff;
+  background: var(--surface);
   box-shadow: var(--shadow-sm);
 }
 
@@ -6418,7 +6745,7 @@ th:last-child {
 .invoices-table th {
   padding: 13px 15px;
   border-bottom: 1px solid var(--border);
-  background: #fafbff;
+  background: var(--surface-tint);
   color: var(--text-muted);
   font-size: 11px;
   font-weight: 700;
@@ -6441,7 +6768,7 @@ th:last-child {
 }
 
 .invoices-table tbody tr:hover {
-  background: #fafbff;
+  background: var(--surface-tint);
 }
 
 .invoices-table tbody tr:last-child td {
@@ -6501,7 +6828,7 @@ th:last-child {
 
 .invoice-status-badge.paid {
   background: #ecfdf3;
-  color: #15803d;
+  color: var(--success-text);
 }
 
 
@@ -6516,15 +6843,15 @@ th:last-child {
 /* ---------- Partially Paid ---------- */
 
 .invoice-status-badge.partially_paid {
-  background: #eff6ff;
-  color: #2563eb;
+  background: var(--info-soft);
+  color: var(--accent);
 }
 
 
 /* ---------- Overdue ---------- */
 
 .invoice-status-badge.overdue {
-  background: #fef2f2;
+  background: var(--danger-soft);
   color: #dc2626;
 }
 
@@ -6544,7 +6871,7 @@ th:last-child {
   padding: 0 9px;
   border: 1px solid var(--border);
   border-radius: 7px;
-  background: #ffffff;
+  background: var(--surface);
   color: var(--text-secondary);
   font-size: 11px;
   font-weight: 700;
@@ -6564,18 +6891,18 @@ th:last-child {
 /* ---------- View ---------- */
 
 .invoice-action-btn.view:hover {
-  border-color: #bfdbfe;
-  background: #eff6ff;
-  color: #2563eb;
+  border-color: var(--info-border);
+  background: var(--info-soft);
+  color: var(--accent);
 }
 
 
 /* ---------- Edit ---------- */
 
 .invoice-action-btn.edit:hover {
-  border-color: #ddd6fe;
-  background: #f5f3ff;
-  color: #7c3aed;
+  border-color: var(--indigo-border-soft);
+  background: var(--indigo-soft);
+  color: var(--violet);
 }
 
 
@@ -6586,8 +6913,8 @@ th:last-child {
 }
 
 .invoice-action-btn.delete:hover {
-  border-color: #fecaca;
-  background: #fef2f2;
+  border-color: var(--danger-border);
+  background: var(--danger-soft);
 }
 
 .invoice-action-btn:disabled {
@@ -6619,7 +6946,7 @@ th:last-child {
   height: 52px;
   margin-bottom: 14px;
   border-radius: 15px;
-  background: #eef2ff;
+  background: var(--indigo-soft);
   color: var(--primary);
   font-size: 22px;
   font-weight: 800;
@@ -6724,7 +7051,7 @@ th:last-child {
   padding: 0 13px 0 36px;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  background: #fff;
+  background: var(--surface);
   color: var(--text);
   font-size: 12.5px;
   outline: none;
@@ -6766,7 +7093,7 @@ th:last-child {
   padding: 0 30px 0 11px;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  background: #fff;
+  background: var(--surface);
   color: var(--text-secondary);
   font-size: 12.5px;
   outline: none;
@@ -6853,7 +7180,7 @@ th:last-child {
   border: 1px solid var(--border);
   border-radius: 18px;
 
-  background: #ffffff;
+  background: var(--surface);
 
   box-shadow:
     0 20px 50px rgba(15, 23, 42, 0.18),
@@ -6877,7 +7204,7 @@ th:last-child {
 
   border-radius: 14px;
 
-  background: #fef2f2;
+  background: var(--danger-soft);
   color: #dc2626;
 
   font-size: 21px;
@@ -6961,7 +7288,7 @@ th:last-child {
 .invoice-delete-cancel {
   border: 1px solid var(--border);
 
-  background: #ffffff;
+  background: var(--surface);
   color: var(--text-secondary);
 }
 
@@ -7159,7 +7486,7 @@ th:last-child {
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
 
-  background: #ffffff;
+  background: var(--surface);
   box-shadow: var(--shadow-sm);
 }
 
@@ -7177,7 +7504,7 @@ th:last-child {
   padding: 30px;
 
   border-bottom: 1px solid var(--border);
-  background: #ffffff;
+  background: var(--surface);
 }
 
 .invoice-header h1 {
@@ -7215,7 +7542,7 @@ th:last-child {
    ========================================================= */
 
 .invoice-info {
-  
+
   grid-template-columns: 1fr 1fr;
   gap: 30px;
 
@@ -7271,17 +7598,17 @@ th:last-child {
 }
 
 .invoice-status.pending {
-  background: #fffbeb;
-  color: #b45309;
+  background: var(--warning-soft);
+  color: var(--warning-text);
 }
 
 .invoice-status.partially_paid {
-  background: #eff6ff;
+  background: var(--info-soft);
   color: #1d4ed8;
 }
 
 .invoice-status.overdue {
-  background: #fef2f2;
+  background: var(--danger-soft);
   color: #dc2626;
 }
 
@@ -7314,7 +7641,7 @@ th:last-child {
 
   border-bottom: 1px solid var(--border);
 
-  background: #f8fafc;
+  background: var(--surface-soft);
 
   color: var(--text-muted);
   font-size: 10px;
@@ -7438,7 +7765,7 @@ th:last-child {
 
   border-radius: 999px;
 
-  background: #e5e7eb;
+  background: var(--track);
 }
 
 .payment-progress-fill {
@@ -7485,7 +7812,7 @@ th:last-child {
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
 
-  background: #ffffff;
+  background: var(--surface);
   color: var(--text);
 
   outline: none;
@@ -7503,50 +7830,50 @@ th:last-child {
 }
 
 
- /* =========================================================
+/* =========================================================
     Invoice Details — Notes
     ========================================================= */
 
- .invoice-notes {
-   padding: 24px 30px;
+.invoice-notes {
+  padding: 24px 30px;
 
-   background: #ffffff;
- }
+  background: var(--surface);
+}
 
- .invoice-notes h3 {
-   margin: 0 0 8px;
+.invoice-notes h3 {
+  margin: 0 0 8px;
 
-   color: var(--text);
-   font-size: 14px;
-   font-weight: 800;
- }
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 800;
+}
 
- .invoice-notes p {
-   margin: 0;
+.invoice-notes p {
+  margin: 0;
 
-   max-width: 760px;
+  max-width: 760px;
 
-   color: var(--text-secondary);
-   font-size: 12.5px;
-   line-height: 1.7;
+  color: var(--text-secondary);
+  font-size: 12.5px;
+  line-height: 1.7;
 
-   white-space: pre-wrap;
- }
+  white-space: pre-wrap;
+}
 
 
- /* ---------- Mobile ---------- */
+/* ---------- Mobile ---------- */
 
- @media (max-width: 700px) {
+@media (max-width: 700px) {
 
-   .invoice-notes {
-     padding: 22px;
-   }
+  .invoice-notes {
+    padding: 22px;
+  }
 
-   .invoice-notes p {
-     font-size: 12px;
-   }
+  .invoice-notes p {
+    font-size: 12px;
+  }
 
- }
+}
 
 
 /* =========================================================
@@ -7600,7 +7927,7 @@ th:last-child {
   }
 
   .payment-form input {
-    width: 100%;  
+    width: 100%;
   }
 
 }
@@ -7634,7 +7961,7 @@ th:last-child {
 .invoice-details-download-btn {
   border: 1px solid var(--primary) !important;
   background: var(--primary) !important;
-  color: #ffffff !important;
+  color: var(--on-primary) !important;
 
   box-shadow: 0 5px 12px rgba(37, 99, 235, 0.18);
 }
@@ -8039,7 +8366,7 @@ th:last-child {
   border: 1px solid var(--border);
   border-radius: 18px;
 
-  background: #ffffff;
+  background: var(--surface);
 
   box-shadow:
     0 20px 50px rgba(15, 23, 42, 0.18),
@@ -8063,7 +8390,7 @@ th:last-child {
 
   border-radius: 14px;
 
-  background: #fef2f2;
+  background: var(--danger-soft);
   color: #dc2626;
 
   font-size: 21px;
@@ -8143,7 +8470,7 @@ th:last-child {
 .invoice-details-delete-cancel {
   border: 1px solid var(--border);
 
-  background: #ffffff;
+  background: var(--surface);
   color: var(--text-secondary);
 }
 
@@ -8325,7 +8652,3 @@ th:last-child {
 .invoice-pdf-mode .invoice-content {
   min-height: 0 !important;
 }
-
-
-
-
