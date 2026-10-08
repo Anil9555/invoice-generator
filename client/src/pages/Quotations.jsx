@@ -510,7 +510,7 @@ function Quotations() {
                 />
               </div>
             </div>
-            //notes
+            {/* notes */}
             <div className="form-group quotation-notes">
               <label htmlFor="notes">Notes / Terms & Conditions</label>
 

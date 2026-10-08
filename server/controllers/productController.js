@@ -140,7 +140,7 @@ const createProduct = async (req, res) => {
 };
 
 
-// Update product
+//  Update product
 const updateProduct = async (req, res) => {
     try {
         const { id } = req.params;
@@ -153,6 +153,7 @@ const updateProduct = async (req, res) => {
             unit,
             price,
             tax_rate,
+            status,
         } = req.body;
 
         if (!name || !name.trim()) {
